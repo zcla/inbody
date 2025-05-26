@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import zcla71.inbody.controller.InBodyController;
 import zcla71.inbody.controller.ValidationException;
-import zcla71.inbody.controller.view.dto.PessoaIncluirOk;
+import zcla71.inbody.view.dto.PessoaIncluirOk;
 
 @Controller
 public class InBodyViewController {

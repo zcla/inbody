@@ -1,4 +1,4 @@
-package zcla71.inbody.controller.model.dto;
+package zcla71.inbody.model.entity;
 
 import lombok.Data;
 
