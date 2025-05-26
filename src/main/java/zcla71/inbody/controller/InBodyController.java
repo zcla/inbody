@@ -10,12 +10,7 @@ import org.springframework.stereotype.Component;
 
 import zcla71.inbody.model.entity.Pessoa;
 import zcla71.inbody.model.service.InBodyService;
-import zcla71.inbody.view.dto.PessoaAlterar;
-import zcla71.inbody.view.dto.PessoaAlterarOk;
-import zcla71.inbody.view.dto.PessoaExcluir;
-import zcla71.inbody.view.dto.PessoaExcluirOk;
-import zcla71.inbody.view.dto.PessoaIncluir;
-import zcla71.inbody.view.dto.PessoaIncluirOk;
+import zcla71.inbody.view.dto.PessoaEditar;
 import zcla71.inbody.view.dto.PessoaListar;
 
 @Component
@@ -23,21 +18,21 @@ public class InBodyController {
 	@Autowired
 	private InBodyService inBodyService;
 
-	public PessoaAlterar pessoaAlterar(String id) {
+	public PessoaEditar pessoaAlterar(String id) {
 		Pessoa pessoa = inBodyService.buscarPessoa(id);
 
 		return pessoaAlterar(pessoa);
 	}
 
-	public PessoaAlterar pessoaAlterar(Pessoa pessoa) {
-		PessoaAlterar result = new PessoaAlterar();
+	public PessoaEditar pessoaAlterar(Pessoa pessoa) {
+		PessoaEditar result = new PessoaEditar();
 
 		result.setPessoa(pessoa);
 
 		return result;
 	}
 
-	public void pessoaAlterarOk(PessoaAlterarOk pessoaAlterar) {
+	public void pessoaAlterarOk(PessoaEditar pessoaAlterar) {
 		Pessoa pessoa = pessoaAlterar.getPessoa();
 
 		// TODO Validar se existe
@@ -49,21 +44,21 @@ public class InBodyController {
 		inBodyService.alterarPessoa(pessoa);
 	}
 
-	public PessoaExcluir pessoaExcluir(String id) {
+	public PessoaEditar pessoaExcluir(String id) {
 		Pessoa pessoa = inBodyService.buscarPessoa(id);
 
 		return pessoaExcluir(pessoa);
 	}
 
-	public PessoaExcluir pessoaExcluir(Pessoa pessoa) {
-		PessoaExcluir result = new PessoaExcluir();
+	public PessoaEditar pessoaExcluir(Pessoa pessoa) {
+		PessoaEditar result = new PessoaEditar();
 
 		result.setPessoa(pessoa);
 
 		return result;
 	}
 
-	public void pessoaExcluirOk(PessoaExcluirOk pessoaExcluir) {
+	public void pessoaExcluirOk(PessoaEditar pessoaExcluir) {
 		Pessoa pessoa = pessoaExcluir.getPessoa();
 
 		// TODO Validar se existe
@@ -75,7 +70,7 @@ public class InBodyController {
 		inBodyService.excluirPessoa(pessoa);
 	}
 
-	public PessoaIncluir pessoaIncluir() {
+	public PessoaEditar pessoaIncluir() {
 		Pessoa pessoa = new Pessoa();
 		pessoa.setNascimento(LocalDate.now().minus(50, ChronoUnit.YEARS));
 		pessoa.setAltura(165);
@@ -83,15 +78,15 @@ public class InBodyController {
 		return pessoaIncluir(pessoa);
 	}
 
-	public PessoaIncluir pessoaIncluir(Pessoa pessoa) {
-		PessoaIncluir result = new PessoaIncluir();
+	public PessoaEditar pessoaIncluir(Pessoa pessoa) {
+		PessoaEditar result = new PessoaEditar();
 
 		result.setPessoa(pessoa);
 
 		return result;
 	}
 
-	public void pessoaIncluirOk(PessoaIncluirOk pessoaIncluir) {
+	public void pessoaIncluirOk(PessoaEditar pessoaIncluir) {
 		Pessoa pessoa = pessoaIncluir.getPessoa();
 
 		// TODO Validar se existe

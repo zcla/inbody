@@ -11,9 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import zcla71.inbody.controller.InBodyController;
 import zcla71.inbody.controller.ValidationException;
-import zcla71.inbody.view.dto.PessoaAlterarOk;
-import zcla71.inbody.view.dto.PessoaExcluirOk;
-import zcla71.inbody.view.dto.PessoaIncluirOk;
+import zcla71.inbody.view.dto.PessoaEditar;
 
 @Controller
 public class InBodyViewController {
@@ -37,7 +35,7 @@ public class InBodyViewController {
 	}
 
 	@PostMapping("/pessoa/alterar_ok")
-	public ModelAndView pessoaAlterarOk(Model model, @ModelAttribute PessoaAlterarOk pessoaAlterar) {
+	public ModelAndView pessoaAlterarOk(Model model, @ModelAttribute PessoaEditar pessoaAlterar) {
 		try {
 			inBodyController.pessoaAlterarOk(pessoaAlterar);
 		} catch (ValidationException e) {
@@ -56,7 +54,7 @@ public class InBodyViewController {
 	}
 
 	@PostMapping("/pessoa/excluir_ok")
-	public ModelAndView pessoaExcluirOk(Model model, @ModelAttribute PessoaExcluirOk pessoaExcluir) {
+	public ModelAndView pessoaExcluirOk(Model model, @ModelAttribute PessoaEditar pessoaExcluir) {
 		try {
 			inBodyController.pessoaExcluirOk(pessoaExcluir);
 		} catch (ValidationException e) {
@@ -77,7 +75,7 @@ public class InBodyViewController {
 	}
 
 	@PostMapping("/pessoa/incluir_ok")
-	public ModelAndView pessoaIncluirOk(Model model, @ModelAttribute PessoaIncluirOk pessoaIncluir) {
+	public ModelAndView pessoaIncluirOk(Model model, @ModelAttribute PessoaEditar pessoaIncluir) {
 		try {
 			inBodyController.pessoaIncluirOk(pessoaIncluir);
 		} catch (ValidationException e) {

@@ -4,6 +4,6 @@ import lombok.Data;
 import zcla71.inbody.model.entity.Pessoa;
 
 @Data
-public class PessoaIncluir {
+public class PessoaEditar {
 	private Pessoa pessoa;
 }
