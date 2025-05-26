@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper=true)
+// TODO Ver se extends Exception fica melhor pra tratar
 public class ValidationException extends RuntimeException {
 	private List<Validation> validations;
 

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.core.exc.StreamWriteException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 public abstract class JsonRepository<T> extends SingleFileRepository<T> {
@@ -17,6 +18,7 @@ public abstract class JsonRepository<T> extends SingleFileRepository<T> {
     private ObjectMapper getObjectMapper() {
         ObjectMapper result = new ObjectMapper();
         result.registerModule(new JavaTimeModule());
+        result.enable(SerializationFeature.INDENT_OUTPUT);
         return result;
     }
 

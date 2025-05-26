@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import zcla71.inbody.controller.InBodyController;
 import zcla71.inbody.controller.ValidationException;
 import zcla71.inbody.view.dto.PessoaAlterarOk;
+import zcla71.inbody.view.dto.PessoaExcluirOk;
 import zcla71.inbody.view.dto.PessoaIncluirOk;
 
 @Controller
@@ -42,6 +43,25 @@ public class InBodyViewController {
 		} catch (ValidationException e) {
 			ModelAndView mav = new ModelAndView("/pessoa/alterar");
 			mav.addObject("data", inBodyController.pessoaAlterar(pessoaAlterar.getPessoa()));
+			mav.addObject("validation", e.getValidations());
+			return mav;
+		}
+		return new ModelAndView("redirect:/pessoa");
+	}
+
+	@GetMapping("/pessoa/excluir")
+	public String pessoaExcluir(@RequestParam(name="id", required = true) String id, Model model) {
+		model.addAttribute("data", inBodyController.pessoaExcluir(id));
+		return "/pessoa/excluir";
+	}
+
+	@PostMapping("/pessoa/excluir_ok")
+	public ModelAndView pessoaExcluirOk(Model model, @ModelAttribute PessoaExcluirOk pessoaExcluir) {
+		try {
+			inBodyController.pessoaExcluirOk(pessoaExcluir);
+		} catch (ValidationException e) {
+			ModelAndView mav = new ModelAndView("/pessoa/excluir");
+			mav.addObject("data", inBodyController.pessoaExcluir(pessoaExcluir.getPessoa()));
 			mav.addObject("validation", e.getValidations());
 			return mav;
 		}

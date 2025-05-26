@@ -37,6 +37,21 @@ public class InBodyService {
 		}
 	}
 
+	public void excluirPessoa(Pessoa pessoa) {
+		Pessoa existente = buscarPessoa(pessoa.getId());
+		if (existente == null) {
+			// TODO Ver o que fazer
+			throw new RuntimeException("Pessoa não encontrada.");
+		}
+		repository.getData().getPessoas().remove(existente);
+		try {
+			repository.saveData();
+		} catch (IOException e) {
+			// TODO Ver o que fazer
+			throw new RuntimeException(e);
+		}
+	}
+
 	public void incluirPessoa(Pessoa pessoa) {
 		pessoa.setId(UUID.randomUUID().toString());
 		Pessoa existente = buscarPessoa(pessoa.getId());

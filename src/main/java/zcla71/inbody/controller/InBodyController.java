@@ -12,6 +12,8 @@ import zcla71.inbody.model.entity.Pessoa;
 import zcla71.inbody.model.service.InBodyService;
 import zcla71.inbody.view.dto.PessoaAlterar;
 import zcla71.inbody.view.dto.PessoaAlterarOk;
+import zcla71.inbody.view.dto.PessoaExcluir;
+import zcla71.inbody.view.dto.PessoaExcluirOk;
 import zcla71.inbody.view.dto.PessoaIncluir;
 import zcla71.inbody.view.dto.PessoaIncluirOk;
 import zcla71.inbody.view.dto.PessoaListar;
@@ -38,12 +40,39 @@ public class InBodyController {
 	public void pessoaAlterarOk(PessoaAlterarOk pessoaAlterar) {
 		Pessoa pessoa = pessoaAlterar.getPessoa();
 
+		// TODO Validar se existe
 		ValidationException validation = pessoa.validate();
 		if (!validation.getValidations().isEmpty()) {
 			throw validation;
 		}
 
 		inBodyService.alterarPessoa(pessoa);
+	}
+
+	public PessoaExcluir pessoaExcluir(String id) {
+		Pessoa pessoa = inBodyService.buscarPessoa(id);
+
+		return pessoaExcluir(pessoa);
+	}
+
+	public PessoaExcluir pessoaExcluir(Pessoa pessoa) {
+		PessoaExcluir result = new PessoaExcluir();
+
+		result.setPessoa(pessoa);
+
+		return result;
+	}
+
+	public void pessoaExcluirOk(PessoaExcluirOk pessoaExcluir) {
+		Pessoa pessoa = pessoaExcluir.getPessoa();
+
+		// TODO Validar se existe
+		// ValidationException validation = pessoa.validate();
+		// if (!validation.getValidations().isEmpty()) {
+		// 	throw validation;
+		// }
+
+		inBodyService.excluirPessoa(pessoa);
 	}
 
 	public PessoaIncluir pessoaIncluir() {
@@ -65,6 +94,7 @@ public class InBodyController {
 	public void pessoaIncluirOk(PessoaIncluirOk pessoaIncluir) {
 		Pessoa pessoa = pessoaIncluir.getPessoa();
 
+		// TODO Validar se existe
 		ValidationException validation = pessoa.validate();
 		if (!validation.getValidations().isEmpty()) {
 			throw validation;
