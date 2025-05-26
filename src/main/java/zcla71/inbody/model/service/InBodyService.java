@@ -7,9 +7,6 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.core.exc.StreamWriteException;
-import com.fasterxml.jackson.databind.DatabindException;
-
 import zcla71.inbody.model.entity.Pessoa;
 import zcla71.inbody.model.repository.InBodyRepository;
 
@@ -18,24 +15,45 @@ public class InBodyService {
 	@Autowired
 	private InBodyRepository repository;
 
-	public List<Pessoa> listarPessoas() {
-		return repository.getData().getPessoas();
+	public Pessoa buscarPessoa(String id) {
+		return repository.getData().getPessoas().stream().filter(p -> p.getId().equals(id)).findAny().orElse(null);
+	}
+
+	public void alterarPessoa(Pessoa pessoa) {
+		Pessoa existente = buscarPessoa(pessoa.getId());
+		if (existente == null) {
+			// TODO Ver o que fazer
+			throw new RuntimeException("Pessoa não encontrada.");
+		}
+		existente.setNome(pessoa.getNome());
+		existente.setNascimento(pessoa.getNascimento());
+		existente.setAltura(pessoa.getAltura());
+		existente.setSexo(pessoa.getSexo());
+		try {
+			repository.saveData();
+		} catch (IOException e) {
+			// TODO Ver o que fazer
+			throw new RuntimeException(e);
+		}
 	}
 
 	public void incluirPessoa(Pessoa pessoa) {
 		pessoa.setId(UUID.randomUUID().toString());
+		Pessoa existente = buscarPessoa(pessoa.getId());
+		if (existente != null) {
+			// TODO Ver o que fazer
+			throw new RuntimeException("Joga na loteria, rapá!");
+		}
 		repository.getData().getPessoas().add(pessoa);
 		try {
 			repository.saveData();
-		} catch (StreamWriteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (DatabindException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// TODO Ver o que fazer
+			throw new RuntimeException(e);
 		}
+	}
+
+	public List<Pessoa> listarPessoas() {
+		return repository.getData().getPessoas();
 	}
 }

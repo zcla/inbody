@@ -1,15 +1,13 @@
-.effectiveness_null {
-	background-color: #ed1c24 !important;
+table#pessoas .botoes {
+	padding: 0;
+	white-space: nowrap;
+	width: 0;
 }
 
-.effectiveness_e {
-	background-color: #eeeeee !important;
+table#pessoas .botoes .btn-group {
+	margin: 1px;
 }
 
-.effectiveness_se {
-	background-color: #f58220 !important;
-}
-
-.effectiveness_nve {
-	background-color: #0066b3 !important;
+table#pessoas .botoes button {
+	font-size: .90rem;
 }

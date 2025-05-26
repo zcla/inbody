@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 
 import zcla71.inbody.model.entity.Pessoa;
 import zcla71.inbody.model.service.InBodyService;
+import zcla71.inbody.view.dto.PessoaAlterar;
+import zcla71.inbody.view.dto.PessoaAlterarOk;
 import zcla71.inbody.view.dto.PessoaIncluir;
 import zcla71.inbody.view.dto.PessoaIncluirOk;
 import zcla71.inbody.view.dto.PessoaListar;
@@ -19,18 +21,29 @@ public class InBodyController {
 	@Autowired
 	private InBodyService inBodyService;
 
-	public PessoaListar pessoaListar() {
-		PessoaListar result = new PessoaListar();
+	public PessoaAlterar pessoaAlterar(String id) {
+		Pessoa pessoa = inBodyService.buscarPessoa(id);
 
-		result.setPessoas(new ArrayList<>());
-		List<Pessoa> pessoas = inBodyService.listarPessoas();
-		if (pessoas != null) {
-			for (Pessoa pessoa : pessoas) {
-				result.getPessoas().add(pessoa);
-			}
-		}
+		return pessoaAlterar(pessoa);
+	}
+
+	public PessoaAlterar pessoaAlterar(Pessoa pessoa) {
+		PessoaAlterar result = new PessoaAlterar();
+
+		result.setPessoa(pessoa);
 
 		return result;
+	}
+
+	public void pessoaAlterarOk(PessoaAlterarOk pessoaAlterar) {
+		Pessoa pessoa = pessoaAlterar.getPessoa();
+
+		ValidationException validation = pessoa.validate();
+		if (!validation.getValidations().isEmpty()) {
+			throw validation;
+		}
+
+		inBodyService.alterarPessoa(pessoa);
 	}
 
 	public PessoaIncluir pessoaIncluir() {
@@ -50,24 +63,27 @@ public class InBodyController {
 	}
 
 	public void pessoaIncluirOk(PessoaIncluirOk pessoaIncluir) {
-		ValidationException validation = new ValidationException();
 		Pessoa pessoa = pessoaIncluir.getPessoa();
-		if (pessoa.getNome().trim().length() < 1) {
-			validation.getValidations().add(new Validation("nome", "Informe o nome."));
-		}
-		if (pessoa.getNascimento() == null) {
-			validation.getValidations().add(new Validation("nascimento", "Informe a data de nascimento."));
-		}
-		if (pessoa.getAltura() == null || pessoa.getAltura() == 0) {
-			validation.getValidations().add(new Validation("altura", "Informe a altura."));
-		}
-		if (pessoa.getSexo() == null || pessoa.getSexo().trim().length() == 0) {
-			validation.getValidations().add(new Validation("sexo", "Informe o sexo."));
-		}
+
+		ValidationException validation = pessoa.validate();
 		if (!validation.getValidations().isEmpty()) {
 			throw validation;
 		}
 
 		inBodyService.incluirPessoa(pessoa);
+	}
+
+	public PessoaListar pessoaListar() {
+		PessoaListar result = new PessoaListar();
+
+		result.setPessoas(new ArrayList<>());
+		List<Pessoa> pessoas = inBodyService.listarPessoas();
+		if (pessoas != null) {
+			for (Pessoa pessoa : pessoas) {
+				result.getPessoas().add(pessoa);
+			}
+		}
+
+		return result;
 	}
 }
