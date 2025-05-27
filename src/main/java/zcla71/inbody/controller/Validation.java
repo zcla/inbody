@@ -8,6 +8,10 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Validation {
+	public static final String getMessage(List<Validation> validations, String fieldName) {
+		return validations == null ? null : validations.stream().filter(v -> v.getFieldName().equals(fieldName)).findFirst().get().getMessage();
+	}
+
 	public static final boolean isValid(List<Validation> validations, String fieldName) {
 		return validations == null ? true : !validations.stream().anyMatch(v -> v.getFieldName().equals(fieldName));
 	}

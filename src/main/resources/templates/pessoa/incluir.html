@@ -15,39 +15,17 @@
 				<form th:object="${data.pessoa}" th:action="@{'/pessoa/incluir_ok'}" method="POST">
 					<input th:field="*{id}" id="id" name="id" type="hidden">
 					<div class="row">
-						<div class="mb-3">
-							<label for="nome" class="form-label">Nome</label>
-							<input th:field="*{nome}" id="nome" name="nome" type="text" th:class="'form-control ' + ${T(zcla71.inbody.controller.Validation).validationClass(validation, 'nome')}" required>
-							<th:block th:if="${!T(zcla71.inbody.controller.Validation).isValid(validation, 'nome')}">
-								<div class="invalid-feedback">Informe o nome.</div>
-							</th:block>
-						</div>
+						<div th:replace="~{/_fragments/form.html :: inputText (field='nome', label='Nome')}"></div>
 					</div>
 					<div class="row">
-						<div class="col mb-3">
-							<label for="nascimento" class="form-label">Nascimento</label>
-							<input th:field="*{nascimento}" id="nascimento" name="nascimento" type="date" th:class="'form-control ' + ${T(zcla71.inbody.controller.Validation).validationClass(validation, 'nascimento')}" required>
-							<th:block th:if="${!T(zcla71.inbody.controller.Validation).isValid(validation, 'nascimento')}">
-								<div class="invalid-feedback">Informe a data de nascimento.</div>
-							</th:block>
+						<div class="col">
+							<div th:replace="~{/_fragments/form.html :: inputDate (field='nascimento', label='Nascimento')}"></div>
 						</div>
-						<div class="col mb-3">
-							<label for="altura" class="form-label">Altura (cm)</label>
-							<input th:field="*{altura}" id="altura" name="altura" type="number" th:class="'form-control ' + ${T(zcla71.inbody.controller.Validation).validationClass(validation, 'altura')}" required>
-							<th:block th:if="${!T(zcla71.inbody.controller.Validation).isValid(validation, 'altura')}">
-								<div class="invalid-feedback">Informe a altura.</div>
-							</th:block>
+						<div class="col">
+							<div th:replace="~{/_fragments/form.html :: inputNumber (field='altura', label='Altura (cm)')}"></div>
 						</div>
-						<div class="col mb-3">
-							<label for="sexo" class="form-label">Sexo</label>
-							<select th:field="*{sexo}" id="sexo" name="sexo" th:class="'form-select ' + ${T(zcla71.inbody.controller.Validation).validationClass(validation, 'sexo')}" required>
-								<option value=""></option>
-								<option value="F">Feminino</option>
-								<option value="M">Masculino</option>
-							</select>
-							<th:block th:if="${!T(zcla71.inbody.controller.Validation).isValid(validation, 'sexo')}">
-								<div class="invalid-feedback">Informe o sexo.</div>
-							</th:block>
+						<div class="col">
+							<div th:replace="~{/_fragments/form.html :: select (field='sexo', label='Sexo', options= ${data.sexos})}"></div>
 						</div>
 					</div>
 					<div class="btn-group mb-3">
