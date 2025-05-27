@@ -1,39 +1,31 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 	<body>
-		<!-- inputDate (field, label) -->
-		<div th:fragment="inputDate (field, label)" class="mb-3">
+		<!-- inputDate (field, label, [opt]contexto) -->
+		<div th:fragment="inputDate (field, label)" th:with="contexto=${contexto} ?: 'editar'" class="mb-3">
 			<label th:for="${field}" class="form-label" th:text="${label}"></label>
-			<input th:field="*{__${field}__}" th:id="${field}" th:name="${field}" type="date" th:class="'form-control ' + ${T(zcla71.inbody.controller.Validation).validationClass(validation, field)}">
-			<th:block th:if="${!T(zcla71.inbody.controller.Validation).isValid(validation, field)}">
-				<div class="invalid-feedback" th:text="${T(zcla71.inbody.controller.Validation).getMessage(validation, field)}"></div>
-			</th:block>
+			<input th:field="*{__${field}__}" th:id="${field}" th:name="${field}" type="date" th:class="'form-control ' + ${T(zcla71.inbody.controller.Validation).validationClass(validation, field)}" th:disabled="${'mostrar'.equals(contexto)}">
+			<div th:if="${!T(zcla71.inbody.controller.Validation).isValid(validation, field)}" th:text="${T(zcla71.inbody.controller.Validation).getMessage(validation, field)}" class="invalid-feedback"></div>
 		</div>
-		<!-- inputNumber (field, label) -->
-		<div th:fragment="inputNumber (field, label)" class="mb-3">
+		<!-- inputNumber (field, label, [opt]contexto) -->
+		<div th:fragment="inputNumber (field, label)" th:with="contexto=${contexto} ?: 'editar'" class="mb-3">
 			<label th:for="${field}" class="form-label" th:text="${label}"></label>
-			<input th:field="*{__${field}__}" th:id="${field}" th:name="${field}" type="number" th:class="'form-control ' + ${T(zcla71.inbody.controller.Validation).validationClass(validation, field)}">
-			<th:block th:if="${!T(zcla71.inbody.controller.Validation).isValid(validation, field)}">
-				<div class="invalid-feedback" th:text="${T(zcla71.inbody.controller.Validation).getMessage(validation, field)}"></div>
-			</th:block>
+			<input th:field="*{__${field}__}" th:id="${field}" th:name="${field}" type="number" th:class="'form-control ' + ${T(zcla71.inbody.controller.Validation).validationClass(validation, field)}" th:disabled="${'mostrar'.equals(contexto)}">
+			<div th:if="${!T(zcla71.inbody.controller.Validation).isValid(validation, field)}" th:text="${T(zcla71.inbody.controller.Validation).getMessage(validation, field)}" class="invalid-feedback"></div>
 		</div>
-		<!-- inputText (field, label) -->
-		<div th:fragment="inputText (field, label)" class="mb-3">
+		<!-- inputText (field, label, [opt]contexto) -->
+		<div th:fragment="inputText (field, label)" th:with="contexto=${contexto} ?: 'editar'" class="mb-3">
 			<label th:for="${field}" class="form-label" th:text="${label}"></label>
-			<input th:field="*{__${field}__}" th:id="${field}" th:name="${field}" type="text" th:class="'form-control ' + ${T(zcla71.inbody.controller.Validation).validationClass(validation, field)}">
-			<th:block th:if="${!T(zcla71.inbody.controller.Validation).isValid(validation, field)}">
-				<div class="invalid-feedback" th:text="${T(zcla71.inbody.controller.Validation).getMessage(validation, field)}"></div>
-			</th:block>
+			<input th:field="*{__${field}__}" th:id="${field}" th:name="${field}" type="text" th:class="'form-control ' + ${T(zcla71.inbody.controller.Validation).validationClass(validation, field)}" th:disabled="${'mostrar'.equals(contexto)}">
+			<div th:if="${!T(zcla71.inbody.controller.Validation).isValid(validation, field)}" th:text="${T(zcla71.inbody.controller.Validation).getMessage(validation, field)}" class="invalid-feedback"></div>
 		</div>
-		<!-- select (field, label, options) -->
-		<div th:fragment="select (field, label, options)" class="mb-3">
+		<!-- select (field, label, options, [opt]contexto) -->
+		<div th:fragment="select (field, label, options)" th:with="contexto=${contexto} ?: 'editar'" class="mb-3">
 			<label th:for="${field}" class="form-label" th:text="${label}"></label>
-			<select th:field="*{__${field}__}" th:id="${field}" th:name="${field}" th:class="'form-select ' + ${T(zcla71.inbody.controller.Validation).validationClass(validation, field)}">
+			<select th:field="*{__${field}__}" th:id="${field}" th:name="${field}" th:class="'form-select ' + ${T(zcla71.inbody.controller.Validation).validationClass(validation, field)}" th:disabled="${'mostrar'.equals(contexto)}">
 				<option th:each="option : ${options}" th:value="${option.value}" th:text="${option.text}"></option>
 			</select>
-			<th:block th:if="${!T(zcla71.inbody.controller.Validation).isValid(validation, field)}">
-				<div class="invalid-feedback" th:text="${T(zcla71.inbody.controller.Validation).getMessage(validation, field)}"></div>
-			</th:block>
+			<div th:if="${!T(zcla71.inbody.controller.Validation).isValid(validation, field)}" th:text="${T(zcla71.inbody.controller.Validation).getMessage(validation, field)}" class="invalid-feedback"></div>
 		</div>
 	</body>
 </html>
