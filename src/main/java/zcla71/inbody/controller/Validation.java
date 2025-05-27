@@ -17,6 +17,9 @@ public class Validation {
 	}
 
 	public static final String validationClass(List<Validation> validations, String fieldName) {
+		if (validations == null) {
+			return "";
+		}
 		if (isValid(validations, fieldName)) {
 			return "is-valid";
 		}
