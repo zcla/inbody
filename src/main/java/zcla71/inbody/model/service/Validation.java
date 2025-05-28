@@ -1,4 +1,4 @@
-package zcla71.inbody.controller;
+package zcla71.inbody.model.service;
 
 import java.util.List;
 

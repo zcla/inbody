@@ -2,14 +2,14 @@ package zcla71.inbody.controller;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import zcla71.inbody.model.entity.Pessoa;
 import zcla71.inbody.model.service.InBodyService;
+import zcla71.inbody.model.service.ServiceException;
+import zcla71.inbody.model.service.ValidationException;
 import zcla71.inbody.view.dto.PessoaEditar;
 import zcla71.inbody.view.dto.PessoaListar;
 
@@ -21,53 +21,45 @@ public class InBodyController {
 	public PessoaEditar pessoaAlterar(String id) {
 		Pessoa pessoa = inBodyService.buscarPessoa(id);
 
+		if (pessoa == null) {
+			throw new ControllerException("Pessoa não encontrada.");
+		}
+
 		return pessoaAlterar(pessoa);
 	}
 
 	public PessoaEditar pessoaAlterar(Pessoa pessoa) {
-		PessoaEditar result = new PessoaEditar();
-
-		result.setPessoa(pessoa);
-
-		return result;
+		return new PessoaEditar(pessoa);
 	}
 
-	public void pessoaAlterarOk(PessoaEditar pessoaAlterar) {
-		Pessoa pessoa = pessoaAlterar.getPessoa();
-
-		// TODO Validar se existe
-		ValidationException validation = pessoa.validate();
-		if (!validation.getValidations().isEmpty()) {
-			throw validation;
+	public void pessoaAlterarOk(PessoaEditar pessoaAlterar) throws ValidationException {
+		try {
+			inBodyService.alterarPessoa(pessoaAlterar.getPessoa());
+		} catch (ServiceException e) {
+			throw new ControllerException(e);
 		}
-
-		inBodyService.alterarPessoa(pessoa);
 	}
 
 	public PessoaEditar pessoaExcluir(String id) {
 		Pessoa pessoa = inBodyService.buscarPessoa(id);
 
+		if (pessoa == null) {
+			throw new ControllerException("Pessoa não encontrada.");
+		}
+
 		return pessoaExcluir(pessoa);
 	}
 
 	public PessoaEditar pessoaExcluir(Pessoa pessoa) {
-		PessoaEditar result = new PessoaEditar();
-
-		result.setPessoa(pessoa);
-
-		return result;
+		return new PessoaEditar(pessoa);
 	}
 
 	public void pessoaExcluirOk(PessoaEditar pessoaExcluir) {
-		Pessoa pessoa = pessoaExcluir.getPessoa();
-
-		// TODO Validar se existe
-		// ValidationException validation = pessoa.validate();
-		// if (!validation.getValidations().isEmpty()) {
-		// 	throw validation;
-		// }
-
-		inBodyService.excluirPessoa(pessoa);
+		try {
+			inBodyService.excluirPessoa(pessoaExcluir.getPessoa());
+		} catch (ServiceException e) {
+			throw new ControllerException(e);
+		}
 	}
 
 	public PessoaEditar pessoaIncluir() {
@@ -79,36 +71,18 @@ public class InBodyController {
 	}
 
 	public PessoaEditar pessoaIncluir(Pessoa pessoa) {
-		PessoaEditar result = new PessoaEditar();
-
-		result.setPessoa(pessoa);
-
-		return result;
+		return new PessoaEditar(pessoa);
 	}
 
-	public void pessoaIncluirOk(PessoaEditar pessoaIncluir) {
-		Pessoa pessoa = pessoaIncluir.getPessoa();
-
-		// TODO Validar se existe
-		ValidationException validation = pessoa.validate();
-		if (!validation.getValidations().isEmpty()) {
-			throw validation;
+	public void pessoaIncluirOk(PessoaEditar pessoaIncluir) throws ValidationException {
+		try {
+			inBodyService.incluirPessoa(pessoaIncluir.getPessoa());
+		} catch (ValidationException | ServiceException e) {
+			throw new ControllerException(e);
 		}
-
-		inBodyService.incluirPessoa(pessoa);
 	}
 
 	public PessoaListar pessoaListar() {
-		PessoaListar result = new PessoaListar();
-
-		result.setPessoas(new ArrayList<>());
-		List<Pessoa> pessoas = inBodyService.listarPessoas();
-		if (pessoas != null) {
-			for (Pessoa pessoa : pessoas) {
-				result.getPessoas().add(pessoa);
-			}
-		}
-
-		return result;
+		return new PessoaListar(inBodyService.listarPessoas());
 	}
 }

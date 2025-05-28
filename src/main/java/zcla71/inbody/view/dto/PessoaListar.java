@@ -8,4 +8,8 @@ import zcla71.inbody.model.entity.Pessoa;
 @Data
 public class PessoaListar {
 	private List<Pessoa> pessoas;
+
+	public PessoaListar(List<Pessoa> pessoas) {
+		this.pessoas = pessoas;
+	}
 }

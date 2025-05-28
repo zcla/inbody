@@ -1,4 +1,4 @@
-package zcla71.inbody.controller;
+package zcla71.inbody.model.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +8,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper=true)
-// TODO Ver se extends Exception fica melhor pra tratar
-public class ValidationException extends RuntimeException {
+public class ValidationException extends Exception {
 	private List<Validation> validations;
 
 	public ValidationException() {

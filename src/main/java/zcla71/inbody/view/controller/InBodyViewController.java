@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import zcla71.inbody.controller.InBodyController;
-import zcla71.inbody.controller.ValidationException;
+import zcla71.inbody.model.service.ValidationException;
 import zcla71.inbody.view.dto.PessoaEditar;
 
 @Controller
@@ -55,14 +55,7 @@ public class InBodyViewController {
 
 	@PostMapping("/pessoa/excluir_ok")
 	public ModelAndView pessoaExcluirOk(Model model, @ModelAttribute PessoaEditar pessoaExcluir) {
-		try {
-			inBodyController.pessoaExcluirOk(pessoaExcluir);
-		} catch (ValidationException e) {
-			ModelAndView mav = new ModelAndView("/pessoa/excluir");
-			mav.addObject("data", inBodyController.pessoaExcluir(pessoaExcluir.getPessoa()));
-			mav.addObject("validation", e.getValidations());
-			return mav;
-		}
+		inBodyController.pessoaExcluirOk(pessoaExcluir);
 		return new ModelAndView("redirect:/pessoa");
 	}
 

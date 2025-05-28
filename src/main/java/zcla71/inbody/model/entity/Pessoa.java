@@ -7,8 +7,8 @@ import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
-import zcla71.inbody.controller.Validation;
-import zcla71.inbody.controller.ValidationException;
+import zcla71.inbody.model.service.Validation;
+import zcla71.inbody.model.service.ValidationException;
 
 @Data
 public class Pessoa {

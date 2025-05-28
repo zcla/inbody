@@ -25,4 +25,9 @@ public class PessoaEditar {
 		this.sexos.add(new SelectOption("F", "Feminino"));
 		this.sexos.add(new SelectOption("M", "Masculino"));
 	}
+
+	public PessoaEditar(Pessoa pessoa) {
+		this();
+		this.setPessoa(pessoa);
+	}
 }
