@@ -17,6 +17,10 @@
 		8080
 	],
 
+	"containerEnv": {
+		"TZ": "America/Sao_Paulo"
+	},
+
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "java -version",
 

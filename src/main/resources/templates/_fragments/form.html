@@ -2,25 +2,35 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 	<body>
 		<!-- inputDate (field, label, [opt]contexto) -->
-		<div th:fragment="inputDate (field, label)" th:with="contexto=${contexto} ?: 'editar'" class="mb-3">
+		<div th:fragment="inputDate (field, label)" th:with="contexto=${contexto} ?: 'editar'">
 			<label th:for="${field}" class="form-label" th:text="${label}"></label>
 			<input th:field="*{__${field}__}" th:id="${field}" th:name="${field}" type="date" th:class="'form-control ' + ${T(zcla71.inbody.model.service.Validation).validationClass(validation, field)}" th:disabled="${'mostrar'.equals(contexto)}">
 			<div th:if="${!T(zcla71.inbody.model.service.Validation).isValid(validation, field)}" th:text="${T(zcla71.inbody.model.service.Validation).getMessage(validation, field)}" class="invalid-feedback"></div>
 		</div>
-		<!-- inputNumber (field, label, [opt]contexto) -->
-		<div th:fragment="inputNumber (field, label)" th:with="contexto=${contexto} ?: 'editar'" class="mb-3">
+
+		<!-- inputDateTime (field, label, [opt]contexto) -->
+		<div th:fragment="inputDateTime (field, label)" th:with="contexto=${contexto} ?: 'editar'">
 			<label th:for="${field}" class="form-label" th:text="${label}"></label>
-			<input th:field="*{__${field}__}" th:id="${field}" th:name="${field}" type="number" th:class="'form-control ' + ${T(zcla71.inbody.model.service.Validation).validationClass(validation, field)}" th:disabled="${'mostrar'.equals(contexto)}">
+			<input th:field="*{__${field}__}" th:id="${field}" th:name="${field}" type="datetime-local" th:class="'form-control ' + ${T(zcla71.inbody.model.service.Validation).validationClass(validation, field)}" th:disabled="${'mostrar'.equals(contexto)}">
 			<div th:if="${!T(zcla71.inbody.model.service.Validation).isValid(validation, field)}" th:text="${T(zcla71.inbody.model.service.Validation).getMessage(validation, field)}" class="invalid-feedback"></div>
 		</div>
+
+		<!-- inputNumber (field, [opt]label, [opt]step, [opt]contexto) -->
+		<div th:fragment="inputNumber (field)" th:with="label=${label} ?: null, step=${step} ?: null, contexto=${contexto} ?: 'editar'">
+			<label th:if="${label != null}" th:for="${field}" class="form-label" th:text="${label}"></label>
+			<input th:field="*{__${field}__}" th:id="${field}" th:name="${field}" type="number" th:step="${step}" th:class="'form-control ' + ${T(zcla71.inbody.model.service.Validation).validationClass(validation, field)}" th:disabled="${'mostrar'.equals(contexto)}">
+			<div th:if="${!T(zcla71.inbody.model.service.Validation).isValid(validation, field)}" th:text="${T(zcla71.inbody.model.service.Validation).getMessage(validation, field)}" class="invalid-feedback"></div>
+		</div>
+
 		<!-- inputText (field, label, [opt]contexto) -->
-		<div th:fragment="inputText (field, label)" th:with="contexto=${contexto} ?: 'editar'" class="mb-3">
+		<div th:fragment="inputText (field, label)" th:with="contexto=${contexto} ?: 'editar'">
 			<label th:for="${field}" class="form-label" th:text="${label}"></label>
 			<input th:field="*{__${field}__}" th:id="${field}" th:name="${field}" type="text" th:class="'form-control ' + ${T(zcla71.inbody.model.service.Validation).validationClass(validation, field)}" th:disabled="${'mostrar'.equals(contexto)}">
 			<div th:if="${!T(zcla71.inbody.model.service.Validation).isValid(validation, field)}" th:text="${T(zcla71.inbody.model.service.Validation).getMessage(validation, field)}" class="invalid-feedback"></div>
 		</div>
+
 		<!-- select (field, label, options, [opt]contexto) -->
-		<div th:fragment="select (field, label, options)" th:with="contexto=${contexto} ?: 'editar'" class="mb-3">
+		<div th:fragment="select (field, label, options)" th:with="contexto=${contexto} ?: 'editar'">
 			<label th:for="${field}" class="form-label" th:text="${label}"></label>
 			<select th:field="*{__${field}__}" th:id="${field}" th:name="${field}" th:class="'form-select ' + ${T(zcla71.inbody.model.service.Validation).validationClass(validation, field)}" th:disabled="${'mostrar'.equals(contexto)}">
 				<option th:each="option : ${options}" th:value="${option.value}" th:text="${option.text}"></option>

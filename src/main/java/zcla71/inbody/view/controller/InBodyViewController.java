@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import zcla71.inbody.controller.InBodyController;
 import zcla71.inbody.model.service.ValidationException;
+import zcla71.inbody.view.dto.MedicaoEditar;
 import zcla71.inbody.view.dto.PessoaEditar;
 
 @Controller
@@ -78,5 +79,33 @@ public class InBodyViewController {
 			return mav;
 		}
 		return new ModelAndView("redirect:/pessoa");
+	}
+
+	@GetMapping("/pessoa/mostrar")
+	public String pessoaMostrar(@RequestParam(name="id", required = true) String id, Model model) {
+		model.addAttribute("data", inBodyController.pessoaMostrar(id));
+		return "/pessoa/mostrar";
+	}
+
+	@GetMapping("/medicao/incluir")
+	public String medicaoIncluir(@RequestParam(name="idPessoa", required = true) String idPessoa, Model model) {
+		if (model.getAttribute("data") == null) { // Vem preenchido quando dá erro de validação
+			model.addAttribute("data", inBodyController.medicaoIncluir(idPessoa));
+		}
+		return "/medicao/incluir";
+	}
+
+	@PostMapping("/medicao/incluir_ok")
+	public ModelAndView medicaoIncluirOk(Model model, @ModelAttribute MedicaoEditar medicaoIncluir) {
+		try {
+			inBodyController.medicaoIncluirOk(medicaoIncluir);
+		} catch (ValidationException e) {
+			ModelAndView mav = new ModelAndView("/medicao/incluir");
+			mav.addObject("idPessoa", medicaoIncluir.getPessoa().getId());
+			mav.addObject("data", inBodyController.medicaoIncluir(medicaoIncluir.getPessoa().getId(), medicaoIncluir.getMedicao()));
+			mav.addObject("validation", e.getValidations());
+			return mav;
+		}
+		return new ModelAndView("redirect:/pessoa/mostrar?id=" + medicaoIncluir.getPessoa().getId());
 	}
 }

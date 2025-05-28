@@ -34,7 +34,9 @@
 							</thead>
 							<tbody class="table-group-divider">
 								<tr th:each="pessoa : ${data.pessoas}">
-									<td th:text="${pessoa.nome}"></td>
+									<td>
+										<a th:href="'/pessoa/mostrar?id=' + ${pessoa.id}" th:text="${pessoa.nome}"></a>
+									</td>
 									<td th:text="${pessoa.nascimento}" class="text-end"></td>
 									<td th:text="${pessoa.altura}" class="text-end"></td>
 									<td th:text="${pessoa.sexo}"></td>

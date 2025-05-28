@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import zcla71.inbody.model.entity.Medicao;
 import zcla71.inbody.model.entity.Pessoa;
 import zcla71.inbody.model.repository.InBodyRepository;
 
@@ -15,6 +16,7 @@ public class InBodyService {
 	@Autowired
 	private InBodyRepository repository;
 
+	// TODO Renomear: pessoa*
 	public void alterarPessoa(Pessoa pessoa) throws ServiceException, ValidationException {
 		ValidationException validation = pessoa.validate();
 		if (!validation.getValidations().isEmpty()) {
@@ -75,5 +77,26 @@ public class InBodyService {
 
 	public List<Pessoa> listarPessoas() {
 		return repository.getData().getPessoas();
+	}
+
+	// Medição
+
+	public void medicaoIncluir(Pessoa pessoa, Medicao medicao) throws ValidationException, ServiceException {
+		ValidationException validation = medicao.validate();
+		if (!validation.getValidations().isEmpty()) {
+			throw validation;
+		}
+
+		Pessoa existente = buscarPessoa(pessoa.getId());
+		if (existente == null) {
+			throw new ServiceException("Pessoa não encontrada.");
+		}
+
+		existente.getMedicoes().add(medicao);
+		try {
+			repository.saveData();
+		} catch (IOException e) {
+			throw new ServiceException(e);
+		}
 	}
 }

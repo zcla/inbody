@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>InBody : Home</title>
+		<th:block th:insert="~{/_fragments/geral.html :: head}"></th:block>
+		<script th:inline="javascript">
+/*<![CDATA[*/
+function calculaIdade() {
+	// TODO Calcular certo :)
+	const nascimento = Date.parse(/*[[${data.pessoa.nascimento}]]*/ '');
+	const dataHora = Date.parse($('#medicao\\.dataHora').val());
+	const dateDif = dataHora - nascimento;
+	const years = Math.abs((new Date(dateDif)).getUTCFullYear() - 1970);
+	$('#idade').val(years);
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+	calculaIdade();
+
+	$('#medicao\\.dataHora').on('change', function() {
+		calculaIdade();
+	});
+});
+/*]]>*/
+		</script>
+	</head>
+	<body>
+		<nav th:replace="~{/_fragments/geral.html :: nav}"></nav>
+		<div class="container-fluid">
+			<div id="mensagens" class="mt-3"></div>
+			<div id="conteudo">
+				<h1>Incluir Medição</h1>
+				<form th:object="${data}" th:action="@{'/medicao/incluir_ok'}" method="POST">
+					<input th:field="*{pessoa.id}" id="idPessoa" name="idPessoa" type="hidden">
+					<div class="row">
+						<div class="col col-8">
+							<div class="row mb-3">
+								<div class="col">
+									<div th:replace="~{/_fragments/form.html :: inputText (field='medicao.local', label='Local')}"></div>
+								</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col">
+									<div th:replace="~{/_fragments/form.html :: inputText (field='pessoa.id', label='ID', contexto='mostrar')}"></div>
+								</div>
+								<div class="col">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='pessoa.altura', label='Altura', contexto='mostrar')}"></div>
+								</div>
+								<div class="col">
+									<div>
+										<label for="idade" class="form-label">Idade</label>
+										<input id="idade" name="${idade}" type="number" class="form-control" disabled>
+									</div>
+								</div>
+								<div class="col">
+									<div th:replace="~{/_fragments/form.html :: select (field='pessoa.sexo', label='Sexo', options= ${data.sexos}, contexto='mostrar')}"></div>
+								</div>
+								<div class="col">
+									<div th:replace="~{/_fragments/form.html :: inputDateTime (field='medicao.dataHora', label='Data/Hora')}"></div>
+								</div>
+							</div>
+							<!--
+							<h2>Análise da Composição Corporal</h2>
+							<div class="row mb-3">
+								<div class="col-3">Quantidade total de água no corpo</div>
+								<div class="col-3"><b>Água Corporal Total</b> <sub class="float-end">(L)</sub></div>
+								<div class="col-2">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.aguaCorporalTotal.valor', step='0.1')}"></div>
+								</div>
+								<div class="col-2">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.aguaCorporalTotal.minimo', step='0.1')}"></div>
+								</div>
+								<div class="col-2">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.aguaCorporalTotal.maximo', step='0.1')}"></div>
+								</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-3">Para a construção de músculos</div>
+								<div class="col-3"><b>Proteína</b> <sub class="float-end">(kg)</sub></div>
+								<div class="col-2">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.proteina.valor', step='0.1')}"></div>
+								</div>
+								<div class="col-2">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.proteina.minimo', step='0.1')}"></div>
+								</div>
+								<div class="col-2">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.proteina.maximo', step='0.1')}"></div>
+								</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-3">Para fortalecer os ossos</div>
+								<div class="col-3"><b>Minerais</b> <sub class="float-end">(kg)</sub></div>
+								<div class="col-2">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.minerais.valor', step='0.01')}"></div>
+								</div>
+								<div class="col-2">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.minerais.minimo', step='0.01')}"></div>
+								</div>
+								<div class="col-2">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.minerais.maximo', step='0.01')}"></div>
+								</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-3">Para armazenar energia extra</div>
+								<div class="col-3"><b>Massa de Gordura</b> <sub class="float-end">(kg)</sub></div>
+								<div class="col-2">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.massaDeGordura.valor', step='0.1')}"></div>
+								</div>
+								<div class="col-2">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.massaDeGordura.minimo', step='0.1')}"></div>
+								</div>
+								<div class="col-2">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.massaDeGordura.maximo', step='0.1')}"></div>
+								</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-3">A soma acima</div>
+								<div class="col-3"><b>Peso</b> <sub class="float-end">(kg)</sub></div>
+								<div class="col-2">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.peso.valor', step='0.1')}"></div>
+								</div>
+								<div class="col-2">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.peso.minimo', step='0.1')}"></div>
+								</div>
+								<div class="col-2">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.peso.maximo', step='0.1')}"></div>
+								</div>
+							</div>
+							-->
+						</div>
+						<div class="col col-4">
+						</div>
+					</div>
+					<div class="btn-group mb-3">
+						<button type="submit" class="btn btn-sm bg-success-subtle" title="Incluir">✅ Incluir</button>
+						<a th:href="@{'/pessoa/mostrar?id=' + ${data.pessoa.id}}" type="button" class="btn bg-danger-subtle" title="Cancelar">❌ Cancelar</a>
+					</div>
+				</form>
+			</div>
+		</div>
+		<footer th:replace="~{/_fragments/geral.html :: footer}"></footer>
+	</body>
+</html>

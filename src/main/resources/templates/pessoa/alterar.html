@@ -9,15 +9,13 @@
 		<div class="container-fluid">
 			<div id="mensagens" class="mt-3"></div>
 			<div id="conteudo">
-				<h1>
-					<span>Alterar Pessoa</span>
-				</h1>
+				<h1>Alterar Pessoa</h1>
 				<form th:object="${data.pessoa}" th:action="@{'/pessoa/alterar_ok'}" method="POST">
 					<input th:field="*{id}" id="id" name="id" type="hidden">
-					<div class="row">
+					<div class="row mb-3">
 						<div th:replace="~{/_fragments/form.html :: inputText (field='nome', label='Nome')}"></div>
 					</div>
-					<div class="row">
+					<div class="row mb-3">
 						<div class="col">
 							<div th:replace="~{/_fragments/form.html :: inputDate (field='nascimento', label='Nascimento')}"></div>
 						</div>

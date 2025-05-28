@@ -17,7 +17,7 @@ public class Pessoa {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate nascimento;
 	private Integer altura;
-	private String sexo; // TODO Criar uma classe para mandar pros html
+	private String sexo;
 	private List<Medicao> medicoes;
 
 	public Pessoa() {
