@@ -1,5 +1,7 @@
 package zcla71.inbody.view.controller;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +29,7 @@ public class InBodyViewController {
 		return "/index";
 	}
 
-	// pessoa
+	// Pessoa
 
 	@GetMapping("/pessoa/alterar")
 	public String pessoaAlterar(@RequestParam(name="id", required = true) String id, Model model) {
@@ -85,6 +87,28 @@ public class InBodyViewController {
 	public String pessoaMostrar(@RequestParam(name="id", required = true) String id, Model model) {
 		model.addAttribute("data", inBodyController.pessoaMostrar(id));
 		return "/pessoa/mostrar";
+	}
+
+	// Medição
+
+	@GetMapping("/medicao/alterar")
+	public String medicaoAlterar(@RequestParam(name="idPessoa", required = true) String idPessoa, @RequestParam(name="dataHora", required = true) LocalDateTime dataHora, Model model) {
+		model.addAttribute("data", inBodyController.medicaoAlterar(idPessoa, dataHora));
+		return "/medicao/alterar";
+	}
+
+	@PostMapping("/medicao/alterar_ok")
+	public ModelAndView medicaoAlterarOk(Model model, @ModelAttribute MedicaoEditar medicaoAlterar) {
+		try {
+			inBodyController.medicaoAlterarOk(medicaoAlterar);
+		} catch (ValidationException e) {
+			ModelAndView mav = new ModelAndView("/medicao/alterar");
+			mav.addObject("idPessoa", medicaoAlterar.getPessoa().getId());
+			mav.addObject("data", inBodyController.medicaoAlterar(medicaoAlterar.getPessoa().getId(), medicaoAlterar.getMedicao()));
+			mav.addObject("validation", e.getValidations());
+			return mav;
+		}
+		return new ModelAndView("redirect:/pessoa/mostrar?id=" + medicaoAlterar.getPessoa().getId());
 	}
 
 	@GetMapping("/medicao/incluir")

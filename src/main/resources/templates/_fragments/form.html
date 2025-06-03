@@ -29,9 +29,9 @@
 			<div th:if="${!T(zcla71.inbody.model.service.Validation).isValid(validation, field)}" th:text="${T(zcla71.inbody.model.service.Validation).getMessage(validation, field)}" class="invalid-feedback"></div>
 		</div>
 
-		<!-- select (field, label, options, [opt]contexto) -->
-		<div th:fragment="select (field, label, options)" th:with="contexto=${contexto} ?: 'editar'">
-			<label th:for="${field}" class="form-label" th:text="${label}"></label>
+		<!-- select (field, options, [opt]label, [opt]contexto) -->
+		<div th:fragment="select (field, options)" th:with="label=${label} ?: null, contexto=${contexto} ?: 'editar'">
+			<label th:if="${label != null}" th:for="${field}" class="form-label" th:text="${label}"></label>
 			<select th:field="*{__${field}__}" th:id="${field}" th:name="${field}" th:class="'form-select ' + ${T(zcla71.inbody.model.service.Validation).validationClass(validation, field)}" th:disabled="${'mostrar'.equals(contexto)}">
 				<option th:each="option : ${options}" th:value="${option.value}" th:text="${option.text}"></option>
 			</select>

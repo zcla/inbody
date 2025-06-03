@@ -25,7 +25,6 @@ public class InBodyController {
 
 	public PessoaEditar pessoaAlterar(String id) {
 		Pessoa pessoa = inBodyService.buscarPessoa(id);
-
 		if (pessoa == null) {
 			throw new ControllerException("Pessoa não encontrada.");
 		}
@@ -47,7 +46,6 @@ public class InBodyController {
 
 	public PessoaEditar pessoaExcluir(String id) {
 		Pessoa pessoa = inBodyService.buscarPessoa(id);
-
 		if (pessoa == null) {
 			throw new ControllerException("Pessoa não encontrada.");
 		}
@@ -93,7 +91,6 @@ public class InBodyController {
 
 	public PessoaEditar pessoaMostrar(String id) {
 		Pessoa pessoa = inBodyService.buscarPessoa(id);
-
 		if (pessoa == null) {
 			throw new ControllerException("Pessoa não encontrada.");
 		}
@@ -106,6 +103,24 @@ public class InBodyController {
 	}
 
 	// Medição
+
+	public MedicaoEditar medicaoAlterar(String idPessoa, LocalDateTime dataHora) {
+		Pessoa pessoa = inBodyService.buscarPessoa(idPessoa);
+		if (pessoa == null) {
+			throw new ControllerException("Pessoa não encontrada.");
+		}
+		Medicao medicao = pessoa.getMedicoes().stream().filter(m -> m.getDataHora().equals(dataHora)).findFirst().orElse(null);
+		if (medicao == null) {
+			throw new ControllerException("Medição não encontrada.");
+		}
+
+
+		return medicaoAlterar(pessoa, medicao);
+	}
+
+	private MedicaoEditar medicaoAlterar(Pessoa pessoa, Medicao medicao) {
+		return new MedicaoEditar(pessoa, medicao);
+	}
 
 	public MedicaoEditar medicaoIncluir(String idPessoa) {
 		Medicao medicao = new Medicao();
@@ -122,6 +137,18 @@ public class InBodyController {
 	public void medicaoIncluirOk(MedicaoEditar medicaoIncluir) throws ValidationException {
 		try {
 			inBodyService.medicaoIncluir(medicaoIncluir.getPessoa(), medicaoIncluir.getMedicao());
+		} catch (ServiceException e) {
+			throw new ControllerException(e);
+		}
+	}
+
+	public Object medicaoAlterar(String idPessoa, Medicao medicao) {
+		return new MedicaoEditar(inBodyService.buscarPessoa(idPessoa), medicao);
+	}
+
+	public void medicaoAlterarOk(MedicaoEditar medicaoAlterar) throws ValidationException {
+		try {
+			inBodyService.medicaoAlterar(medicaoAlterar.getPessoa(), medicaoAlterar.getMedicao());
 		} catch (ServiceException e) {
 			throw new ControllerException(e);
 		}

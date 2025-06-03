@@ -81,18 +81,48 @@ public class InBodyService {
 
 	// Medição
 
+	public void medicaoAlterar(Pessoa pessoa, Medicao medicao) throws ValidationException, ServiceException {
+		ValidationException validation = medicao.validate();
+		if (!validation.getValidations().isEmpty()) {
+			throw validation;
+		}
+
+		Pessoa pessoaExistente = buscarPessoa(pessoa.getId());
+		if (pessoaExistente == null) {
+			throw new ServiceException("Pessoa não encontrada.");
+		}
+
+		Medicao medicaoExistente = pessoaExistente.getMedicoes().stream().filter(m -> m.getId().equals(medicao.getId())).findFirst().orElse(null);
+		if (medicaoExistente == null) {
+			throw new ServiceException("Medição não encontrada.");
+		}
+
+		medicaoExistente.copyDataFrom(medicao);
+		try {
+			repository.saveData();
+		} catch (IOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
 	public void medicaoIncluir(Pessoa pessoa, Medicao medicao) throws ValidationException, ServiceException {
 		ValidationException validation = medicao.validate();
 		if (!validation.getValidations().isEmpty()) {
 			throw validation;
 		}
 
-		Pessoa existente = buscarPessoa(pessoa.getId());
-		if (existente == null) {
+		Pessoa pessoaExistente = buscarPessoa(pessoa.getId());
+		if (pessoaExistente == null) {
 			throw new ServiceException("Pessoa não encontrada.");
 		}
 
-		existente.getMedicoes().add(medicao);
+		medicao.setId(UUID.randomUUID().toString());
+		Medicao medicaoExistente = pessoaExistente.getMedicoes().stream().filter(m -> m.getId().equals(medicao.getId())).findFirst().orElse(null);
+		if (medicaoExistente != null) {
+			throw new ServiceException("UUID gerado já existe!");
+		}
+
+		pessoaExistente.getMedicoes().add(medicao);
 		try {
 			repository.saveData();
 		} catch (IOException e) {

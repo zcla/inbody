@@ -10,78 +10,82 @@ import zcla71.inbody.model.service.ValidationException;
 
 @Data
 public class Medicao {
+	private String id;
 	private String local;
 
 	// Cabeçalho
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	private LocalDateTime dataHora;
 
-	// // Análise da Composição Corporal
-	// private Faixa<Float> aguaCorporalTotal;
-	// private Faixa<Float> proteina;
-	// private Faixa<Float> minerais;
-	// private Faixa<Float> massaDeGordura;
-	// private Faixa<Float> peso;
+	// Análise da Composição Corporal
+	private FaixaFloat aguaCorporalTotal;
+	private FaixaFloat proteina;
+	private FaixaFloat minerais;
+	private FaixaFloat massaDeGordura;
+	private FaixaFloat peso;
 
-	// // Análise Músculo-Gordura
-	// // peso (repetido)
-	// // massaMuscularEsqueletica (repetido)
-	// // massaDeGordura (repetido)
+	// Análise Músculo-Gordura
+	// peso (-> peso.valor)
+	// massaMuscularEsqueletica (-> massaMuscularEsqueletica.valor)
+	// massaDeGordura (-> massaDeGordura.valor)
 
-	// // Análise de Obesidade
-	// private Float imc;
-	// private Float pgc;
+	// Análise de Obesidade
+	private Float imc;
+	private Float pgc;
 
-	// // Análise da Massa Magra Segmentar
-	// private Corpo massaSegmentar;
+	// Análise da Massa Magra Segmentar
+	private Corpo massaMagraSegmentar;
 
-	// // Análise da Massa Magra Segmentar
-	// private Corpo gorduraSegmentar;
+	// Análise da Massa Magra Segmentar
+	private Corpo gorduraSegmentar;
 
-	// // Pontuação InBody
-	// private Integer pontuacaoInBody;
+	// Pontuação InBody
+	private Integer pontuacaoInBody;
 
-	// // Controle de Peso
-	// private Float pesoIdeal;
-	// private Float controleDePeso;
-	// private Float controleDeGordura;
-	// private Float controleMuscular;
+	// Controle de Peso
+	private Float pesoIdeal;
+	private Float controleDePeso;
+	private Float controleDeGordura;
+	private Float controleMuscular;
 
-	// // Avaliação de Obesidade
-	// private AvaliacaoImc avaliacaoImc;
-	// private AvaliacaoPgc avaliacaoPgc;
+	// Avaliação de Obesidade
+	private AvaliacaoImc avaliacaoImc;
+	private AvaliacaoPgc avaliacaoPgc;
 
-	// // Relação Cintura-Quadril
-	// private Float relacaoCinturaQuadril;
+	// Relação Cintura-Quadril
+	private Float relacaoCinturaQuadril;
 
-	// // Nível de Gordura Visceral
-	// private Integer nivelDeGorduraVisceral;
+	// Nível de Gordura Visceral
+	private Integer nivelDeGorduraVisceral;
 
-	// // Dados adicionais
-	// private Faixa<Float> massaMuscularEsqueletica;
-	// private Faixa<Float> massaLivreDeGordura;
-	// private Faixa<Integer> taxaMetabolicaBasal;
-	// private Float circunferenciaDeCintura;
-	// private Faixa<Integer> grauDeObesidade;
-	// private Float smi;
-	// private Integer ingestaoCaloricaRecomendada;
+	// Dados adicionais
+	private FaixaFloat massaMuscularEsqueletica;
+	private FaixaFloat massaLivreDeGordura;
+	private FaixaInteger taxaMetabolicaBasal;
+	private Float circunferenciaDeCintura;
+	private FaixaInteger grauDeObesidade;
+	private Float smi;
+	private Integer ingestaoCaloricaRecomendada;
 
 	// Perdas de calorias do exercício (decidi ignorar)
 
 	// Impedância (decidi ignorar)
 
 	public Medicao() {
-		// this.aguaCorporalTotal = new Faixa<>();
-		// this.proteina = new Faixa<>();
-		// this.minerais = new Faixa<>();
-		// this.massaDeGordura = new Faixa<>();
-		// this.peso = new Faixa<>();
-		// this.massaSegmentar = new Corpo();
-		// this.gorduraSegmentar = new Corpo();
-		// this.massaMuscularEsqueletica = new Faixa<>();
-		// this.massaLivreDeGordura = new Faixa<>();
-		// this.taxaMetabolicaBasal = new Faixa<>();
-		// this.grauDeObesidade = new Faixa<>();
+		this.aguaCorporalTotal = new FaixaFloat();
+		this.proteina = new FaixaFloat();
+		this.minerais = new FaixaFloat();
+		this.massaDeGordura = new FaixaFloat();
+		this.peso = new FaixaFloat();
+
+		this.massaMagraSegmentar = new Corpo();
+
+		this.gorduraSegmentar = new Corpo();
+
+		this.massaMuscularEsqueletica = new FaixaFloat();
+		this.massaLivreDeGordura = new FaixaFloat();
+		this.taxaMetabolicaBasal = new FaixaInteger();
+		this.grauDeObesidade = new FaixaInteger();
 	}
 
 	public ValidationException validate() {
@@ -94,5 +98,45 @@ public class Medicao {
 		}
 		// TODO Ver as demais validações
 		return result;
+	}
+
+	public void copyDataFrom(Medicao medicao) {
+		this.local = medicao.getLocal();
+
+		this.dataHora = medicao.getDataHora();
+
+		this.aguaCorporalTotal = medicao.getAguaCorporalTotal();
+		this.proteina = medicao.getProteina();
+		this.minerais = medicao.getMinerais();
+		this.massaDeGordura = medicao.getMassaDeGordura();
+		this.peso = medicao.getPeso();
+
+		this.massaMuscularEsqueletica = medicao.getMassaMuscularEsqueletica();
+
+		this.imc = medicao.getImc();
+		this.pgc = medicao.getPgc();
+
+		this.massaMagraSegmentar = medicao.getMassaMagraSegmentar();
+		this.gorduraSegmentar = medicao.getGorduraSegmentar();
+
+		this.pontuacaoInBody = medicao.getPontuacaoInBody();
+
+		this.pesoIdeal = medicao.getPesoIdeal();
+		this.controleDePeso = medicao.getControleDePeso();
+		this.controleDeGordura = medicao.getControleDeGordura();
+		this.controleMuscular = medicao.getControleMuscular();
+
+		this.avaliacaoImc = medicao.getAvaliacaoImc();
+		this.avaliacaoPgc = medicao.getAvaliacaoPgc();
+
+		this.relacaoCinturaQuadril = medicao.getRelacaoCinturaQuadril();
+
+		this.nivelDeGorduraVisceral = medicao.getNivelDeGorduraVisceral();
+		this.massaLivreDeGordura = medicao.getMassaLivreDeGordura();
+		this.taxaMetabolicaBasal = medicao.getTaxaMetabolicaBasal();
+		this.circunferenciaDeCintura = medicao.getCircunferenciaDeCintura();
+		this.grauDeObesidade = medicao.getGrauDeObesidade();
+		this.smi = medicao.getSmi();
+		this.ingestaoCaloricaRecomendada = medicao.getIngestaoCaloricaRecomendada();
 	}
 }

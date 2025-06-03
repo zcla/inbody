@@ -3,6 +3,7 @@ package zcla71.repository;
 import java.io.File;
 import java.io.IOException;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.core.exc.StreamWriteException;
 import com.fasterxml.jackson.databind.DatabindException;
@@ -19,6 +20,7 @@ public abstract class JsonRepository<T> extends SingleFileRepository<T> {
         ObjectMapper result = new ObjectMapper();
         result.registerModule(new JavaTimeModule());
         result.enable(SerializationFeature.INDENT_OUTPUT);
+        result.setSerializationInclusion(Include.NON_NULL);
         return result;
     }
 
