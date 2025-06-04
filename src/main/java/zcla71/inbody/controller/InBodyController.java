@@ -121,8 +121,16 @@ public class InBodyController {
 		return medicaoAlterar(pessoa, medicao);
 	}
 
-	private MedicaoEditar medicaoAlterar(Pessoa pessoa, Medicao medicao) {
+	public MedicaoEditar medicaoAlterar(Pessoa pessoa, Medicao medicao) {
 		return new MedicaoEditar(pessoa, medicao);
+	}
+
+	public void medicaoAlterarOk(MedicaoEditar medicaoAlterar) throws ValidationException {
+		try {
+			inBodyService.medicaoAlterar(medicaoAlterar.getPessoa(), medicaoAlterar.getMedicao());
+		} catch (ServiceException e) {
+			throw new ControllerException(e);
+		}
 	}
 
 	public MedicaoEditar medicaoIncluir(String idPessoa) {
@@ -140,18 +148,6 @@ public class InBodyController {
 	public void medicaoIncluirOk(MedicaoEditar medicaoIncluir) throws ValidationException {
 		try {
 			inBodyService.medicaoIncluir(medicaoIncluir.getPessoa(), medicaoIncluir.getMedicao());
-		} catch (ServiceException e) {
-			throw new ControllerException(e);
-		}
-	}
-
-	public Object medicaoAlterar(String idPessoa, Medicao medicao) {
-		return new MedicaoEditar(inBodyService.pessoaBuscar(idPessoa), medicao);
-	}
-
-	public void medicaoAlterarOk(MedicaoEditar medicaoAlterar) throws ValidationException {
-		try {
-			inBodyService.medicaoAlterar(medicaoAlterar.getPessoa(), medicaoAlterar.getMedicao());
 		} catch (ServiceException e) {
 			throw new ControllerException(e);
 		}

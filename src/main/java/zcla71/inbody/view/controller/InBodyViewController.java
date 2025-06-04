@@ -104,7 +104,7 @@ public class InBodyViewController {
 			ModelAndView mav = new ModelAndView("/medicao");
 			mav.addObject("contexto", "alterar");
 			mav.addObject("idPessoa", medicaoAlterar.getPessoa().getId());
-			mav.addObject("data", inBodyController.medicaoAlterar(medicaoAlterar.getPessoa().getId(), medicaoAlterar.getMedicao()));
+			mav.addObject("data", inBodyController.medicaoAlterar(medicaoAlterar.getPessoa(), medicaoAlterar.getMedicao()));
 			mav.addObject("validation", e.getValidations());
 			return mav;
 		}
