@@ -86,7 +86,9 @@ public class InBodyController {
 	}
 
 	public PessoaListar pessoaListar() {
-		return new PessoaListar(inBodyService.listarPessoas());
+		PessoaListar result = new PessoaListar(inBodyService.listarPessoas());
+		result.getPessoas().sort(new Pessoa.PessoaComparator());
+		return result;
 	}
 
 	public PessoaEditar pessoaMostrar(String id) {
@@ -99,7 +101,9 @@ public class InBodyController {
 	}
 
 	public PessoaEditar pessoaMostrar(Pessoa pessoa) {
-		return new PessoaEditar(pessoa);
+		PessoaEditar result = new PessoaEditar(pessoa);
+		result.getPessoa().getMedicoes().sort(new Medicao.MedicaoComparator());
+		return result;
 	}
 
 	// Medição

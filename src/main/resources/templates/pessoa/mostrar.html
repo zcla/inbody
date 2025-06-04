@@ -41,25 +41,21 @@
 									<tr>
 										<th>Data/hora</th>
 										<th>Local</th>
-										<!--
-										<th>Nascimento</th>
-										<th>Altura</th>
-										<th>Sexo</th>
-										<th>Medições</th>
-										-->
+										<th>Peso</th>
+										<th>Massa de Gordura</th>
+										<th>MME</th>
+										<th>PGC</th>
 										<th class="botoes d-print-none"></th>
 									</tr>
 								</thead>
 								<tbody class="table-group-divider">
 									<tr th:each="medicao : ${data.pessoa.medicoes}">
-										<td th:text="${medicao.dataHora}"></td>
+										<td th:text="${#temporals.format(medicao.dataHora, 'dd/MM/yyyy HH:mm')}" class="text-end"></td>
 										<td th:text="${medicao.local}"></td>
-										<!--
-										<td th:text="${pessoa.nascimento}" class="text-end"></td>
-										<td th:text="${pessoa.altura}" class="text-end"></td>
-										<td th:text="${pessoa.sexo}"></td>
-										<td th:text="${pessoa.medicoes.size()}" class="text-end"></td>
-										-->
+										<td th:text="${medicao.peso.valor}" class="text-end"></td>
+										<td th:text="${medicao.massaDeGordura.valor}" class="text-end"></td>
+										<td th:text="${medicao.massaMuscularEsqueletica.valor}" class="text-end"></td>
+										<td th:text="${medicao.pgc}" class="text-end"></td>
 										<td class="botoes d-print-none">
 											<div class="btn-group" role="group">
 												<a th:href="'/medicao/alterar?idPessoa=' + ${data.pessoa.id} + '&dataHora=' + ${medicao.dataHora}" id="btnAltera" type="button" class="btn bg-warning-subtle" title="Alterar">✏</a>

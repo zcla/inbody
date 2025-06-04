@@ -1,6 +1,7 @@
 package zcla71.inbody.model.entity;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -86,6 +87,13 @@ public class Medicao {
 		this.massaLivreDeGordura = new FaixaFloat();
 		this.taxaMetabolicaBasal = new FaixaInteger();
 		this.grauDeObesidade = new FaixaInteger();
+	}
+
+	public static class MedicaoComparator implements Comparator<Medicao> {
+		@Override
+		public int compare(Medicao o1, Medicao o2) {
+			return o2.getDataHora().compareTo(o1.getDataHora());
+		}
 	}
 
 	public ValidationException validate() {

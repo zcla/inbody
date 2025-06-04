@@ -37,7 +37,7 @@
 									<td>
 										<a th:href="'/pessoa/mostrar?id=' + ${pessoa.id}" th:text="${pessoa.nome}"></a>
 									</td>
-									<td th:text="${pessoa.nascimento}" class="text-end"></td>
+									<td th:text="${#temporals.format(pessoa.nascimento, 'dd/MM/yyyy')}" class="text-end"></td>
 									<td th:text="${pessoa.altura}" class="text-end"></td>
 									<td th:text="${pessoa.sexo}"></td>
 									<td th:text="${pessoa.medicoes.size()}" class="text-end"></td>

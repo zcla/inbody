@@ -2,6 +2,7 @@ package zcla71.inbody.model.entity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,6 +23,13 @@ public class Pessoa {
 
 	public Pessoa() {
 		this.medicoes = new ArrayList<>();
+	}
+
+	public static class PessoaComparator implements Comparator<Pessoa> {
+		@Override
+		public int compare(Pessoa o1, Pessoa o2) {
+			return o1.getNome().compareTo(o2.getNome());
+		}
 	}
 
 	public ValidationException validate() {
