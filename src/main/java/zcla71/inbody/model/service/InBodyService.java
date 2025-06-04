@@ -18,7 +18,6 @@ public class InBodyService {
 	@Autowired
 	private InBodyRepository repository;
 
-	// TODO Renomear: pessoa*
 	public void pessoaAlterar(Pessoa pessoa) throws ServiceException, ValidationException {
 		ValidationException validation = pessoa.validate();
 		if (!validation.getValidations().isEmpty()) {
