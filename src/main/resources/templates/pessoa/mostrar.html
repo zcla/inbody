@@ -60,8 +60,8 @@
 										<td th:text="${medicao.pontuacaoInBody}" class="text-end"></td>
 										<td class="botoes d-print-none">
 											<div class="btn-group" role="group">
-												<a th:href="'/medicao/alterar?idPessoa=' + ${data.pessoa.id} + '&dataHora=' + ${medicao.dataHora}" id="btnAltera" type="button" class="btn bg-warning-subtle" title="Alterar">✏</a>
-												<a th:href="'/medicao/excluir?idPessoa=' + ${data.pessoa.id} + '&dataHora=' + ${medicao.dataHora}" id="btnExcluir" type="button" class="btn bg-danger-subtle" title="Excluir">🗑</a>
+												<a th:href="'/medicao/alterar?idPessoa=' + ${data.pessoa.id} + '&idMedicao=' + ${medicao.id}" id="btnAltera" type="button" class="btn bg-warning-subtle" title="Alterar">✏</a>
+												<a th:href="'/medicao/excluir?idPessoa=' + ${data.pessoa.id} + '&idMedicao=' + ${medicao.id}" id="btnExcluir" type="button" class="btn bg-danger-subtle" title="Excluir">🗑</a>
 											</div>
 										</td>
 									</tr>

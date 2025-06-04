@@ -1,7 +1,5 @@
 package zcla71.inbody.view.controller;
 
-import java.time.LocalDateTime;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -92,9 +90,9 @@ public class InBodyViewController {
 	// Medição
 
 	@GetMapping("/medicao/alterar")
-	public String medicaoAlterar(@RequestParam(name="idPessoa", required = true) String idPessoa, @RequestParam(name="dataHora", required = true) LocalDateTime dataHora, Model model) {
+	public String medicaoAlterar(@RequestParam(name="idPessoa", required = true) String idPessoa, @RequestParam(name="idMedicao", required = true) String idMedicao, Model model) {
 		model.addAttribute("contexto", "alterar");
-		model.addAttribute("data", inBodyController.medicaoAlterar(idPessoa, dataHora));
+		model.addAttribute("data", inBodyController.medicaoAlterar(idPessoa, idMedicao));
 		return "/medicao";
 	}
 

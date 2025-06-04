@@ -108,16 +108,15 @@ public class InBodyController {
 
 	// Medição
 
-	public MedicaoEditar medicaoAlterar(String idPessoa, LocalDateTime dataHora) {
+	public MedicaoEditar medicaoAlterar(String idPessoa, String idMedicao) {
 		Pessoa pessoa = inBodyService.pessoaBuscar(idPessoa);
 		if (pessoa == null) {
 			throw new ControllerException("Pessoa não encontrada.");
 		}
-		Medicao medicao = pessoa.getMedicoes().stream().filter(m -> m.getDataHora().equals(dataHora)).findFirst().orElse(null);
+		Medicao medicao = pessoa.getMedicoes().stream().filter(m -> m.getId().equals(idMedicao)).findFirst().orElse(null);
 		if (medicao == null) {
 			throw new ControllerException("Medição não encontrada.");
 		}
-
 
 		return medicaoAlterar(pessoa, medicao);
 	}
