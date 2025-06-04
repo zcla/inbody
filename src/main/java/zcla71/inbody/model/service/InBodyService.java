@@ -17,13 +17,13 @@ public class InBodyService {
 	private InBodyRepository repository;
 
 	// TODO Renomear: pessoa*
-	public void alterarPessoa(Pessoa pessoa) throws ServiceException, ValidationException {
+	public void pessoaAlterar(Pessoa pessoa) throws ServiceException, ValidationException {
 		ValidationException validation = pessoa.validate();
 		if (!validation.getValidations().isEmpty()) {
 			throw validation;
 		}
 
-		Pessoa existente = buscarPessoa(pessoa.getId());
+		Pessoa existente = pessoaBuscar(pessoa.getId());
 		if (existente == null) {
 			throw new ServiceException("Pessoa não encontrada.");
 		}
@@ -38,12 +38,12 @@ public class InBodyService {
 		}
 	}
 
-	public Pessoa buscarPessoa(String id) {
+	public Pessoa pessoaBuscar(String id) {
 		return repository.getData().getPessoas().stream().filter(p -> p.getId().equals(id)).findAny().orElse(null);
 	}
 
-	public void excluirPessoa(Pessoa pessoa) throws ServiceException {
-		Pessoa existente = buscarPessoa(pessoa.getId());
+	public void pessoaExcluir(Pessoa pessoa) throws ServiceException {
+		Pessoa existente = pessoaBuscar(pessoa.getId());
 		if (existente == null) {
 			throw new ServiceException("Pessoa não encontrada.");
 		}
@@ -55,14 +55,14 @@ public class InBodyService {
 		}
 	}
 
-	public void incluirPessoa(Pessoa pessoa) throws ValidationException, ServiceException {
+	public void pessoaIncluir(Pessoa pessoa) throws ValidationException, ServiceException {
 		ValidationException validation = pessoa.validate();
 		if (!validation.getValidations().isEmpty()) {
 			throw validation;
 		}
 
 		pessoa.setId(UUID.randomUUID().toString());
-		Pessoa existente = buscarPessoa(pessoa.getId());
+		Pessoa existente = pessoaBuscar(pessoa.getId());
 		if (existente != null) {
 			throw new ServiceException("UUID gerado já existe!");
 		}
@@ -75,7 +75,7 @@ public class InBodyService {
 		}
 	}
 
-	public List<Pessoa> listarPessoas() {
+	public List<Pessoa> pessoaListar() {
 		return repository.getData().getPessoas();
 	}
 
@@ -87,7 +87,7 @@ public class InBodyService {
 			throw validation;
 		}
 
-		Pessoa pessoaExistente = buscarPessoa(pessoa.getId());
+		Pessoa pessoaExistente = pessoaBuscar(pessoa.getId());
 		if (pessoaExistente == null) {
 			throw new ServiceException("Pessoa não encontrada.");
 		}
@@ -111,7 +111,7 @@ public class InBodyService {
 			throw validation;
 		}
 
-		Pessoa pessoaExistente = buscarPessoa(pessoa.getId());
+		Pessoa pessoaExistente = pessoaBuscar(pessoa.getId());
 		if (pessoaExistente == null) {
 			throw new ServiceException("Pessoa não encontrada.");
 		}

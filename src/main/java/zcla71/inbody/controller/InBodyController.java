@@ -24,7 +24,7 @@ public class InBodyController {
 	// Pessoa
 
 	public PessoaEditar pessoaAlterar(String id) {
-		Pessoa pessoa = inBodyService.buscarPessoa(id);
+		Pessoa pessoa = inBodyService.pessoaBuscar(id);
 		if (pessoa == null) {
 			throw new ControllerException("Pessoa não encontrada.");
 		}
@@ -38,14 +38,14 @@ public class InBodyController {
 
 	public void pessoaAlterarOk(PessoaEditar pessoaAlterar) throws ValidationException {
 		try {
-			inBodyService.alterarPessoa(pessoaAlterar.getPessoa());
+			inBodyService.pessoaAlterar(pessoaAlterar.getPessoa());
 		} catch (ServiceException e) {
 			throw new ControllerException(e);
 		}
 	}
 
 	public PessoaEditar pessoaExcluir(String id) {
-		Pessoa pessoa = inBodyService.buscarPessoa(id);
+		Pessoa pessoa = inBodyService.pessoaBuscar(id);
 		if (pessoa == null) {
 			throw new ControllerException("Pessoa não encontrada.");
 		}
@@ -59,7 +59,7 @@ public class InBodyController {
 
 	public void pessoaExcluirOk(PessoaEditar pessoaExcluir) {
 		try {
-			inBodyService.excluirPessoa(pessoaExcluir.getPessoa());
+			inBodyService.pessoaExcluir(pessoaExcluir.getPessoa());
 		} catch (ServiceException e) {
 			throw new ControllerException(e);
 		}
@@ -79,20 +79,20 @@ public class InBodyController {
 
 	public void pessoaIncluirOk(PessoaEditar pessoaIncluir) throws ValidationException {
 		try {
-			inBodyService.incluirPessoa(pessoaIncluir.getPessoa());
+			inBodyService.pessoaIncluir(pessoaIncluir.getPessoa());
 		} catch (ServiceException e) {
 			throw new ControllerException(e);
 		}
 	}
 
 	public PessoaListar pessoaListar() {
-		PessoaListar result = new PessoaListar(inBodyService.listarPessoas());
+		PessoaListar result = new PessoaListar(inBodyService.pessoaListar());
 		result.getPessoas().sort(new Pessoa.PessoaComparator());
 		return result;
 	}
 
 	public PessoaEditar pessoaMostrar(String id) {
-		Pessoa pessoa = inBodyService.buscarPessoa(id);
+		Pessoa pessoa = inBodyService.pessoaBuscar(id);
 		if (pessoa == null) {
 			throw new ControllerException("Pessoa não encontrada.");
 		}
@@ -109,7 +109,7 @@ public class InBodyController {
 	// Medição
 
 	public MedicaoEditar medicaoAlterar(String idPessoa, LocalDateTime dataHora) {
-		Pessoa pessoa = inBodyService.buscarPessoa(idPessoa);
+		Pessoa pessoa = inBodyService.pessoaBuscar(idPessoa);
 		if (pessoa == null) {
 			throw new ControllerException("Pessoa não encontrada.");
 		}
@@ -135,7 +135,7 @@ public class InBodyController {
 	}
 
 	public MedicaoEditar medicaoIncluir(String idPessoa, Medicao medicao) {
-		return new MedicaoEditar(inBodyService.buscarPessoa(idPessoa), medicao);
+		return new MedicaoEditar(inBodyService.pessoaBuscar(idPessoa), medicao);
 	}
 
 	public void medicaoIncluirOk(MedicaoEditar medicaoIncluir) throws ValidationException {
@@ -147,7 +147,7 @@ public class InBodyController {
 	}
 
 	public Object medicaoAlterar(String idPessoa, Medicao medicao) {
-		return new MedicaoEditar(inBodyService.buscarPessoa(idPessoa), medicao);
+		return new MedicaoEditar(inBodyService.pessoaBuscar(idPessoa), medicao);
 	}
 
 	public void medicaoAlterarOk(MedicaoEditar medicaoAlterar) throws ValidationException {
