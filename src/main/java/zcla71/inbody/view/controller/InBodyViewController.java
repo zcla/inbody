@@ -31,8 +31,9 @@ public class InBodyViewController {
 
 	@GetMapping("/pessoa/alterar")
 	public String pessoaAlterar(@RequestParam(name="id", required = true) String id, Model model) {
+		model.addAttribute("contexto", "alterar");
 		model.addAttribute("data", inBodyController.pessoaAlterar(id));
-		return "/pessoa/alterar";
+		return "/pessoa";
 	}
 
 	@PostMapping("/pessoa/alterar_ok")
@@ -40,7 +41,8 @@ public class InBodyViewController {
 		try {
 			inBodyController.pessoaAlterarOk(pessoaAlterar);
 		} catch (ValidationException e) {
-			ModelAndView mav = new ModelAndView("/pessoa/alterar");
+			ModelAndView mav = new ModelAndView("/pessoa");
+			model.addAttribute("contexto", "alterar");
 			mav.addObject("data", inBodyController.pessoaAlterar(pessoaAlterar.getPessoa()));
 			mav.addObject("validation", e.getValidations());
 			return mav;
@@ -50,8 +52,9 @@ public class InBodyViewController {
 
 	@GetMapping("/pessoa/excluir")
 	public String pessoaExcluir(@RequestParam(name="id", required = true) String id, Model model) {
+		model.addAttribute("contexto", "excluir");
 		model.addAttribute("data", inBodyController.pessoaExcluir(id));
-		return "/pessoa/excluir";
+		return "/pessoa";
 	}
 
 	@PostMapping("/pessoa/excluir_ok")
@@ -62,10 +65,11 @@ public class InBodyViewController {
 
 	@GetMapping("/pessoa/incluir")
 	public String pessoaIncluir(Model model) {
+		model.addAttribute("contexto", "incluir");
 		if (model.getAttribute("data") == null) { // Vem preenchido quando dá erro de validação
 			model.addAttribute("data", inBodyController.pessoaIncluir());
 		}
-		return "/pessoa/incluir";
+		return "/pessoa";
 	}
 
 	@PostMapping("/pessoa/incluir_ok")
@@ -73,7 +77,8 @@ public class InBodyViewController {
 		try {
 			inBodyController.pessoaIncluirOk(pessoaIncluir);
 		} catch (ValidationException e) {
-			ModelAndView mav = new ModelAndView("/pessoa/incluir");
+			ModelAndView mav = new ModelAndView("/pessoa");
+			model.addAttribute("contexto", "incluir");
 			mav.addObject("data", inBodyController.pessoaIncluir(pessoaIncluir.getPessoa()));
 			mav.addObject("validation", e.getValidations());
 			return mav;
@@ -83,8 +88,9 @@ public class InBodyViewController {
 
 	@GetMapping("/pessoa/mostrar")
 	public String pessoaMostrar(@RequestParam(name="id", required = true) String id, Model model) {
+		model.addAttribute("contexto", "mostrar");
 		model.addAttribute("data", inBodyController.pessoaMostrar(id));
-		return "/pessoa/mostrar";
+		return "/pessoa";
 	}
 
 	// Medição

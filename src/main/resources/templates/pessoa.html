@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>InBody : Home</title>
+		<th:block th:insert="~{/_fragments/geral.html :: head}"></th:block>
+	</head>
+	<body th:with="verbo=${#strings.capitalize(contexto)}">
+		<nav th:replace="~{/_fragments/geral.html :: nav}"></nav>
+		<div class="container-fluid">
+			<div id="mensagens" class="mt-3"></div>
+			<div id="conteudo">
+				<h1 th:text="${verbo + ' Pessoa'}"></h1>
+				<form th:object="${data.pessoa}" th:action="${'/pessoa/' + contexto + '_ok'}" method="POST">
+					<input th:if="${!('incluir'.equals(contexto))}" th:field="*{id}" id="id" name="id" type="hidden">
+					<div class="row mb-3">
+						<div th:replace="~{/_fragments/form.html :: inputText (field='nome', label='Nome')}"></div>
+					</div>
+					<div class="row mb-3">
+						<div class="col">
+							<div th:replace="~{/_fragments/form.html :: inputDate (field='nascimento', label='Nascimento')}"></div>
+						</div>
+						<div class="col">
+							<div th:replace="~{/_fragments/form.html :: inputNumber (field='altura', label='Altura (cm)')}"></div>
+						</div>
+						<div class="col">
+							<div th:replace="~{/_fragments/form.html :: select (field='sexo', label='Sexo', options= ${data.sexos})}"></div>
+						</div>
+					</div>
+					<div th:if="${!('mostrar'.equals(contexto))}" class="btn-group mb-3">
+						<button th:text="${'✅ ' + verbo}" th:title="${verbo}" type="submit" class="btn btn-sm bg-success-subtle"></button>
+						<a th:href="@{'/pessoa'}" type="button" class="btn bg-danger-subtle" title="Cancelar">❌ Cancelar</a>
+					</div>
+				</form>
+				<th:block th:if="${'mostrar'.equals(contexto)}">
+					<h1>
+						<span>Medições</span>
+						<div id="toolbar" class="btn-toolbar float-end d-print-none">
+						<div class="btn-group">
+							<a th:href="'/medicao/incluir?idPessoa=' + ${data.pessoa.id}" id="btnIncluir" type="button" class="btn bg-success-subtle" title="Incluir">➕</a>
+						</div>
+					</h1>
+					<p th:if="${#lists.isEmpty(data.pessoa.medicoes)}">Não há medições cadastradas.</p>
+					<div th:if="${!#lists.isEmpty(data.pessoa.medicoes)}" class="mb-3">
+						<table id="medicoes" class="table table-sm table-hover">
+							<thead>
+								<tr>
+									<th>Data/hora</th>
+									<th>Local</th>
+									<th>Peso</th>
+									<th>Massa de Gordura</th>
+									<th>MME</th>
+									<th>PGC</th>
+									<th>Pontuação</th>
+									<th class="botoes d-print-none"></th>
+								</tr>
+							</thead>
+							<tbody class="table-group-divider">
+								<tr th:each="medicao : ${data.pessoa.medicoes}">
+									<td th:text="${#temporals.format(medicao.dataHora, 'dd/MM/yyyy HH:mm')}" class="text-end"></td>
+									<td th:text="${medicao.local}"></td>
+									<td th:text="${medicao.peso.valor}" class="text-end"></td>
+									<td th:text="${medicao.massaDeGordura.valor}" class="text-end"></td>
+									<td th:text="${medicao.massaMuscularEsqueletica.valor}" class="text-end"></td>
+									<td th:text="${medicao.pgc}" class="text-end"></td>
+									<td th:text="${medicao.pontuacaoInBody}" class="text-end"></td>
+									<td class="botoes d-print-none">
+										<div class="btn-group" role="group">
+											<a th:href="'/medicao/alterar?idPessoa=' + ${data.pessoa.id} + '&idMedicao=' + ${medicao.id}" id="btnAltera" type="button" class="btn bg-warning-subtle" title="Alterar">✏</a>
+											<a th:href="'/medicao/excluir?idPessoa=' + ${data.pessoa.id} + '&idMedicao=' + ${medicao.id}" id="btnExcluir" type="button" class="btn bg-danger-subtle" title="Excluir">🗑</a>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</th:block>
+			</div>
+		</div>
+		<footer th:replace="~{/_fragments/geral.html :: footer}"></footer>
+	</body>
+</html>

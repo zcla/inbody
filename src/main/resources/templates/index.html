@@ -16,42 +16,38 @@
 						<a href="/pessoa/incluir" id="btnIncluir" type="button" class="btn bg-success-subtle" title="Incluir">➕</a>
 					</div>
 				</h1>
-				<th:block th:if="${#lists.isEmpty(data.pessoas)}">
-					<p>Não há pessoas cadastradas.</p>
-				</th:block>
-				<th:block th:if="${!#lists.isEmpty(data.pessoas)}">
-					<div class="mb-3">
-						<table id="pessoas" class="table table-sm table-hover">
-							<thead>
-								<tr>
-									<th>Nome</th>
-									<th>Nascimento</th>
-									<th>Altura</th>
-									<th>Sexo</th>
-									<th>Medições</th>
-									<th class="botoes d-print-none"></th>
-								</tr>
-							</thead>
-							<tbody class="table-group-divider">
-								<tr th:each="pessoa : ${data.pessoas}">
-									<td>
-										<a th:href="'/pessoa/mostrar?id=' + ${pessoa.id}" th:text="${pessoa.nome}"></a>
-									</td>
-									<td th:text="${#temporals.format(pessoa.nascimento, 'dd/MM/yyyy')}" class="text-end"></td>
-									<td th:text="${pessoa.altura}" class="text-end"></td>
-									<td th:text="${pessoa.sexo}"></td>
-									<td th:text="${pessoa.medicoes.size()}" class="text-end"></td>
-									<td class="botoes d-print-none">
-										<div class="btn-group" role="group">
-											<a th:href="'/pessoa/alterar?id=' + ${pessoa.id}" id="btnAlterar" type="button" class="btn bg-warning-subtle" title="Alterar">✏</a>
-											<a th:href="'/pessoa/excluir?id=' + ${pessoa.id}" id="btnExcluir" type="button" class="btn bg-danger-subtle" title="Excluir">🗑</a>
-										</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</th:block>
+				<p th:if="${#lists.isEmpty(data.pessoas)}">Não há pessoas cadastradas.</p>
+				<div th:if="${!#lists.isEmpty(data.pessoas)}" class="mb-3">
+					<table id="pessoas" class="table table-sm table-hover">
+						<thead>
+							<tr>
+								<th>Nome</th>
+								<th>Nascimento</th>
+								<th>Altura</th>
+								<th>Sexo</th>
+								<th>Medições</th>
+								<th class="botoes d-print-none"></th>
+							</tr>
+						</thead>
+						<tbody class="table-group-divider">
+							<tr th:each="pessoa : ${data.pessoas}">
+								<td>
+									<a th:href="'/pessoa/mostrar?id=' + ${pessoa.id}" th:text="${pessoa.nome}"></a>
+								</td>
+								<td th:text="${#temporals.format(pessoa.nascimento, 'dd/MM/yyyy')}" class="text-end"></td>
+								<td th:text="${pessoa.altura}" class="text-end"></td>
+								<td th:text="${pessoa.sexo}"></td>
+								<td th:text="${pessoa.medicoes.size()}" class="text-end"></td>
+								<td class="botoes d-print-none">
+									<div class="btn-group" role="group">
+										<a th:href="'/pessoa/alterar?id=' + ${pessoa.id}" id="btnAlterar" type="button" class="btn bg-warning-subtle" title="Alterar">✏</a>
+										<a th:href="'/pessoa/excluir?id=' + ${pessoa.id}" id="btnExcluir" type="button" class="btn bg-danger-subtle" title="Excluir">🗑</a>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 		<footer th:replace="~{/_fragments/geral.html :: footer}"></footer>
