@@ -113,21 +113,6 @@ public class InBodyViewController {
 		return new ModelAndView("redirect:/pessoa/mostrar?id=" + medicaoAlterar.getPessoa().getId());
 	}
 
-	@PostMapping("/medicao/editar_ok")
-	public ModelAndView medicaoEditarOk(Model model, @ModelAttribute MedicaoEditar medicaoAlterar) {
-		try {
-			inBodyController.medicaoAlterarOk(medicaoAlterar);
-		} catch (ValidationException e) {
-			ModelAndView mav = new ModelAndView("/medicao");
-			mav.addObject("contexto", "alterar");
-			mav.addObject("idPessoa", medicaoAlterar.getPessoa().getId());
-			mav.addObject("data", inBodyController.medicaoAlterar(medicaoAlterar.getPessoa().getId(), medicaoAlterar.getMedicao()));
-			mav.addObject("validation", e.getValidations());
-			return mav;
-		}
-		return new ModelAndView("redirect:/pessoa/mostrar?id=" + medicaoAlterar.getPessoa().getId());
-	}
-
 	@GetMapping("/medicao/incluir")
 	public String medicaoIncluir(@RequestParam(name="idPessoa", required = true) String idPessoa, Model model) {
 		model.addAttribute("contexto", "incluir");
