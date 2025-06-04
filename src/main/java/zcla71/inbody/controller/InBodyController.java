@@ -133,6 +133,27 @@ public class InBodyController {
 		}
 	}
 
+	public MedicaoEditar medicaoExcluir(String idPessoa, String idMedicao) {
+		Pessoa pessoa = inBodyService.pessoaBuscar(idPessoa);
+		if (pessoa == null) {
+			throw new ControllerException("Pessoa não encontrada.");
+		}
+		Medicao medicao = pessoa.getMedicoes().stream().filter(m -> m.getId().equals(idMedicao)).findFirst().orElse(null);
+		if (medicao == null) {
+			throw new ControllerException("Medição não encontrada.");
+		}
+
+		return medicaoAlterar(pessoa, medicao);
+	}
+
+	public void medicaoExcluirOk(MedicaoEditar medicaoExcluir) {
+		try {
+			inBodyService.medicaoExcluir(medicaoExcluir.getPessoa(), medicaoExcluir.getMedicao());
+		} catch (ServiceException e) {
+			throw new ControllerException(e);
+		}
+	}
+
 	public MedicaoEditar medicaoIncluir(String idPessoa) {
 		Medicao medicao = new Medicao();
 		medicao.setDataHora(LocalDateTime.now());

@@ -1,8 +1,10 @@
 package zcla71.inbody.model.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -98,6 +100,25 @@ public class InBodyService {
 		}
 
 		medicaoExistente.copyDataFrom(medicao);
+		try {
+			repository.saveData();
+		} catch (IOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	public void medicaoExcluir(Pessoa pessoa, Medicao medicao) throws ServiceException {
+		Pessoa pessoaExistente = pessoaBuscar(pessoa.getId());
+		if (pessoaExistente == null) {
+			throw new ServiceException("Pessoa não encontrada.");
+		}
+
+		Medicao medicaoExistente = pessoaExistente.getMedicoes().stream().filter(m -> m.getId().equals(medicao.getId())).findFirst().orElse(null);
+		if (medicaoExistente == null) {
+			throw new ServiceException("Medição não encontrada.");
+		}
+
+		pessoaExistente.setMedicoes(pessoaExistente.getMedicoes().stream().filter(m -> !m.getId().equals(medicaoExistente.getId())).collect(Collectors.toCollection(ArrayList::new)));
 		try {
 			repository.saveData();
 		} catch (IOException e) {

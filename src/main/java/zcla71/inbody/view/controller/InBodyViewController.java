@@ -111,6 +111,19 @@ public class InBodyViewController {
 		return new ModelAndView("redirect:/pessoa/mostrar?id=" + medicaoAlterar.getPessoa().getId());
 	}
 
+	@GetMapping("/medicao/excluir")
+	public String medicaoExcluir(@RequestParam(name="idPessoa", required = true) String idPessoa, @RequestParam(name="idMedicao", required = true) String idMedicao, Model model) {
+		model.addAttribute("contexto", "excluir");
+		model.addAttribute("data", inBodyController.medicaoExcluir(idPessoa, idMedicao));
+		return "/medicao";
+	}
+
+	@PostMapping("/medicao/excluir_ok")
+	public ModelAndView medicaoExcluirOk(Model model, @ModelAttribute MedicaoEditar medicaoExcluir) {
+		inBodyController.medicaoExcluirOk(medicaoExcluir);
+		return new ModelAndView("redirect:/pessoa/mostrar?id=" + medicaoExcluir.getPessoa().getId());
+	}
+
 	@GetMapping("/medicao/incluir")
 	public String medicaoIncluir(@RequestParam(name="idPessoa", required = true) String idPessoa, Model model) {
 		model.addAttribute("contexto", "incluir");
