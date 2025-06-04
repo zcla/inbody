@@ -26,6 +26,9 @@
 							<div th:replace="~{/_fragments/form.html :: select (field='sexo', label='Sexo', options= ${data.sexos})}"></div>
 						</div>
 					</div>
+					<div th:if="${'excluir'.equals(contexto)}" class="alert alert-warning">
+						<b>ATENÇÃO!</b> Todas as informações serão perdidas, incluindo <b>TODAS</b> as medições! <b>ESSA OPERAÇÃO NÃO PODE SER DESFEITA!</b>
+					</div>
 					<div th:if="${!('mostrar'.equals(contexto))}" class="btn-group mb-3">
 						<button th:text="${'✅ ' + verbo}" th:title="${verbo}" type="submit" class="btn btn-sm bg-success-subtle"></button>
 						<a th:href="@{'/pessoa'}" type="button" class="btn bg-danger-subtle" title="Cancelar">❌ Cancelar</a>
