@@ -45,6 +45,7 @@
 										<th>Massa de Gordura</th>
 										<th>MME</th>
 										<th>PGC</th>
+										<th>Pontuação</th>
 										<th class="botoes d-print-none"></th>
 									</tr>
 								</thead>
@@ -56,6 +57,7 @@
 										<td th:text="${medicao.massaDeGordura.valor}" class="text-end"></td>
 										<td th:text="${medicao.massaMuscularEsqueletica.valor}" class="text-end"></td>
 										<td th:text="${medicao.pgc}" class="text-end"></td>
+										<td th:text="${medicao.pontuacaoInBody}" class="text-end"></td>
 										<td class="botoes d-print-none">
 											<div class="btn-group" role="group">
 												<a th:href="'/medicao/alterar?idPessoa=' + ${data.pessoa.id} + '&dataHora=' + ${medicao.dataHora}" id="btnAltera" type="button" class="btn bg-warning-subtle" title="Alterar">✏</a>
