@@ -2,11 +2,19 @@ package zcla71.inbody.controller;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import zcla71.chartjs.Configuration;
+import zcla71.chartjs.Data;
+import zcla71.chartjs.Dataset;
 import zcla71.inbody.model.entity.Medicao;
 import zcla71.inbody.model.entity.Pessoa;
 import zcla71.inbody.model.service.InBodyService;
@@ -18,6 +26,14 @@ import zcla71.inbody.view.dto.PessoaListar;
 
 @Component
 public class InBodyController {
+	// Para usar nas entities: @DateTimeFormat(pattern = InBodyController.ENTITY_PATTERN_DATE)
+	public static final String ENTITY_PATTERN_DATE = "yyyy-MM-dd";
+	public static final String ENTITY_PATTERN_TIME = "HH:mm";
+	public static final String ENTITY_PATTERN_DATE_TIME = ENTITY_PATTERN_DATE + " " + ENTITY_PATTERN_TIME;
+	// Para usar na exibição ao usuário
+	public static final String VIEW_FORMAT_DATE = "dd/MM/yyyy";
+	public static final String VIEW_FORMAT_TIME = "HH:mm";
+	public static final String VIEW_FORMAT_DATE_TIME = VIEW_FORMAT_DATE + " " + VIEW_FORMAT_TIME;
 	@Autowired
 	private InBodyService inBodyService;
 
@@ -103,6 +119,39 @@ public class InBodyController {
 	public PessoaEditar pessoaMostrar(Pessoa pessoa) {
 		PessoaEditar result = new PessoaEditar(pessoa);
 		result.getPessoa().getMedicoes().sort(new Medicao.MedicaoComparator());
+
+		List<String> labels = pessoa.getMedicoes().stream().map(m -> m.getDataHora().format(DateTimeFormatter.ofPattern(VIEW_FORMAT_DATE))).collect(Collectors.toList());
+		Float tension = 0.1f;
+
+		result.setGraficoPeso(new Configuration("line", new Data(
+			labels,
+			Arrays.asList(new Dataset(
+				"Peso (kg)",
+				pessoa.getMedicoes().stream().map(m -> m.getPeso().getValor()).collect(Collectors.toList()),
+				tension
+			))
+		)));
+
+		result.setGraficoMassaMuscular(new Configuration("line", new Data(
+			labels,
+			Arrays.asList(new Dataset(
+				"Massa Muscular (kg)",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMuscularEsqueletica().getValor()).collect(Collectors.toList()),
+				tension
+			))
+		)));
+
+		result.setGraficoGorduraCorporal(new Configuration("line", new Data(
+			labels,
+			Arrays.asList(new Dataset(
+				"Gordura Corporal (%)",
+				pessoa.getMedicoes().stream().map(m -> m.getPgc()).collect(Collectors.toList()),
+				tension
+			))
+		)));
+
+		Collections.reverse(result.getPessoa().getMedicoes()); // Coloca em ordem inversa
+
 		return result;
 	}
 

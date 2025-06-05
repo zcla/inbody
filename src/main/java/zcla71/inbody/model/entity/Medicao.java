@@ -6,6 +6,7 @@ import java.util.Comparator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
+import zcla71.inbody.controller.InBodyController;
 import zcla71.inbody.model.service.Validation;
 import zcla71.inbody.model.service.ValidationException;
 
@@ -15,7 +16,7 @@ public class Medicao {
 	private String local;
 
 	// Cabeçalho
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+	@DateTimeFormat(pattern = InBodyController.ENTITY_PATTERN_DATE_TIME)
 	private LocalDateTime dataHora;
 
 	// Análise da Composição Corporal
@@ -92,7 +93,7 @@ public class Medicao {
 	public static class MedicaoComparator implements Comparator<Medicao> {
 		@Override
 		public int compare(Medicao o1, Medicao o2) {
-			return o2.getDataHora().compareTo(o1.getDataHora());
+			return o1.getDataHora().compareTo(o2.getDataHora());
 		}
 	}
 

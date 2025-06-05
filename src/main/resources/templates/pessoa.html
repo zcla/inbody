@@ -3,38 +3,49 @@
 	<head>
 		<title>InBody : Home</title>
 		<th:block th:insert="~{/_fragments/geral.html :: head}"></th:block>
+		<script th:inline="javascript">
+/*<![CDATA[*/
+document.addEventListener("DOMContentLoaded", function() {
+	new Chart(document.getElementById('graficoPeso'), /*[[${data.graficoPeso}]]*/ '');
+	new Chart(document.getElementById('graficoMassaMuscular'), /*[[${data.graficoMassaMuscular}]]*/ '');
+	new Chart(document.getElementById('graficoGorduraCorporal'), /*[[${data.graficoGorduraCorporal}]]*/ '');
+});
+/*]]>*/
+		</script>
 	</head>
 	<body th:with="verbo=${#strings.capitalize(contexto)}">
 		<nav th:replace="~{/_fragments/geral.html :: nav}"></nav>
 		<div class="container-fluid">
 			<div id="mensagens" class="mt-3"></div>
 			<div id="conteudo">
-				<h1 th:text="${verbo + ' Pessoa'}"></h1>
-				<form th:object="${data.pessoa}" th:action="${'/pessoa/' + contexto + '_ok'}" method="POST">
-					<input th:if="${!('incluir'.equals(contexto))}" th:field="*{id}" id="id" name="id" type="hidden">
-					<div class="row mb-3">
-						<div th:replace="~{/_fragments/form.html :: inputText (field='nome', label='Nome')}"></div>
-					</div>
-					<div class="row mb-3">
-						<div class="col">
-							<div th:replace="~{/_fragments/form.html :: inputDate (field='nascimento', label='Nascimento')}"></div>
+				<div id="form">
+					<h1 th:text="${verbo + ' Pessoa'}"></h1>
+					<form th:object="${data.pessoa}" th:action="${'/pessoa/' + contexto + '_ok'}" method="POST">
+						<input th:if="${!('incluir'.equals(contexto))}" th:field="*{id}" id="id" name="id" type="hidden">
+						<div class="row mb-3">
+							<div th:replace="~{/_fragments/form.html :: inputText (field='nome', label='Nome')}"></div>
 						</div>
-						<div class="col">
-							<div th:replace="~{/_fragments/form.html :: inputNumber (field='altura', label='Altura (cm)')}"></div>
+						<div class="row mb-3">
+							<div class="col">
+								<div th:replace="~{/_fragments/form.html :: inputDate (field='nascimento', label='Nascimento')}"></div>
+							</div>
+							<div class="col">
+								<div th:replace="~{/_fragments/form.html :: inputNumber (field='altura', label='Altura (cm)')}"></div>
+							</div>
+							<div class="col">
+								<div th:replace="~{/_fragments/form.html :: select (field='sexo', label='Sexo', options= ${data.sexos})}"></div>
+							</div>
 						</div>
-						<div class="col">
-							<div th:replace="~{/_fragments/form.html :: select (field='sexo', label='Sexo', options= ${data.sexos})}"></div>
+						<div th:if="${'excluir'.equals(contexto)}" class="alert alert-warning">
+							<b>ATENÇÃO!</b> Todas as informações serão perdidas, incluindo <b>TODAS</b> as medições! <b>ESSA OPERAÇÃO NÃO PODE SER DESFEITA!</b>
 						</div>
-					</div>
-					<div th:if="${'excluir'.equals(contexto)}" class="alert alert-warning">
-						<b>ATENÇÃO!</b> Todas as informações serão perdidas, incluindo <b>TODAS</b> as medições! <b>ESSA OPERAÇÃO NÃO PODE SER DESFEITA!</b>
-					</div>
-					<div th:if="${!('mostrar'.equals(contexto))}" class="btn-group mb-3">
-						<button th:text="${'✅ ' + verbo}" th:title="${verbo}" type="submit" class="btn btn-sm bg-success-subtle"></button>
-						<a th:href="@{'/pessoa'}" type="button" class="btn bg-danger-subtle" title="Cancelar">❌ Cancelar</a>
-					</div>
-				</form>
-				<th:block th:if="${'mostrar'.equals(contexto)}">
+						<div th:if="${!('mostrar'.equals(contexto))}" class="btn-group mb-3">
+							<button th:text="${'✅ ' + verbo}" th:title="${verbo}" type="submit" class="btn btn-sm bg-success-subtle"></button>
+							<a th:href="@{'/pessoa'}" type="button" class="btn bg-danger-subtle" title="Cancelar">❌ Cancelar</a>
+						</div>
+					</form>
+				</div>
+				<div th:if="${'mostrar'.equals(contexto)}" id="medicoes">
 					<h1>
 						<span>Medições</span>
 						<div id="toolbar" class="btn-toolbar float-end d-print-none">
@@ -76,7 +87,21 @@
 							</tbody>
 						</table>
 					</div>
-				</th:block>
+				</div>
+				<div th:if="${'mostrar'.equals(contexto)}" id="graficos">
+					<h1>Gráficos</h1>
+					<div class="row">
+						<div class="col col-4">
+							<canvas id="graficoPeso"></canvas>
+						</div>
+						<div class="col col-4">
+							<canvas id="graficoMassaMuscular"></canvas>
+						</div>
+						<div class="col col-4">
+							<canvas id="graficoGorduraCorporal"></canvas>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<footer th:replace="~{/_fragments/geral.html :: footer}"></footer>

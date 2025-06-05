@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
+import zcla71.inbody.controller.InBodyController;
 import zcla71.inbody.model.service.Validation;
 import zcla71.inbody.model.service.ValidationException;
 
@@ -15,7 +16,7 @@ import zcla71.inbody.model.service.ValidationException;
 public class Pessoa {
 	private String id;
 	private String nome;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = InBodyController.ENTITY_PATTERN_DATE)
 	private LocalDate nascimento;
 	private Integer altura;
 	private String sexo;
