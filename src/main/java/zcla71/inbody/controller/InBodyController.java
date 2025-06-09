@@ -212,7 +212,7 @@ public class InBodyController {
 				DATASET_COLOR_BAD
 			), new Dataset(
 				"Ideal",
-				pessoa.getMedicoes().stream().map(m -> m.getControleDeGordura() == null ? null : m.getMassaDeGordura().getValor() + m.getControleDeGordura()).collect(Collectors.toList()),
+				pessoa.getMedicoes().stream().map(m -> m.getControleDeGordura() == null ? null : m.getMassaDeGordura().getValor() + m.getControleDeGordura()).collect(Collectors.toList()), // TODO Jogar isso para a classe Medicao
 				tension,
 				DATASET_COLOR_GOOD
 			))
@@ -237,7 +237,7 @@ public class InBodyController {
 				DATASET_COLOR_BAD
 			), new Dataset(
 				"Ideal",
-				pessoa.getMedicoes().stream().map(m -> m.getControleDePeso() == null ? null : m.getPeso().getValor() + m.getControleDePeso()).collect(Collectors.toList()),
+				pessoa.getMedicoes().stream().map(m -> m.getControleDePeso() == null ? null : m.getPeso().getValor() + m.getControleDePeso()).collect(Collectors.toList()), // TODO Jogar isso para a classe Medicao
 				tension,
 				DATASET_COLOR_GOOD
 			))
@@ -266,7 +266,7 @@ public class InBodyController {
 				DATASET_COLOR_BAD
 			), new Dataset(
 				"Ideal",
-				pessoa.getMedicoes().stream().map(m -> m.getControleMuscular() == null ? null : m.getMassaMuscularEsqueletica().getValor() + m.getControleMuscular()).collect(Collectors.toList()),
+				pessoa.getMedicoes().stream().map(m -> m.getControleMuscular() == null ? null : m.getMassaMuscularEsqueletica().getValor() + m.getControleMuscular()).collect(Collectors.toList()), // TODO Jogar isso para a classe Medicao
 				tension,
 				DATASET_COLOR_GOOD
 			))
@@ -306,7 +306,7 @@ public class InBodyController {
 			labels,
 			Arrays.asList(new Dataset(
 				"Pontuação InBody (pontos)",
-				pessoa.getMedicoes().stream().map(m -> m.getPontuacaoInBody() == null ? null : Float.valueOf(m.getPontuacaoInBody())).collect(Collectors.toList()),
+				pessoa.getMedicoes().stream().map(m -> m.getPontuacaoInBody() == null ? null : Float.valueOf(m.getPontuacaoInBody())).collect(Collectors.toList()), // TODO Jogar isso para a classe Medicao
 				tension
 			))
 		)));
@@ -314,7 +314,7 @@ public class InBodyController {
 		result.setGraficoRelacaoCinturaQuadril(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
-				"PGC (%)",
+				"Relação Cintura-Quadril",
 				pessoa.getMedicoes().stream().map(m -> m.getRelacaoCinturaQuadril()).collect(Collectors.toList()),
 				tension
 			))
@@ -324,7 +324,7 @@ public class InBodyController {
 			labels,
 			Arrays.asList(new Dataset(
 				"Nível de Gordura Visceral",
-				pessoa.getMedicoes().stream().map(m -> m.getNivelDeGorduraVisceral() == null ? null : Float.valueOf(m.getNivelDeGorduraVisceral())).collect(Collectors.toList()),
+				pessoa.getMedicoes().stream().map(m -> m.getNivelDeGorduraVisceral() == null ? null : Float.valueOf(m.getNivelDeGorduraVisceral())).collect(Collectors.toList()), // TODO Jogar isso para a classe Medicao
 				tension
 			))
 		)));
@@ -355,17 +355,17 @@ public class InBodyController {
 			labels,
 			Arrays.asList(new Dataset(
 				"Taxa Metabólica Basal (kcal)",
-				pessoa.getMedicoes().stream().map(m -> m.getTaxaMetabolicaBasal().getValor() == null ? null : Float.valueOf(m.getTaxaMetabolicaBasal().getValor())).collect(Collectors.toList()),
+				pessoa.getMedicoes().stream().map(m -> m.getTaxaMetabolicaBasal().getValor() == null ? null : Float.valueOf(m.getTaxaMetabolicaBasal().getValor())).collect(Collectors.toList()), // TODO Jogar isso para a classe Medicao
 				tension,
 				DATASET_COLOR_DEFAULT
 			), new Dataset(
 				"Mínimo",
-				pessoa.getMedicoes().stream().map(m -> m.getTaxaMetabolicaBasal().getMinimo() == null ? null : Float.valueOf(m.getTaxaMetabolicaBasal().getMinimo())).collect(Collectors.toList()),
+				pessoa.getMedicoes().stream().map(m -> m.getTaxaMetabolicaBasal().getMinimo() == null ? null : Float.valueOf(m.getTaxaMetabolicaBasal().getMinimo())).collect(Collectors.toList()), // TODO Jogar isso para a classe Medicao
 				tension,
 				DATASET_COLOR_BAD
 			), new Dataset(
 				"Máximo",
-				pessoa.getMedicoes().stream().map(m -> m.getTaxaMetabolicaBasal().getMaximo() == null ? null : Float.valueOf(m.getTaxaMetabolicaBasal().getMaximo())).collect(Collectors.toList()),
+				pessoa.getMedicoes().stream().map(m -> m.getTaxaMetabolicaBasal().getMaximo() == null ? null : Float.valueOf(m.getTaxaMetabolicaBasal().getMaximo())).collect(Collectors.toList()), // TODO Jogar isso para a classe Medicao
 				tension,
 				DATASET_COLOR_GOOD
 			))
@@ -375,17 +375,17 @@ public class InBodyController {
 			labels,
 			Arrays.asList(new Dataset(
 				"Grau de obesidade (%)",
-				pessoa.getMedicoes().stream().map(m -> m.getGrauDeObesidade().getValor() == null ? null : Float.valueOf(m.getGrauDeObesidade().getValor())).collect(Collectors.toList()),
+				pessoa.getMedicoes().stream().map(m -> m.getGrauDeObesidade().getValor() == null ? null : Float.valueOf(m.getGrauDeObesidade().getValor())).collect(Collectors.toList()), // TODO Jogar isso para a classe Medicao
 				tension,
 				DATASET_COLOR_DEFAULT
 			), new Dataset(
 				"Mínimo",
-				pessoa.getMedicoes().stream().map(m -> m.getGrauDeObesidade().getMinimo() == null ? null : Float.valueOf(m.getGrauDeObesidade().getMinimo())).collect(Collectors.toList()),
+				pessoa.getMedicoes().stream().map(m -> m.getGrauDeObesidade().getMinimo() == null ? null : Float.valueOf(m.getGrauDeObesidade().getMinimo())).collect(Collectors.toList()), // TODO Jogar isso para a classe Medicao
 				tension,
 				DATASET_COLOR_GOOD
 			), new Dataset(
 				"Máximo",
-				pessoa.getMedicoes().stream().map(m -> m.getGrauDeObesidade().getMaximo() == null ? null : Float.valueOf(m.getGrauDeObesidade().getMaximo())).collect(Collectors.toList()),
+				pessoa.getMedicoes().stream().map(m -> m.getGrauDeObesidade().getMaximo() == null ? null : Float.valueOf(m.getGrauDeObesidade().getMaximo())).collect(Collectors.toList()), // TODO Jogar isso para a classe Medicao
 				tension,
 				DATASET_COLOR_BAD
 			))
@@ -404,7 +404,7 @@ public class InBodyController {
 			labels,
 			Arrays.asList(new Dataset(
 				"Ingestão calórica recomendada (kcal)",
-				pessoa.getMedicoes().stream().map(m -> m.getIngestaoCaloricaRecomendada() == null ? null : Float.valueOf(m.getIngestaoCaloricaRecomendada())).collect(Collectors.toList()),
+				pessoa.getMedicoes().stream().map(m -> m.getIngestaoCaloricaRecomendada() == null ? null : Float.valueOf(m.getIngestaoCaloricaRecomendada())).collect(Collectors.toList()), // TODO Jogar isso para a classe Medicao
 				tension
 			))
 		)));
