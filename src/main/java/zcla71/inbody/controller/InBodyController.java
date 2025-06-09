@@ -193,7 +193,6 @@ public class InBodyController {
 			))
 		)));
 
-		// TODO Adicionar Controle de Peso
 		result.setGraficoMassaDeGordura(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
@@ -205,16 +204,20 @@ public class InBodyController {
 				"Mínimo",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaDeGordura().getMinimo()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_GOOD
+				DATASET_COLOR_BAD
 			), new Dataset(
 				"Máximo",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaDeGordura().getMaximo()).collect(Collectors.toList()),
 				tension,
 				DATASET_COLOR_BAD
+			), new Dataset(
+				"Ideal",
+				pessoa.getMedicoes().stream().map(m -> m.getControleDeGordura() == null ? null : m.getMassaDeGordura().getValor() + m.getControleDeGordura()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
-		// TODO Adicionar Controle de Peso
 		result.setGraficoPeso(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
@@ -226,12 +229,17 @@ public class InBodyController {
 				"Mínimo",
 				pessoa.getMedicoes().stream().map(m -> m.getPeso().getMinimo()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_GOOD
+				DATASET_COLOR_BAD
 			), new Dataset(
 				"Máximo",
 				pessoa.getMedicoes().stream().map(m -> m.getPeso().getMaximo()).collect(Collectors.toList()),
 				tension,
 				DATASET_COLOR_BAD
+			), new Dataset(
+				"Ideal",
+				pessoa.getMedicoes().stream().map(m -> m.getControleDePeso() == null ? null : m.getPeso().getValor() + m.getControleDePeso()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
@@ -239,7 +247,6 @@ public class InBodyController {
 
 		// (repetido) setGraficoPeso();
 
-		// TODO Adicionar Controle de Peso
 		result.setGraficoMassaMuscularEsqueletica(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
@@ -255,6 +262,11 @@ public class InBodyController {
 			), new Dataset(
 				"Máximo",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMuscularEsqueletica().getMaximo()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_BAD
+			), new Dataset(
+				"Ideal",
+				pessoa.getMedicoes().stream().map(m -> m.getControleMuscular() == null ? null : m.getMassaMuscularEsqueletica().getValor() + m.getControleMuscular()).collect(Collectors.toList()),
 				tension,
 				DATASET_COLOR_GOOD
 			))
