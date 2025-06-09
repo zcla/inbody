@@ -34,6 +34,10 @@ public class InBodyController {
 	public static final String VIEW_FORMAT_DATE = "dd/MM/yyyy";
 	public static final String VIEW_FORMAT_TIME = "HH:mm";
 	public static final String VIEW_FORMAT_DATE_TIME = VIEW_FORMAT_DATE + " " + VIEW_FORMAT_TIME;
+	// Cores
+	private final String DATASET_COLOR_DEFAULT = "rgb(33, 64, 154)";
+	private final String DATASET_COLOR_BAD = "rgb(237, 28, 36)";
+	private final String DATASET_COLOR_GOOD = "rgb(0, 166, 93)";
 	@Autowired
 	private InBodyService inBodyService;
 
@@ -123,60 +127,111 @@ public class InBodyController {
 		List<String> labels = pessoa.getMedicoes().stream().map(m -> m.getDataHora().format(DateTimeFormatter.ofPattern(VIEW_FORMAT_DATE))).collect(Collectors.toList());
 		Float tension = 0.2f;
 
+		// Os próximos 2 todos não parecem ser implementáveis => https://www.chartjs.org/docs/latest/samples/line/segments.html
 		// TODO GERAL: verde quando subir / vermelho quando cair (ou o contrário, conforme o caso)
 		// TODO GERAL: pontilhar intervalos que faltam (ou remover do gráfico)
 
 		// Análise da Composição Corporal
 
-		// TODO Adicionar mínimo e máximo
 		result.setGraficoAguaCorporalTotal(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
 				"Água Corporal Total (L)",
 				pessoa.getMedicoes().stream().map(m -> m.getAguaCorporalTotal().getValor()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_DEFAULT
+			), new Dataset(
+				"Mínimo",
+				pessoa.getMedicoes().stream().map(m -> m.getAguaCorporalTotal().getMinimo()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_BAD
+			), new Dataset(
+				"Máximo",
+				pessoa.getMedicoes().stream().map(m -> m.getAguaCorporalTotal().getMaximo()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
-		// TODO Adicionar mínimo e máximo
 		result.setGraficoProteina(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
 				"Proteína (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getProteina().getValor()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_DEFAULT
+			), new Dataset(
+				"Mínimo",
+				pessoa.getMedicoes().stream().map(m -> m.getProteina().getMinimo()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_BAD
+			), new Dataset(
+				"Máximo",
+				pessoa.getMedicoes().stream().map(m -> m.getProteina().getMaximo()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
-		// TODO Adicionar mínimo e máximo
 		result.setGraficoMinerais(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
 				"Minerais (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getMinerais().getValor()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_DEFAULT
+			), new Dataset(
+				"Mínimo",
+				pessoa.getMedicoes().stream().map(m -> m.getMinerais().getMinimo()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_BAD
+			), new Dataset(
+				"Máximo",
+				pessoa.getMedicoes().stream().map(m -> m.getMinerais().getMaximo()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
-		// TODO Adicionar mínimo e máximo
 		// TODO Adicionar Controle de Peso
 		result.setGraficoMassaDeGordura(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
 				"Massa de Gordura (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaDeGordura().getValor()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_DEFAULT
+			), new Dataset(
+				"Mínimo",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaDeGordura().getMinimo()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
+			), new Dataset(
+				"Máximo",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaDeGordura().getMaximo()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_BAD
 			))
 		)));
 
-		// TODO Adicionar mínimo e máximo
 		// TODO Adicionar Controle de Peso
 		result.setGraficoPeso(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
 				"Peso (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getPeso().getValor()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_DEFAULT
+			), new Dataset(
+				"Mínimo",
+				pessoa.getMedicoes().stream().map(m -> m.getPeso().getMinimo()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
+			), new Dataset(
+				"Máximo",
+				pessoa.getMedicoes().stream().map(m -> m.getPeso().getMaximo()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_BAD
 			))
 		)));
 
@@ -190,7 +245,18 @@ public class InBodyController {
 			Arrays.asList(new Dataset(
 				"Massa Muscular Esquelética (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMuscularEsqueletica().getValor()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_DEFAULT
+			), new Dataset(
+				"Mínimo",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMuscularEsqueletica().getMinimo()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_BAD
+			), new Dataset(
+				"Máximo",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMuscularEsqueletica().getMaximo()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
@@ -253,33 +319,63 @@ public class InBodyController {
 
 		// Dados adicionais
 
-		// TODO Adicionar mínimo e máximo
 		result.setGraficoMassaLivreDeGordura(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
 				"Massa Livre de Gordura (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaLivreDeGordura().getValor()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_DEFAULT
+			), new Dataset(
+				"Mínimo",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaLivreDeGordura().getMinimo()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_BAD
+			), new Dataset(
+				"Máximo",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaLivreDeGordura().getMaximo()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
-		// TODO Adicionar mínimo e máximo
 		result.setGraficoTaxaMetabolicaBasal(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
 				"Taxa Metabólica Basal (kcal)",
 				pessoa.getMedicoes().stream().map(m -> m.getTaxaMetabolicaBasal().getValor() == null ? null : Float.valueOf(m.getTaxaMetabolicaBasal().getValor())).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_DEFAULT
+			), new Dataset(
+				"Mínimo",
+				pessoa.getMedicoes().stream().map(m -> m.getTaxaMetabolicaBasal().getMinimo() == null ? null : Float.valueOf(m.getTaxaMetabolicaBasal().getMinimo())).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_BAD
+			), new Dataset(
+				"Máximo",
+				pessoa.getMedicoes().stream().map(m -> m.getTaxaMetabolicaBasal().getMaximo() == null ? null : Float.valueOf(m.getTaxaMetabolicaBasal().getMaximo())).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
-		// TODO Adicionar mínimo e máximo
 		result.setGraficoGrauDeObesidade(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
 				"Grau de obesidade (%)",
 				pessoa.getMedicoes().stream().map(m -> m.getGrauDeObesidade().getValor() == null ? null : Float.valueOf(m.getGrauDeObesidade().getValor())).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_DEFAULT
+			), new Dataset(
+				"Mínimo",
+				pessoa.getMedicoes().stream().map(m -> m.getGrauDeObesidade().getMinimo() == null ? null : Float.valueOf(m.getGrauDeObesidade().getMinimo())).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
+			), new Dataset(
+				"Máximo",
+				pessoa.getMedicoes().stream().map(m -> m.getGrauDeObesidade().getMaximo() == null ? null : Float.valueOf(m.getGrauDeObesidade().getMaximo())).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_BAD
 			))
 		)));
 
