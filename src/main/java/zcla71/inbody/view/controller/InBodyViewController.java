@@ -153,4 +153,6 @@ public class InBodyViewController {
 		}
 		return new ModelAndView("redirect:/pessoa/mostrar?id=" + medicaoIncluir.getPessoa().getId());
 	}
+
+	// TODO @GetMapping("/medicao/mostrar") => incluindo os gráficos que estão no papel (Análise Músculo-Gordura, Análise de Obesidade, Análise da Massa Magra Segmentar, Análise da Gordura Segmentar)
 }

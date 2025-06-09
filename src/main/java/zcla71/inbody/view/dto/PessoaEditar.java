@@ -10,9 +10,29 @@ import zcla71.inbody.model.entity.Pessoa;
 public class PessoaEditar {
 	private List<SelectOption> sexos;
 	private Pessoa pessoa;
+	// Análise da Composição Corporal
+	private Configuration graficoAguaCorporalTotal;
+	private Configuration graficoProteina;
+	private Configuration graficoMinerais;
+	private Configuration graficoMassaDeGordura;
 	private Configuration graficoPeso;
-	private Configuration graficoMassaMuscular;
-	private Configuration graficoGorduraCorporal;
+	// Análise Músculo-Gordura
+	// (repetido) private Configuration graficoPeso;
+	private Configuration graficoMassaMuscularEsqueletica;
+	// (repetido) private Configuration graficoMassaDeGordura;
+	// Análise de Obesidade
+	private Configuration graficoImc;
+	private Configuration graficoPgc;
+	// Outras informações
+	private Configuration graficoPontuacaoInBody;
+	private Configuration graficoRelacaoCinturaQuadril;
+	private Configuration graficoNivelGorduraVisceral;
+	// Dados adicionais
+	private Configuration graficoMassaLivreDeGordura;
+	private Configuration graficoTaxaMetabolicaBasal;
+	private Configuration graficoGrauDeObesidade;
+	private Configuration graficoSmi;
+	private Configuration graficoIngestaoCaloricaRecomendada;
 
 	public PessoaEditar() {
 		this.sexos = SelectOption.sexos();

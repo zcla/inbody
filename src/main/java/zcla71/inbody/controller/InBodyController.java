@@ -121,8 +121,56 @@ public class InBodyController {
 		result.getPessoa().getMedicoes().sort(new Medicao.MedicaoComparator());
 
 		List<String> labels = pessoa.getMedicoes().stream().map(m -> m.getDataHora().format(DateTimeFormatter.ofPattern(VIEW_FORMAT_DATE))).collect(Collectors.toList());
-		Float tension = 0.1f;
+		Float tension = 0.2f;
 
+		// TODO GERAL: verde quando subir / vermelho quando cair (ou o contrário, conforme o caso)
+		// TODO GERAL: pontilhar intervalos que faltam (ou remover do gráfico)
+
+		// Análise da Composição Corporal
+
+		// TODO Adicionar mínimo e máximo
+		result.setGraficoAguaCorporalTotal(new Configuration("line", new Data(
+			labels,
+			Arrays.asList(new Dataset(
+				"Água Corporal Total (L)",
+				pessoa.getMedicoes().stream().map(m -> m.getAguaCorporalTotal().getValor()).collect(Collectors.toList()),
+				tension
+			))
+		)));
+
+		// TODO Adicionar mínimo e máximo
+		result.setGraficoProteina(new Configuration("line", new Data(
+			labels,
+			Arrays.asList(new Dataset(
+				"Proteína (kg)",
+				pessoa.getMedicoes().stream().map(m -> m.getProteina().getValor()).collect(Collectors.toList()),
+				tension
+			))
+		)));
+
+		// TODO Adicionar mínimo e máximo
+		result.setGraficoMinerais(new Configuration("line", new Data(
+			labels,
+			Arrays.asList(new Dataset(
+				"Minerais (kg)",
+				pessoa.getMedicoes().stream().map(m -> m.getMinerais().getValor()).collect(Collectors.toList()),
+				tension
+			))
+		)));
+
+		// TODO Adicionar mínimo e máximo
+		// TODO Adicionar Controle de Peso
+		result.setGraficoMassaDeGordura(new Configuration("line", new Data(
+			labels,
+			Arrays.asList(new Dataset(
+				"Massa de Gordura (kg)",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaDeGordura().getValor()).collect(Collectors.toList()),
+				tension
+			))
+		)));
+
+		// TODO Adicionar mínimo e máximo
+		// TODO Adicionar Controle de Peso
 		result.setGraficoPeso(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
@@ -132,20 +180,123 @@ public class InBodyController {
 			))
 		)));
 
-		result.setGraficoMassaMuscular(new Configuration("line", new Data(
+		// Análise Músculo-Gordura
+
+		// (repetido) setGraficoPeso();
+
+		// TODO Adicionar Controle de Peso
+		result.setGraficoMassaMuscularEsqueletica(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
-				"Massa Muscular (kg)",
+				"Massa Muscular Esquelética (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMuscularEsqueletica().getValor()).collect(Collectors.toList()),
 				tension
 			))
 		)));
 
-		result.setGraficoGorduraCorporal(new Configuration("line", new Data(
+		// (repetido) setGraficoMassaDeGordura();
+
+		// TODO Análise da Massa Magra Segmentar
+
+		// TODO Análise da Gordura Segmentar
+
+		// Análise de Obesidade
+
+		// TODO Adicionar Avaliação de Obesidade
+		result.setGraficoImc(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
-				"Gordura Corporal (%)",
+				"IMC (kg/m²)",
+				pessoa.getMedicoes().stream().map(m -> m.getImc()).collect(Collectors.toList()),
+				tension
+			))
+		)));
+
+		// TODO Adicionar Avaliação de Obesidade
+		result.setGraficoPgc(new Configuration("line", new Data(
+			labels,
+			Arrays.asList(new Dataset(
+				"PGC (%)",
 				pessoa.getMedicoes().stream().map(m -> m.getPgc()).collect(Collectors.toList()),
+				tension
+			))
+		)));
+
+		// Outras informações
+
+		result.setGraficoPontuacaoInBody(new Configuration("line", new Data(
+			labels,
+			Arrays.asList(new Dataset(
+				"Pontuação InBody (pontos)",
+				pessoa.getMedicoes().stream().map(m -> m.getPontuacaoInBody() == null ? null : Float.valueOf(m.getPontuacaoInBody())).collect(Collectors.toList()),
+				tension
+			))
+		)));
+
+		result.setGraficoRelacaoCinturaQuadril(new Configuration("line", new Data(
+			labels,
+			Arrays.asList(new Dataset(
+				"PGC (%)",
+				pessoa.getMedicoes().stream().map(m -> m.getRelacaoCinturaQuadril()).collect(Collectors.toList()),
+				tension
+			))
+		)));
+
+		result.setGraficoNivelGorduraVisceral(new Configuration("line", new Data(
+			labels,
+			Arrays.asList(new Dataset(
+				"Nível de Gordura Visceral",
+				pessoa.getMedicoes().stream().map(m -> m.getNivelDeGorduraVisceral() == null ? null : Float.valueOf(m.getNivelDeGorduraVisceral())).collect(Collectors.toList()),
+				tension
+			))
+		)));
+
+		// Dados adicionais
+
+		// TODO Adicionar mínimo e máximo
+		result.setGraficoMassaLivreDeGordura(new Configuration("line", new Data(
+			labels,
+			Arrays.asList(new Dataset(
+				"Massa Livre de Gordura (kg)",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaLivreDeGordura().getValor()).collect(Collectors.toList()),
+				tension
+			))
+		)));
+
+		// TODO Adicionar mínimo e máximo
+		result.setGraficoTaxaMetabolicaBasal(new Configuration("line", new Data(
+			labels,
+			Arrays.asList(new Dataset(
+				"Taxa Metabólica Basal (kcal)",
+				pessoa.getMedicoes().stream().map(m -> m.getTaxaMetabolicaBasal().getValor() == null ? null : Float.valueOf(m.getTaxaMetabolicaBasal().getValor())).collect(Collectors.toList()),
+				tension
+			))
+		)));
+
+		// TODO Adicionar mínimo e máximo
+		result.setGraficoGrauDeObesidade(new Configuration("line", new Data(
+			labels,
+			Arrays.asList(new Dataset(
+				"Grau de obesidade (%)",
+				pessoa.getMedicoes().stream().map(m -> m.getGrauDeObesidade().getValor() == null ? null : Float.valueOf(m.getGrauDeObesidade().getValor())).collect(Collectors.toList()),
+				tension
+			))
+		)));
+
+		result.setGraficoSmi(new Configuration("line", new Data(
+			labels,
+			Arrays.asList(new Dataset(
+				"SMI (kg/m²)",
+				pessoa.getMedicoes().stream().map(m -> m.getSmi()).collect(Collectors.toList()),
+				tension
+			))
+		)));
+
+		result.setGraficoIngestaoCaloricaRecomendada(new Configuration("line", new Data(
+			labels,
+			Arrays.asList(new Dataset(
+				"Ingestão calórica recomendada (kcal)",
+				pessoa.getMedicoes().stream().map(m -> m.getIngestaoCaloricaRecomendada() == null ? null : Float.valueOf(m.getIngestaoCaloricaRecomendada())).collect(Collectors.toList()),
 				tension
 			))
 		)));
