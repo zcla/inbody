@@ -193,6 +193,7 @@ public class InBodyController {
 			))
 		)));
 
+		// TODO Adicionar máximo e mínimo onde não tem. 80%-160%? Usando o Controle de Gordura?
 		result.setGraficoMassaDeGordura(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
@@ -247,6 +248,7 @@ public class InBodyController {
 
 		// (repetido) setGraficoPeso();
 
+		// TODO Adicionar máximo e mínimo onde não tem. 90%-110%? Usando o Controle Muscular?
 		result.setGraficoMassaMuscularEsqueletica(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
@@ -274,8 +276,33 @@ public class InBodyController {
 
 		// (repetido) setGraficoMassaDeGordura();
 
+		// Análise de Obesidade
+
+		// TODO Adicionar Avaliação de Obesidade
+		// TODO Adicionar máximo e mínimo. 18,5-25?
+		result.setGraficoImc(new Configuration("line", new Data(
+			labels,
+			Arrays.asList(new Dataset(
+				"IMC (kg/m²)",
+				pessoa.getMedicoes().stream().map(m -> m.getImc()).collect(Collectors.toList()),
+				tension
+			))
+		)));
+
+		// TODO Adicionar Avaliação de Obesidade
+		// TODO Adicionar máximo e mínimo. 10%-20%?
+		result.setGraficoPgc(new Configuration("line", new Data(
+			labels,
+			Arrays.asList(new Dataset(
+				"PGC (%)",
+				pessoa.getMedicoes().stream().map(m -> m.getPgc()).collect(Collectors.toList()),
+				tension
+			))
+		)));
+
 		// Análise da Massa Magra Segmentar
 		// TODO Mostrar AvaliacaoSegmentar
+		// TODO Tentar descobrir as faixas de avaliação segmentar
 
 		result.setGraficoAnaliseDaMassaMagraSegmentarBracoEsquerdoMassa(new Configuration("line", new Data(
 			labels,
@@ -369,6 +396,7 @@ public class InBodyController {
 
 		// Análise da Gordura Segmentar
 		// TODO Mostrar AvaliacaoSegmentar
+		// TODO Tentar descobrir as faixas de avaliação segmentar
 
 		result.setGraficoAnaliseDaGorduraSegmentarBracoEsquerdoMassa(new Configuration("line", new Data(
 			labels,
@@ -460,28 +488,6 @@ public class InBodyController {
 			))
 		)));
 
-		// Análise de Obesidade
-
-		// TODO Adicionar Avaliação de Obesidade
-		result.setGraficoImc(new Configuration("line", new Data(
-			labels,
-			Arrays.asList(new Dataset(
-				"IMC (kg/m²)",
-				pessoa.getMedicoes().stream().map(m -> m.getImc()).collect(Collectors.toList()),
-				tension
-			))
-		)));
-
-		// TODO Adicionar Avaliação de Obesidade
-		result.setGraficoPgc(new Configuration("line", new Data(
-			labels,
-			Arrays.asList(new Dataset(
-				"PGC (%)",
-				pessoa.getMedicoes().stream().map(m -> m.getPgc()).collect(Collectors.toList()),
-				tension
-			))
-		)));
-
 		// Outras informações
 
 		result.setGraficoPontuacaoInBody(new Configuration("line", new Data(
@@ -493,6 +499,7 @@ public class InBodyController {
 			))
 		)));
 
+		// TODO Adicionar máximo e mínimo. 0,80-0,90?
 		result.setGraficoRelacaoCinturaQuadril(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
@@ -502,6 +509,7 @@ public class InBodyController {
 			))
 		)));
 
+		// TODO Adicionar ideal. 10?
 		result.setGraficoNivelGorduraVisceral(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
@@ -573,6 +581,7 @@ public class InBodyController {
 			))
 		)));
 
+		// TODO Descobrir e adicionar máximo, mínimo e/ou ideal.
 		result.setGraficoSmi(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
