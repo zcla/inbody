@@ -90,6 +90,33 @@ public class Medicao {
 		this.grauDeObesidade = new FaixaInteger();
 	}
 
+	public Float getIngestaoCaloricaRecomendadaAsFloat() {
+		return this.ingestaoCaloricaRecomendada == null ? null : Float.valueOf(this.ingestaoCaloricaRecomendada);
+	}
+
+	public Float getMassaDeGorduraIdeal() {
+		return this.massaDeGordura.somaValor(this.controleDeGordura);
+	}
+
+	public Float getMassaMuscularEsqueleticaIdeal() {
+		return this.massaMuscularEsqueletica.somaValor(this.controleMuscular);
+	}
+
+	public Float getNivelDeGorduraVisceralAsFloat() {
+		return this.nivelDeGorduraVisceral == null ? null : Float.valueOf(this.nivelDeGorduraVisceral);
+	}
+
+	public Float getPesoIdeal() {
+		if (pesoIdeal == null) {
+			return this.peso.somaValor(this.controleDePeso);
+		}
+		return pesoIdeal;
+	}
+
+	public Float getPontuacaoInBodyAsFloat() {
+		return this.pontuacaoInBody == null ? null : Float.valueOf(this.pontuacaoInBody);
+	}
+
 	public static class MedicaoComparator implements Comparator<Medicao> {
 		@Override
 		public int compare(Medicao o1, Medicao o2) {
