@@ -35,6 +35,16 @@ public class PessoaEditar {
 	private Configuration graficoAnaliseDaMassaMagraSegmentarPernaDireitaMassa;
 	private Configuration graficoAnaliseDaMassaMagraSegmentarPernaDireitaPercentagem;
 	// Análise da Gordura Segmentar
+	private Configuration graficoAnaliseDaGorduraSegmentarBracoEsquerdoMassa;
+	private Configuration graficoAnaliseDaGorduraSegmentarBracoEsquerdoPercentagem;
+	private Configuration graficoAnaliseDaGorduraSegmentarBracoDireitoMassa;
+	private Configuration graficoAnaliseDaGorduraSegmentarBracoDireitoPercentagem;
+	private Configuration graficoAnaliseDaGorduraSegmentarTroncoMassa;
+	private Configuration graficoAnaliseDaGorduraSegmentarTroncoPercentagem;
+	private Configuration graficoAnaliseDaGorduraSegmentarPernaEsquerdaMassa;
+	private Configuration graficoAnaliseDaGorduraSegmentarPernaEsquerdaPercentagem;
+	private Configuration graficoAnaliseDaGorduraSegmentarPernaDireitaMassa;
+	private Configuration graficoAnaliseDaGorduraSegmentarPernaDireitaPercentagem;
 	// Outras informações
 	private Configuration graficoPontuacaoInBody;
 	private Configuration graficoRelacaoCinturaQuadril;

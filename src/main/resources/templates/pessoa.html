@@ -34,7 +34,17 @@ document.addEventListener("DOMContentLoaded", function() {
 	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarPernaDireitaMassa'), /*[[${data.graficoAnaliseDaMassaMagraSegmentarPernaDireitaMassa}]]*/ '');
 	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarPernaDireitaPercentagem'), /*[[${data.graficoAnaliseDaMassaMagraSegmentarPernaDireitaPercentagem}]]*/ '');
 
-	// TODO Análise da Gordura Segmentar
+	// Análise da Gordura Segmentar
+	new Chart(document.getElementById('graficoAnaliseDaGorduraSegmentarBracoEsquerdoMassa'), /*[[${data.graficoAnaliseDaGorduraSegmentarBracoEsquerdoMassa}]]*/ '');
+	new Chart(document.getElementById('graficoAnaliseDaGorduraSegmentarBracoEsquerdoPercentagem'), /*[[${data.graficoAnaliseDaGorduraSegmentarBracoEsquerdoPercentagem}]]*/ '');
+	new Chart(document.getElementById('graficoAnaliseDaGorduraSegmentarBracoDireitoMassa'), /*[[${data.graficoAnaliseDaGorduraSegmentarBracoDireitoMassa}]]*/ '');
+	new Chart(document.getElementById('graficoAnaliseDaGorduraSegmentarBracoDireitoPercentagem'), /*[[${data.graficoAnaliseDaGorduraSegmentarBracoDireitoPercentagem}]]*/ '');
+	new Chart(document.getElementById('graficoAnaliseDaGorduraSegmentarTroncoMassa'), /*[[${data.graficoAnaliseDaGorduraSegmentarTroncoMassa}]]*/ '');
+	new Chart(document.getElementById('graficoAnaliseDaGorduraSegmentarTroncoPercentagem'), /*[[${data.graficoAnaliseDaGorduraSegmentarTroncoPercentagem}]]*/ '');
+	new Chart(document.getElementById('graficoAnaliseDaGorduraSegmentarPernaEsquerdaMassa'), /*[[${data.graficoAnaliseDaGorduraSegmentarPernaEsquerdaMassa}]]*/ '');
+	new Chart(document.getElementById('graficoAnaliseDaGorduraSegmentarPernaEsquerdaPercentagem'), /*[[${data.graficoAnaliseDaGorduraSegmentarPernaEsquerdaPercentagem}]]*/ '');
+	new Chart(document.getElementById('graficoAnaliseDaGorduraSegmentarPernaDireitaMassa'), /*[[${data.graficoAnaliseDaGorduraSegmentarPernaDireitaMassa}]]*/ '');
+	new Chart(document.getElementById('graficoAnaliseDaGorduraSegmentarPernaDireitaPercentagem'), /*[[${data.graficoAnaliseDaGorduraSegmentarPernaDireitaPercentagem}]]*/ '');
 
 	// Outras informações
 	new Chart(document.getElementById('graficoPontuacaoInBody'), /*[[${data.graficoPontuacaoInBody}]]*/ '');
@@ -202,6 +212,40 @@ document.addEventListener("DOMContentLoaded", function() {
 						</div>
 					</div>
 					<h1>Análise da Gordura Segmentar</h1>
+					<div class="row">
+						<div class="col">
+							<canvas id="graficoAnaliseDaGorduraSegmentarBracoEsquerdoMassa"></canvas>
+						</div>
+						<div class="col">
+							<canvas id="graficoAnaliseDaGorduraSegmentarBracoDireitoMassa"></canvas>
+						</div>
+						<div class="col">
+							<canvas id="graficoAnaliseDaGorduraSegmentarTroncoMassa"></canvas>
+						</div>
+						<div class="col">
+							<canvas id="graficoAnaliseDaGorduraSegmentarPernaEsquerdaMassa"></canvas>
+						</div>
+						<div class="col">
+							<canvas id="graficoAnaliseDaGorduraSegmentarPernaDireitaMassa"></canvas>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<canvas id="graficoAnaliseDaGorduraSegmentarBracoEsquerdoPercentagem"></canvas>
+						</div>
+						<div class="col">
+							<canvas id="graficoAnaliseDaGorduraSegmentarBracoDireitoPercentagem"></canvas>
+						</div>
+						<div class="col">
+							<canvas id="graficoAnaliseDaGorduraSegmentarTroncoPercentagem"></canvas>
+						</div>
+						<div class="col">
+							<canvas id="graficoAnaliseDaGorduraSegmentarPernaEsquerdaPercentagem"></canvas>
+						</div>
+						<div class="col">
+							<canvas id="graficoAnaliseDaGorduraSegmentarPernaDireitaPercentagem"></canvas>
+						</div>
+					</div>
 					<h1>Outras informações</h1>
 					<div class="row">
 						<div class="col col-3">
