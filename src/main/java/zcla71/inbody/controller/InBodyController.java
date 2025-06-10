@@ -274,7 +274,98 @@ public class InBodyController {
 
 		// (repetido) setGraficoMassaDeGordura();
 
-		// TODO Análise da Massa Magra Segmentar
+		// Análise da Massa Magra Segmentar
+		// TODO Mostrar AvaliacaoSegmentar
+
+		result.setGraficoAnaliseDaMassaMagraSegmentarBracoEsquerdoMassa(new Configuration("line", new Data(
+			labels,
+			Arrays.asList(new Dataset(
+				"Braço esquerdo (kg)",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getBracoEsquerdo().getMassa()).collect(Collectors.toList()),
+				tension
+			))
+		)));
+
+		result.setGraficoAnaliseDaMassaMagraSegmentarBracoEsquerdoPercentagem(new Configuration("line", new Data(
+			labels,
+			Arrays.asList(new Dataset(
+				"Braço esquerdo (%)",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getBracoEsquerdo().getPercentagem()).collect(Collectors.toList()),
+				tension
+			))
+		)));
+
+		result.setGraficoAnaliseDaMassaMagraSegmentarBracoDireitoMassa(new Configuration("line", new Data(
+			labels,
+			Arrays.asList(new Dataset(
+				"Braço direito (kg)",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getBracoDireito().getMassa()).collect(Collectors.toList()),
+				tension
+			))
+		)));
+
+		result.setGraficoAnaliseDaMassaMagraSegmentarBracoDireitoPercentagem(new Configuration("line", new Data(
+			labels,
+			Arrays.asList(new Dataset(
+				"Braço direito (%)",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getBracoDireito().getPercentagem()).collect(Collectors.toList()),
+				tension
+			))
+		)));
+
+		result.setGraficoAnaliseDaMassaMagraSegmentarTroncoMassa(new Configuration("line", new Data(
+			labels,
+			Arrays.asList(new Dataset(
+				"Tronco (kg)",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getTronco().getMassa()).collect(Collectors.toList()),
+				tension
+			))
+		)));
+
+		result.setGraficoAnaliseDaMassaMagraSegmentarTroncoPercentagem(new Configuration("line", new Data(
+			labels,
+			Arrays.asList(new Dataset(
+				"Tronco (%)",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getTronco().getPercentagem()).collect(Collectors.toList()),
+				tension
+			))
+		)));
+
+		result.setGraficoAnaliseDaMassaMagraSegmentarPernaEsquerdaMassa(new Configuration("line", new Data(
+			labels,
+			Arrays.asList(new Dataset(
+				"Perna esquerda (kg)",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getPernaEsquerda().getMassa()).collect(Collectors.toList()),
+				tension
+			))
+		)));
+
+		result.setGraficoAnaliseDaMassaMagraSegmentarPernaEsquerdaPercentagem(new Configuration("line", new Data(
+			labels,
+			Arrays.asList(new Dataset(
+				"Perna esquerda (%)",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getPernaEsquerda().getPercentagem()).collect(Collectors.toList()),
+				tension
+			))
+		)));
+
+		result.setGraficoAnaliseDaMassaMagraSegmentarPernaDireitaMassa(new Configuration("line", new Data(
+			labels,
+			Arrays.asList(new Dataset(
+				"Perna direita (kg)",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getPernaDireita().getMassa()).collect(Collectors.toList()),
+				tension
+			))
+		)));
+
+		result.setGraficoAnaliseDaMassaMagraSegmentarPernaDireitaPercentagem(new Configuration("line", new Data(
+			labels,
+			Arrays.asList(new Dataset(
+				"Perna direita (%)",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getPernaDireita().getPercentagem()).collect(Collectors.toList()),
+				tension
+			))
+		)));
 
 		// TODO Análise da Gordura Segmentar
 

@@ -22,7 +22,17 @@ document.addEventListener("DOMContentLoaded", function() {
 	new Chart(document.getElementById('graficoImc'), /*[[${data.graficoImc}]]*/ '');
 	new Chart(document.getElementById('graficoPgc'), /*[[${data.graficoPgc}]]*/ '');
 
-	// TODO Análise da Massa Magra Segmentar
+	// Análise da Massa Magra Segmentar
+	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarBracoEsquerdoMassa'), /*[[${data.graficoAnaliseDaMassaMagraSegmentarBracoEsquerdoMassa}]]*/ '');
+	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarBracoEsquerdoPercentagem'), /*[[${data.graficoAnaliseDaMassaMagraSegmentarBracoEsquerdoPercentagem}]]*/ '');
+	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarBracoDireitoMassa'), /*[[${data.graficoAnaliseDaMassaMagraSegmentarBracoDireitoMassa}]]*/ '');
+	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarBracoDireitoPercentagem'), /*[[${data.graficoAnaliseDaMassaMagraSegmentarBracoDireitoPercentagem}]]*/ '');
+	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarTroncoMassa'), /*[[${data.graficoAnaliseDaMassaMagraSegmentarTroncoMassa}]]*/ '');
+	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarTroncoPercentagem'), /*[[${data.graficoAnaliseDaMassaMagraSegmentarTroncoPercentagem}]]*/ '');
+	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarPernaEsquerdaMassa'), /*[[${data.graficoAnaliseDaMassaMagraSegmentarPernaEsquerdaMassa}]]*/ '');
+	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarPernaEsquerdaPercentagem'), /*[[${data.graficoAnaliseDaMassaMagraSegmentarPernaEsquerdaPercentagem}]]*/ '');
+	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarPernaDireitaMassa'), /*[[${data.graficoAnaliseDaMassaMagraSegmentarPernaDireitaMassa}]]*/ '');
+	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarPernaDireitaPercentagem'), /*[[${data.graficoAnaliseDaMassaMagraSegmentarPernaDireitaPercentagem}]]*/ '');
 
 	// TODO Análise da Gordura Segmentar
 
@@ -137,54 +147,90 @@ document.addEventListener("DOMContentLoaded", function() {
 					</div>
 					<h1>Análise Músculo-Gordura</h1>
 					<div class="row">
-						<div class="col">
+						<div class="col col-3">
 							<canvas id="graficoPeso2"></canvas>
 						</div>
-						<div class="col">
+						<div class="col col-3">
 							<canvas id="graficoMassaMuscularEsqueletica"></canvas>
 						</div>
-						<div class="col">
+						<div class="col col-3">
 							<canvas id="graficoMassaDeGordura2"></canvas>
 						</div>
 					</div>
 					<h1>Análise de Obesidade</h1>
 					<div class="row">
-						<div class="col">
+						<div class="col col-3">
 							<canvas id="graficoImc"></canvas>
 						</div>
-						<div class="col">
+						<div class="col col-3">
 							<canvas id="graficoPgc"></canvas>
 						</div>
 					</div>
 					<h1>Análise da Massa Magra Segmentar</h1>
+					<div class="row">
+						<div class="col">
+							<canvas id="graficoAnaliseDaMassaMagraSegmentarBracoEsquerdoMassa"></canvas>
+						</div>
+						<div class="col">
+							<canvas id="graficoAnaliseDaMassaMagraSegmentarBracoDireitoMassa"></canvas>
+						</div>
+						<div class="col">
+							<canvas id="graficoAnaliseDaMassaMagraSegmentarTroncoMassa"></canvas>
+						</div>
+						<div class="col">
+							<canvas id="graficoAnaliseDaMassaMagraSegmentarPernaEsquerdaMassa"></canvas>
+						</div>
+						<div class="col">
+							<canvas id="graficoAnaliseDaMassaMagraSegmentarPernaDireitaMassa"></canvas>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<canvas id="graficoAnaliseDaMassaMagraSegmentarBracoEsquerdoPercentagem"></canvas>
+						</div>
+						<div class="col">
+							<canvas id="graficoAnaliseDaMassaMagraSegmentarBracoDireitoPercentagem"></canvas>
+						</div>
+						<div class="col">
+							<canvas id="graficoAnaliseDaMassaMagraSegmentarTroncoPercentagem"></canvas>
+						</div>
+						<div class="col">
+							<canvas id="graficoAnaliseDaMassaMagraSegmentarPernaEsquerdaPercentagem"></canvas>
+						</div>
+						<div class="col">
+							<canvas id="graficoAnaliseDaMassaMagraSegmentarPernaDireitaPercentagem"></canvas>
+						</div>
+					</div>
 					<h1>Análise da Gordura Segmentar</h1>
 					<h1>Outras informações</h1>
 					<div class="row">
-						<div class="col">
+						<div class="col col-3">
 							<canvas id="graficoPontuacaoInBody"></canvas>
 						</div>
-						<div class="col">
+						<div class="col col-3">
 							<canvas id="graficoRelacaoCinturaQuadril"></canvas>
 						</div>
-						<div class="col">
+						<div class="col col-3">
 							<canvas id="graficoNivelGorduraVisceral"></canvas>
 						</div>
 					</div>
 					<h1>Dados adicionais</h1>
 					<div class="row">
-						<div class="col">
+						<div class="col col-3">
 							<canvas id="graficoMassaLivreDeGordura"></canvas>
 						</div>
-						<div class="col">
+						<div class="col col-3">
 							<canvas id="graficoTaxaMetabolicaBasal"></canvas>
 						</div>
-						<div class="col">
+						<div class="col col-3">
 							<canvas id="graficoGrauDeObesidade"></canvas>
 						</div>
-						<div class="col">
+					</div>
+					<div class="row">
+						<div class="col col-3">
 							<canvas id="graficoSmi"></canvas>
 						</div>
-						<div class="col">
+						<div class="col col-3">
 							<canvas id="graficoIngestaoCaloricaRecomendada"></canvas>
 						</div>
 					</div>

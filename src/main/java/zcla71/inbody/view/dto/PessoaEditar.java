@@ -23,6 +23,18 @@ public class PessoaEditar {
 	// Análise de Obesidade
 	private Configuration graficoImc;
 	private Configuration graficoPgc;
+	// Análise da Massa Magra Segmentar
+	private Configuration graficoAnaliseDaMassaMagraSegmentarBracoEsquerdoMassa;
+	private Configuration graficoAnaliseDaMassaMagraSegmentarBracoEsquerdoPercentagem;
+	private Configuration graficoAnaliseDaMassaMagraSegmentarBracoDireitoMassa;
+	private Configuration graficoAnaliseDaMassaMagraSegmentarBracoDireitoPercentagem;
+	private Configuration graficoAnaliseDaMassaMagraSegmentarTroncoMassa;
+	private Configuration graficoAnaliseDaMassaMagraSegmentarTroncoPercentagem;
+	private Configuration graficoAnaliseDaMassaMagraSegmentarPernaEsquerdaMassa;
+	private Configuration graficoAnaliseDaMassaMagraSegmentarPernaEsquerdaPercentagem;
+	private Configuration graficoAnaliseDaMassaMagraSegmentarPernaDireitaMassa;
+	private Configuration graficoAnaliseDaMassaMagraSegmentarPernaDireitaPercentagem;
+	// Análise da Gordura Segmentar
 	// Outras informações
 	private Configuration graficoPontuacaoInBody;
 	private Configuration graficoRelacaoCinturaQuadril;
