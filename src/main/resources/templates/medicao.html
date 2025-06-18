@@ -175,6 +175,15 @@ document.addEventListener("DOMContentLoaded", function() {
 								<div class="col-2">
 									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.massaMuscularEsqueletica.valor', step='0.1')}"></div>
 								</div>
+								<div class="col-2">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.percentualMassaMuscularEsqueletica.minimo', step='1')}"></div>
+								</div>
+								<div class="col-2">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.percentualMassaMuscularEsqueletica.valor', step='1')}"></div>
+								</div>
+								<div class="col-2">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.percentualMassaMuscularEsqueletica.maximo', step='1')}"></div>
+								</div>
 							</div>
 							<div class="row mb-3">
 								<div class="col-2"><b>Massa de Gordura</b> <sub class="float-end">(kg)</sub></div>
