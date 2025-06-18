@@ -10,13 +10,11 @@ document.addEventListener("DOMContentLoaded", function() {
 	new Chart(document.getElementById('graficoAguaCorporalTotal'), /*[[${data.graficoAguaCorporalTotal}]]*/ '');
 	new Chart(document.getElementById('graficoProteina'), /*[[${data.graficoProteina}]]*/ '');
 	new Chart(document.getElementById('graficoMinerais'), /*[[${data.graficoMinerais}]]*/ '');
-	new Chart(document.getElementById('graficoMassaDeGordura'), /*[[${data.graficoMassaDeGordura}]]*/ '');
-	new Chart(document.getElementById('graficoPeso'), /*[[${data.graficoPeso}]]*/ '');
 
 	// Análise Músculo-Gordura
-	new Chart(document.getElementById('graficoPeso2'), /*[[${data.graficoPeso}]]*/ '');
+	new Chart(document.getElementById('graficoPeso'), /*[[${data.graficoPeso}]]*/ '');
 	new Chart(document.getElementById('graficoMassaMuscularEsqueletica'), /*[[${data.graficoMassaMuscularEsqueletica}]]*/ '');
-	new Chart(document.getElementById('graficoMassaDeGordura2'), /*[[${data.graficoMassaDeGordura}]]*/ '');
+	new Chart(document.getElementById('graficoMassaDeGordura'), /*[[${data.graficoMassaDeGordura}]]*/ '');
 
 	// Análise de Obesidade
 	new Chart(document.getElementById('graficoImc'), /*[[${data.graficoImc}]]*/ '');
@@ -148,31 +146,25 @@ document.addEventListener("DOMContentLoaded", function() {
 						<div class="col">
 							<canvas id="graficoMinerais"></canvas>
 						</div>
-						<div class="col">
-							<canvas id="graficoMassaDeGordura"></canvas>
-						</div>
-						<div class="col">
-							<canvas id="graficoPeso"></canvas>
-						</div>
 					</div>
 					<h1>Análise Músculo-Gordura</h1>
 					<div class="row">
-						<div class="col col-3">
-							<canvas id="graficoPeso2"></canvas>
+						<div class="col">
+							<canvas id="graficoPeso"></canvas>
 						</div>
-						<div class="col col-3">
+						<div class="col">
 							<canvas id="graficoMassaMuscularEsqueletica"></canvas>
 						</div>
-						<div class="col col-3">
-							<canvas id="graficoMassaDeGordura2"></canvas>
+						<div class="col">
+							<canvas id="graficoMassaDeGordura"></canvas>
 						</div>
 					</div>
 					<h1>Análise de Obesidade</h1>
 					<div class="row">
-						<div class="col col-3">
+						<div class="col col-4">
 							<canvas id="graficoImc"></canvas>
 						</div>
-						<div class="col col-3">
+						<div class="col col-4">
 							<canvas id="graficoPgc"></canvas>
 						</div>
 					</div>
@@ -248,33 +240,33 @@ document.addEventListener("DOMContentLoaded", function() {
 					</div>
 					<h1>Outras informações</h1>
 					<div class="row">
-						<div class="col col-3">
+						<div class="col">
 							<canvas id="graficoPontuacaoInBody"></canvas>
 						</div>
-						<div class="col col-3">
+						<div class="col">
 							<canvas id="graficoRelacaoCinturaQuadril"></canvas>
 						</div>
-						<div class="col col-3">
+						<div class="col">
 							<canvas id="graficoNivelGorduraVisceral"></canvas>
 						</div>
 					</div>
 					<h1>Dados adicionais</h1>
 					<div class="row">
-						<div class="col col-3">
+						<div class="col">
 							<canvas id="graficoMassaLivreDeGordura"></canvas>
 						</div>
-						<div class="col col-3">
+						<div class="col">
 							<canvas id="graficoTaxaMetabolicaBasal"></canvas>
 						</div>
-						<div class="col col-3">
+						<div class="col">
 							<canvas id="graficoGrauDeObesidade"></canvas>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col col-3">
+						<div class="col col-4">
 							<canvas id="graficoSmi"></canvas>
 						</div>
-						<div class="col col-3">
+						<div class="col col-4">
 							<canvas id="graficoIngestaoCaloricaRecomendada"></canvas>
 						</div>
 					</div>
