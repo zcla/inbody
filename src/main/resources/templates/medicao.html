@@ -190,6 +190,15 @@ document.addEventListener("DOMContentLoaded", function() {
 								<div class="col-2">
 									<input id="amgMassaDeGordura" type="number" class="form-control" disabled>
 								</div>
+								<div class="col-2">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.percentualMassaDeGordura.minimo', step='1')}"></div>
+								</div>
+								<div class="col-2">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.percentualMassaDeGordura.valor', step='1')}"></div>
+								</div>
+								<div class="col-2">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.percentualMassaDeGordura.maximo', step='1')}"></div>
+								</div>
 							</div>
 
 							<h2>Análise de Obesidade</h2>

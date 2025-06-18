@@ -203,12 +203,12 @@ public class InBodyController {
 				DATASET_COLOR_DEFAULT
 			), new Dataset(
 				"Mínimo",
-				pessoa.getMedicoes().stream().map(m -> m.getMassaDeGordura().getMinimo()).collect(Collectors.toList()),
+				pessoa.getMedicoes().stream().map(m -> m.getMassaDeGorduraMinima()).collect(Collectors.toList()),
 				tension,
 				DATASET_COLOR_BAD
 			), new Dataset(
 				"Máximo",
-				pessoa.getMedicoes().stream().map(m -> m.getMassaDeGordura().getMaximo()).collect(Collectors.toList()),
+				pessoa.getMedicoes().stream().map(m -> m.getMassaDeGorduraMaxima()).collect(Collectors.toList()),
 				tension,
 				DATASET_COLOR_BAD
 			), new Dataset(

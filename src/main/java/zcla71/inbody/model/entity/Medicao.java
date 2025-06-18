@@ -34,6 +34,7 @@ public class Medicao {
 	// massaMuscularEsqueletica (-> massaMuscularEsqueletica.valor)
 	private FaixaFloat percentualMassaMuscularEsqueletica;
 	// massaDeGordura (-> massaDeGordura.valor)
+	private FaixaFloat percentualMassaDeGordura;
 
 	// Análise de Obesidade
 	private Float imc;
@@ -86,6 +87,7 @@ public class Medicao {
 
 		this.percentualPeso = new FaixaFloat();
 		this.percentualMassaMuscularEsqueletica = new FaixaFloat();
+		this.percentualMassaDeGordura = new FaixaFloat();
 
 		this.massaMagraSegmentar = new Corpo();
 
@@ -105,6 +107,32 @@ public class Medicao {
 	@JsonIgnore
 	public Float getMassaDeGorduraIdeal() {
 		return this.massaDeGordura.somaValor(this.controleDeGordura);
+	}
+
+	@JsonIgnore
+	public Float getMassaDeGorduraMaxima() {
+		if (massaDeGordura.getMaximo() != null) {
+			return massaDeGordura.getMaximo();
+		}
+
+		if ((getMassaDeGorduraIdeal() != null) && (percentualMassaDeGordura.getValor() != null) && (percentualMassaDeGordura.getMaximo() != null)) {
+			return getMassaDeGorduraIdeal() / percentualMassaDeGordura.getValor() * percentualMassaDeGordura.getMaximo();
+		}
+
+		return null;
+	}
+
+	@JsonIgnore
+	public Float getMassaDeGorduraMinima() {
+		if (massaDeGordura.getMinimo() != null) {
+			return massaDeGordura.getMinimo();
+		}
+
+		if ((getMassaDeGorduraIdeal() != null) && (percentualMassaDeGordura.getValor() != null) && (percentualMassaDeGordura.getMinimo() != null)) {
+			return getMassaDeGorduraIdeal() / percentualMassaDeGordura.getValor() * percentualMassaDeGordura.getMinimo();
+		}
+
+		return null;
 	}
 
 	@JsonIgnore
@@ -213,6 +241,7 @@ public class Medicao {
 
 		this.percentualPeso = medicao.getPercentualPeso();
 		this.percentualMassaMuscularEsqueletica = medicao.getPercentualMassaMuscularEsqueletica();
+		this.percentualMassaDeGordura = medicao.getPercentualMassaDeGordura();
 
 		this.massaMuscularEsqueletica = medicao.getMassaMuscularEsqueletica();
 
