@@ -5,6 +5,8 @@ import java.util.Comparator;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import zcla71.inbody.controller.InBodyController;
 import zcla71.inbody.model.service.Validation;
@@ -28,6 +30,7 @@ public class Medicao {
 
 	// Análise Músculo-Gordura
 	// peso (-> peso.valor)
+	private FaixaFloat percentualPeso;
 	// massaMuscularEsqueletica (-> massaMuscularEsqueletica.valor)
 	// massaDeGordura (-> massaDeGordura.valor)
 
@@ -80,6 +83,8 @@ public class Medicao {
 		this.massaDeGordura = new FaixaFloat();
 		this.peso = new FaixaFloat();
 
+		this.percentualPeso = new FaixaFloat();
+
 		this.massaMagraSegmentar = new Corpo();
 
 		this.gorduraSegmentar = new Corpo();
@@ -90,18 +95,22 @@ public class Medicao {
 		this.grauDeObesidade = new FaixaInteger();
 	}
 
+	@JsonIgnore
 	public Float getIngestaoCaloricaRecomendadaAsFloat() {
 		return this.ingestaoCaloricaRecomendada == null ? null : Float.valueOf(this.ingestaoCaloricaRecomendada);
 	}
 
+	@JsonIgnore
 	public Float getMassaDeGorduraIdeal() {
 		return this.massaDeGordura.somaValor(this.controleDeGordura);
 	}
 
+	@JsonIgnore
 	public Float getMassaMuscularEsqueleticaIdeal() {
 		return this.massaMuscularEsqueletica.somaValor(this.controleMuscular);
 	}
 
+	@JsonIgnore
 	public Float getNivelDeGorduraVisceralAsFloat() {
 		return this.nivelDeGorduraVisceral == null ? null : Float.valueOf(this.nivelDeGorduraVisceral);
 	}
@@ -113,6 +122,43 @@ public class Medicao {
 		return pesoIdeal;
 	}
 
+	@JsonIgnore
+	public Float getPesoMaximo() {
+		if (peso.getMaximo() != null) {
+			return peso.getMaximo();
+		}
+
+		Float pesoIdeal = this.pesoIdeal;
+		if ((pesoIdeal == null) && (this.controleDePeso != null) && (this.peso.getValor() != null)) {
+			pesoIdeal = this.peso.getValor() + this.controleDePeso;
+		}
+
+		if ((pesoIdeal != null) && (percentualPeso.getValor() != null) && (percentualPeso.getMaximo() != null)) {
+			return pesoIdeal / percentualPeso.getValor() * percentualPeso.getMaximo();
+		}
+
+		return null;
+	}
+
+	@JsonIgnore
+	public Float getPesoMinimo() {
+		if (peso.getMinimo() != null) {
+			return peso.getMinimo();
+		}
+
+		Float pesoIdeal = this.pesoIdeal;
+		if ((pesoIdeal == null) && (this.controleDePeso != null) && (this.peso.getValor() != null)) {
+			pesoIdeal = this.peso.getValor() + this.controleDePeso;
+		}
+
+		if ((pesoIdeal != null) && (percentualPeso.getValor() != null) && (percentualPeso.getMinimo() != null)) {
+			return pesoIdeal / percentualPeso.getValor() * percentualPeso.getMinimo();
+		}
+
+		return null;
+	}
+
+	@JsonIgnore
 	public Float getPontuacaoInBodyAsFloat() {
 		return this.pontuacaoInBody == null ? null : Float.valueOf(this.pontuacaoInBody);
 	}
@@ -146,6 +192,8 @@ public class Medicao {
 		this.minerais = medicao.getMinerais();
 		this.massaDeGordura = medicao.getMassaDeGordura();
 		this.peso = medicao.getPeso();
+
+		this.percentualPeso = medicao.getPercentualPeso();
 
 		this.massaMuscularEsqueletica = medicao.getMassaMuscularEsqueletica();
 

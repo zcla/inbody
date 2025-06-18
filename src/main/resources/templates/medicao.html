@@ -160,6 +160,15 @@ document.addEventListener("DOMContentLoaded", function() {
 								<div class="col-2">
 									<input id="amgPeso" type="number" class="form-control" disabled>
 								</div>
+								<div class="col-2">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.percentualPeso.minimo', step='1')}"></div>
+								</div>
+								<div class="col-2">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.percentualPeso.valor', step='1')}"></div>
+								</div>
+								<div class="col-2">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.percentualPeso.maximo', step='1')}"></div>
+								</div>
 							</div>
 							<div class="row mb-3">
 								<div class="col-2"><b>Massa Muscular Esquelética</b> <sub class="float-end">(kg)</sub></div>

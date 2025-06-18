@@ -1,5 +1,7 @@
 package zcla71.inbody.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Data
@@ -8,6 +10,7 @@ public class FaixaInteger {
 	private Integer minimo;
 	private Integer maximo;
 
+	@JsonIgnore
 	public Float getValorAsFloat() {
 		if (valor == null) {
 			return null;
@@ -15,6 +18,7 @@ public class FaixaInteger {
 		return valor.floatValue();
 	}
 
+	@JsonIgnore
 	public Float getMinimoAsFloat() {
 		if (minimo == null) {
 			return null;
@@ -22,6 +26,7 @@ public class FaixaInteger {
 		return minimo.floatValue();
 	}
 
+	@JsonIgnore
 	public Float getMaximoAsFloat() {
 		if (maximo == null) {
 			return null;
