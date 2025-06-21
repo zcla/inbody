@@ -207,11 +207,29 @@ document.addEventListener("DOMContentLoaded", function() {
 								<div class="col-2">
 									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.imc', step='0.1')}"></div>
 								</div>
+								<div class="col-2">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.imcFaixa.minimo', step='0.1')}"></div>
+								</div>
+								<div class="col-2">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.imcFaixa.valor', step='0.1')}"></div>
+								</div>
+								<div class="col-2">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.imcFaixa.maximo', step='0.1')}"></div>
+								</div>
 							</div>
 							<div class="row mb-3">
 								<div class="col-2"><b>PGC</b> <sub class="float-end">(%)</sub></div>
 								<div class="col-2">
 									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.pgc', step='0.1')}"></div>
+								</div>
+								<div class="col-2">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.pgcFaixa.minimo', step='0.1')}"></div>
+								</div>
+								<div class="col-2">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.pgcFaixa.valor', step='0.1')}"></div>
+								</div>
+								<div class="col-2">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.pgcFaixa.maximo', step='0.1')}"></div>
 								</div>
 							</div>
 

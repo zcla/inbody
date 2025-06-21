@@ -38,7 +38,9 @@ public class Medicao {
 
 	// Análise de Obesidade
 	private Float imc;
+	private FaixaFloat imcFaixa;
 	private Float pgc;
+	private FaixaFloat pgcFaixa;
 
 	// Análise da Massa Magra Segmentar
 	private Corpo massaMagraSegmentar;
@@ -88,6 +90,9 @@ public class Medicao {
 		this.percentualPeso = new FaixaFloat();
 		this.percentualMassaMuscularEsqueletica = new FaixaFloat();
 		this.percentualMassaDeGordura = new FaixaFloat();
+
+		this.imcFaixa = new FaixaFloat();
+		this.pgcFaixa = new FaixaFloat();
 
 		this.massaMagraSegmentar = new Corpo();
 
@@ -246,7 +251,9 @@ public class Medicao {
 		this.massaMuscularEsqueletica = medicao.getMassaMuscularEsqueletica();
 
 		this.imc = medicao.getImc();
+		this.imcFaixa = medicao.getImcFaixa();
 		this.pgc = medicao.getPgc();
+		this.pgcFaixa = medicao.getPgcFaixa();
 
 		this.massaMagraSegmentar = medicao.getMassaMagraSegmentar();
 		this.gorduraSegmentar = medicao.getGorduraSegmentar();

@@ -193,7 +193,6 @@ public class InBodyController {
 			))
 		)));
 
-		// TODO Adicionar máximo e mínimo onde não tem. 80%-160%? Usando o Controle de Gordura?
 		result.setGraficoMassaDeGordura(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
@@ -248,7 +247,6 @@ public class InBodyController {
 
 		// (repetido) setGraficoPeso();
 
-		// TODO Adicionar máximo e mínimo onde não tem. 90%-110%? Usando o Controle Muscular?
 		result.setGraficoMassaMuscularEsqueletica(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
@@ -279,24 +277,54 @@ public class InBodyController {
 		// Análise de Obesidade
 
 		// TODO Adicionar Avaliação de Obesidade
-		// TODO Adicionar máximo e mínimo. 18,5-25?
 		result.setGraficoImc(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
 				"IMC (kg/m²)",
 				pessoa.getMedicoes().stream().map(m -> m.getImc()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_DEFAULT
+			), new Dataset(
+				"Mínimo",
+				pessoa.getMedicoes().stream().map(m -> m.getImcFaixa().getMinimo()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_BAD
+			), new Dataset(
+				"Máximo",
+				pessoa.getMedicoes().stream().map(m -> m.getImcFaixa().getMaximo()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_BAD
+			), new Dataset(
+				"Ideal",
+				pessoa.getMedicoes().stream().map(m -> m.getImcFaixa().getValor()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
 		// TODO Adicionar Avaliação de Obesidade
-		// TODO Adicionar máximo e mínimo. 10%-20%?
 		result.setGraficoPgc(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
 				"PGC (%)",
 				pessoa.getMedicoes().stream().map(m -> m.getPgc()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_DEFAULT
+			), new Dataset(
+				"Mínimo",
+				pessoa.getMedicoes().stream().map(m -> m.getPgcFaixa().getMinimo()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_BAD
+			), new Dataset(
+				"Máximo",
+				pessoa.getMedicoes().stream().map(m -> m.getPgcFaixa().getMaximo()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_BAD
+			), new Dataset(
+				"Ideal",
+				pessoa.getMedicoes().stream().map(m -> m.getPgcFaixa().getValor()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
