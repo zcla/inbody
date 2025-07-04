@@ -375,7 +375,13 @@ document.addEventListener("DOMContentLoaded", function() {
 							<h2>Relação Cintura-Quadril</h2>
 							<div class="row mb-3">
 								<div class="col-6">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.relacaoCinturaQuadril', step='0.01')}"></div>
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.relacaoCinturaQuadril.valor', step='0.01')}"></div>
+								</div>
+								<div class="col-3">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.relacaoCinturaQuadril.minimo', step='0.01')}"></div>
+								</div>
+								<div class="col-3">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.relacaoCinturaQuadril.maximo', step='0.01')}"></div>
 								</div>
 							</div>
 

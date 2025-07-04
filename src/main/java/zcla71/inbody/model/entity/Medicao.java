@@ -62,7 +62,7 @@ public class Medicao {
 	private AvaliacaoPgc avaliacaoPgc;
 
 	// Relação Cintura-Quadril
-	private Float relacaoCinturaQuadril;
+	private FaixaFloat relacaoCinturaQuadril;
 
 	// Nível de Gordura Visceral
 	private Integer nivelDeGorduraVisceral;

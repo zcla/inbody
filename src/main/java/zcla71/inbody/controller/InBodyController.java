@@ -532,8 +532,19 @@ public class InBodyController {
 			labels,
 			Arrays.asList(new Dataset(
 				"Relação Cintura-Quadril",
-				pessoa.getMedicoes().stream().map(m -> m.getRelacaoCinturaQuadril()).collect(Collectors.toList()),
-				tension
+				pessoa.getMedicoes().stream().map(m -> m.getRelacaoCinturaQuadril().getValor()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_DEFAULT
+			), new Dataset(
+				"Mínimo",
+				pessoa.getMedicoes().stream().map(m -> m.getRelacaoCinturaQuadril().getMinimo()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_BAD
+			), new Dataset(
+				"Máximo",
+				pessoa.getMedicoes().stream().map(m -> m.getRelacaoCinturaQuadril().getMaximo()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_BAD
 			))
 		)));
 
