@@ -325,11 +325,14 @@ document.addEventListener("DOMContentLoaded", function() {
 						<div class="col col-4">
 							<h2>Pontuação InBody</h2>
 							<div class="row mb-3">
-								<div class="col-3"></div>
-								<div class="col-6">
+								<div class="col-2"></div>
+								<div class="col-4">
 									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.pontuacaoInBody', step='1')}"></div>
 								</div>
-								<div class="col-3"></div>
+								<div class="col-4">
+									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.pontuacaoIdeal', step='1')}"></div>
+								</div>
+								<div class="col-2"></div>
 							</div>
 
 							<h2>Controle de Peso</h2>

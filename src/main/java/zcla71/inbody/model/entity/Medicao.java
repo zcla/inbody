@@ -50,6 +50,7 @@ public class Medicao {
 
 	// Pontuação InBody
 	private Integer pontuacaoInBody;
+	private Integer pontuacaoIdeal;
 
 	// Controle de Peso
 	private Float pesoIdeal;
@@ -214,6 +215,11 @@ public class Medicao {
 		return this.pontuacaoInBody == null ? null : Float.valueOf(this.pontuacaoInBody);
 	}
 
+	@JsonIgnore
+	public Float getPontuacaoIdealAsFloat() {
+		return this.pontuacaoIdeal == null ? null : Float.valueOf(this.pontuacaoIdeal);
+	}
+
 	public static class MedicaoComparator implements Comparator<Medicao> {
 		@Override
 		public int compare(Medicao o1, Medicao o2) {
@@ -259,6 +265,7 @@ public class Medicao {
 		this.gorduraSegmentar = medicao.getGorduraSegmentar();
 
 		this.pontuacaoInBody = medicao.getPontuacaoInBody();
+		this.pontuacaoIdeal = medicao.getPontuacaoIdeal();
 
 		this.pesoIdeal = medicao.getPesoIdeal();
 		this.controleDePeso = medicao.getControleDePeso();

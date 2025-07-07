@@ -149,7 +149,7 @@ public class InBodyController {
 				"Máximo",
 				pessoa.getMedicoes().stream().map(m -> m.getAguaCorporalTotal().getMaximo()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_GOOD
+				DATASET_COLOR_BAD
 			))
 		)));
 
@@ -169,7 +169,7 @@ public class InBodyController {
 				"Máximo",
 				pessoa.getMedicoes().stream().map(m -> m.getProteina().getMaximo()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_GOOD
+				DATASET_COLOR_BAD
 			))
 		)));
 
@@ -189,7 +189,7 @@ public class InBodyController {
 				"Máximo",
 				pessoa.getMedicoes().stream().map(m -> m.getMinerais().getMaximo()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_GOOD
+				DATASET_COLOR_BAD
 			))
 		)));
 
@@ -523,11 +523,16 @@ public class InBodyController {
 			Arrays.asList(new Dataset(
 				"Pontuação InBody (pontos)",
 				pessoa.getMedicoes().stream().map(m -> m.getPontuacaoInBodyAsFloat()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_DEFAULT
+			),new Dataset(
+				"Ideal",
+				pessoa.getMedicoes().stream().map(m -> m.getPontuacaoIdealAsFloat()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
-		// TODO Adicionar máximo e mínimo. 0,80-0,90?
 		result.setGraficoRelacaoCinturaQuadril(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
@@ -576,7 +581,7 @@ public class InBodyController {
 				"Máximo",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaLivreDeGordura().getMaximo()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_GOOD
+				DATASET_COLOR_BAD
 			))
 		)));
 
@@ -596,7 +601,7 @@ public class InBodyController {
 				"Máximo",
 				pessoa.getMedicoes().stream().map(m -> m.getTaxaMetabolicaBasal().getMaximoAsFloat()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_GOOD
+				DATASET_COLOR_BAD
 			))
 		)));
 
@@ -611,7 +616,7 @@ public class InBodyController {
 				"Mínimo",
 				pessoa.getMedicoes().stream().map(m -> m.getGrauDeObesidade().getMinimoAsFloat()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_GOOD
+				DATASET_COLOR_BAD
 			), new Dataset(
 				"Máximo",
 				pessoa.getMedicoes().stream().map(m -> m.getGrauDeObesidade().getMaximoAsFloat()).collect(Collectors.toList()),
