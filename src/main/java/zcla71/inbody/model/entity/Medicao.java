@@ -67,6 +67,7 @@ public class Medicao {
 
 	// Nível de Gordura Visceral
 	private Integer nivelDeGorduraVisceral;
+	private Integer nivelDeGorduraVisceralIdeal;
 
 	// Dados adicionais
 	private FaixaFloat massaMuscularEsqueletica;
@@ -177,6 +178,11 @@ public class Medicao {
 		return this.nivelDeGorduraVisceral == null ? null : Float.valueOf(this.nivelDeGorduraVisceral);
 	}
 
+	@JsonIgnore
+	public Float getNivelDeGorduraVisceralIdealAsFloat() {
+		return this.nivelDeGorduraVisceralIdeal == null ? null : Float.valueOf(this.nivelDeGorduraVisceralIdeal);
+	}
+
 	public Float getPesoIdeal() {
 		if (pesoIdeal == null) {
 			return this.peso.somaValor(this.controleDePeso);
@@ -254,8 +260,6 @@ public class Medicao {
 		this.percentualMassaMuscularEsqueletica = medicao.getPercentualMassaMuscularEsqueletica();
 		this.percentualMassaDeGordura = medicao.getPercentualMassaDeGordura();
 
-		this.massaMuscularEsqueletica = medicao.getMassaMuscularEsqueletica();
-
 		this.imc = medicao.getImc();
 		this.imcFaixa = medicao.getImcFaixa();
 		this.pgc = medicao.getPgc();
@@ -278,6 +282,9 @@ public class Medicao {
 		this.relacaoCinturaQuadril = medicao.getRelacaoCinturaQuadril();
 
 		this.nivelDeGorduraVisceral = medicao.getNivelDeGorduraVisceral();
+		this.nivelDeGorduraVisceralIdeal = medicao.getNivelDeGorduraVisceralIdeal();
+
+		this.massaMuscularEsqueletica = medicao.getMassaMuscularEsqueletica();
 		this.massaLivreDeGordura = medicao.getMassaLivreDeGordura();
 		this.taxaMetabolicaBasal = medicao.getTaxaMetabolicaBasal();
 		this.circunferenciaDeCintura = medicao.getCircunferenciaDeCintura();

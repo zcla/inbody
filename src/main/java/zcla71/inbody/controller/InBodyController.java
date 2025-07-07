@@ -553,13 +553,18 @@ public class InBodyController {
 			))
 		)));
 
-		// TODO Adicionar ideal. 10?
 		result.setGraficoNivelGorduraVisceral(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
 				"Nível de Gordura Visceral",
 				pessoa.getMedicoes().stream().map(m -> m.getNivelDeGorduraVisceralAsFloat()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_DEFAULT
+			),new Dataset(
+				"Ideal",
+				pessoa.getMedicoes().stream().map(m -> m.getNivelDeGorduraVisceralIdealAsFloat()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
