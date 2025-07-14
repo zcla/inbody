@@ -35,7 +35,7 @@ public class InBodyController {
 	public static final String VIEW_FORMAT_TIME = "HH:mm";
 	public static final String VIEW_FORMAT_DATE_TIME = VIEW_FORMAT_DATE + " " + VIEW_FORMAT_TIME;
 	// Cores
-	private final String DATASET_COLOR_DEFAULT = "rgb(33, 64, 154)";
+	private final String DATASET_COLOR_MEASURED = "rgb(33, 64, 154)";
 	private final String DATASET_COLOR_BAD = "rgb(237, 28, 36)";
 	private final String DATASET_COLOR_GOOD = "rgb(0, 166, 93)";
 	@Autowired
@@ -139,7 +139,7 @@ public class InBodyController {
 				"Água Corporal Total (L)",
 				pessoa.getMedicoes().stream().map(m -> m.getAguaCorporalTotal().getValor()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_DEFAULT
+				DATASET_COLOR_MEASURED
 			), new Dataset(
 				"Mínimo",
 				pessoa.getMedicoes().stream().map(m -> m.getAguaCorporalTotal().getMinimo()).collect(Collectors.toList()),
@@ -159,7 +159,7 @@ public class InBodyController {
 				"Proteína (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getProteina().getValor()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_DEFAULT
+				DATASET_COLOR_MEASURED
 			), new Dataset(
 				"Mínimo",
 				pessoa.getMedicoes().stream().map(m -> m.getProteina().getMinimo()).collect(Collectors.toList()),
@@ -179,7 +179,7 @@ public class InBodyController {
 				"Minerais (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getMinerais().getValor()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_DEFAULT
+				DATASET_COLOR_MEASURED
 			), new Dataset(
 				"Mínimo",
 				pessoa.getMedicoes().stream().map(m -> m.getMinerais().getMinimo()).collect(Collectors.toList()),
@@ -199,7 +199,7 @@ public class InBodyController {
 				"Massa de Gordura (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaDeGordura().getValor()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_DEFAULT
+				DATASET_COLOR_MEASURED
 			), new Dataset(
 				"Mínimo",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaDeGorduraMinima()).collect(Collectors.toList()),
@@ -224,7 +224,7 @@ public class InBodyController {
 				"Peso (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getPeso().getValor()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_DEFAULT
+				DATASET_COLOR_MEASURED
 			), new Dataset(
 				"Mínimo",
 				pessoa.getMedicoes().stream().map(m -> m.getPesoMinimo()).collect(Collectors.toList()),
@@ -253,7 +253,7 @@ public class InBodyController {
 				"Massa Muscular Esquelética (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMuscularEsqueletica().getValor()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_DEFAULT
+				DATASET_COLOR_MEASURED
 			), new Dataset(
 				"Mínimo",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMuscularEsqueleticaMinima()).collect(Collectors.toList()),
@@ -283,7 +283,7 @@ public class InBodyController {
 				"IMC (kg/m²)",
 				pessoa.getMedicoes().stream().map(m -> m.getImc()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_DEFAULT
+				DATASET_COLOR_MEASURED
 			), new Dataset(
 				"Mínimo",
 				pessoa.getMedicoes().stream().map(m -> m.getImcFaixa().getMinimo()).collect(Collectors.toList()),
@@ -309,7 +309,7 @@ public class InBodyController {
 				"PGC (%)",
 				pessoa.getMedicoes().stream().map(m -> m.getPgc()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_DEFAULT
+				DATASET_COLOR_MEASURED
 			), new Dataset(
 				"Mínimo",
 				pessoa.getMedicoes().stream().map(m -> m.getPgcFaixa().getMinimo()).collect(Collectors.toList()),
@@ -337,7 +337,14 @@ public class InBodyController {
 			Arrays.asList(new Dataset(
 				"Braço esquerdo (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getBracoEsquerdo().getMassa()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_MEASURED
+			),
+			new Dataset(
+				"Braço esquerdo (kg)",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getBracoEsquerdo().getIdeal()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
@@ -346,7 +353,14 @@ public class InBodyController {
 			Arrays.asList(new Dataset(
 				"Braço esquerdo (%)",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getBracoEsquerdo().getPercentagem()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_MEASURED
+			),
+			new Dataset(
+				"Braço esquerdo (kg)",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getBracoEsquerdo().getPercentagem() == null ? null : 100F).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
@@ -355,7 +369,14 @@ public class InBodyController {
 			Arrays.asList(new Dataset(
 				"Braço direito (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getBracoDireito().getMassa()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_MEASURED
+			),
+			new Dataset(
+				"Braço direito (kg)",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getBracoDireito().getIdeal()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
@@ -364,7 +385,14 @@ public class InBodyController {
 			Arrays.asList(new Dataset(
 				"Braço direito (%)",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getBracoDireito().getPercentagem()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_MEASURED
+			),
+			new Dataset(
+				"Braço direito (kg)",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getBracoDireito().getPercentagem() == null ? null : 100F).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
@@ -373,7 +401,14 @@ public class InBodyController {
 			Arrays.asList(new Dataset(
 				"Tronco (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getTronco().getMassa()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_MEASURED
+			),
+			new Dataset(
+				"Tronco (kg)",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getTronco().getIdeal()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
@@ -382,7 +417,14 @@ public class InBodyController {
 			Arrays.asList(new Dataset(
 				"Tronco (%)",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getTronco().getPercentagem()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_MEASURED
+			),
+			new Dataset(
+				"Tronco (kg)",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getTronco().getPercentagem() == null ? null : 100F).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
@@ -391,7 +433,14 @@ public class InBodyController {
 			Arrays.asList(new Dataset(
 				"Perna esquerda (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getPernaEsquerda().getMassa()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_MEASURED
+			),
+			new Dataset(
+				"Perna esquerda (kg)",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getPernaEsquerda().getIdeal()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
@@ -400,7 +449,14 @@ public class InBodyController {
 			Arrays.asList(new Dataset(
 				"Perna esquerda (%)",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getPernaEsquerda().getPercentagem()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_MEASURED
+			),
+			new Dataset(
+				"Perna esquerda (kg)",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getPernaEsquerda().getPercentagem() == null ? null : 100F).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
@@ -409,7 +465,14 @@ public class InBodyController {
 			Arrays.asList(new Dataset(
 				"Perna direita (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getPernaDireita().getMassa()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_MEASURED
+			),
+			new Dataset(
+				"Perna direita (kg)",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getPernaDireita().getIdeal()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
@@ -418,7 +481,14 @@ public class InBodyController {
 			Arrays.asList(new Dataset(
 				"Perna direita (%)",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getPernaDireita().getPercentagem()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_MEASURED
+			),
+			new Dataset(
+				"Perna direita (kg)",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getPernaDireita().getPercentagem() == null ? null : 100F).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
@@ -431,7 +501,14 @@ public class InBodyController {
 			Arrays.asList(new Dataset(
 				"Braço esquerdo (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getBracoEsquerdo().getMassa()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_MEASURED
+			),
+			new Dataset(
+				"Braço esquerdo (kg)",
+				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getBracoEsquerdo().getIdeal()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
@@ -440,7 +517,14 @@ public class InBodyController {
 			Arrays.asList(new Dataset(
 				"Braço esquerdo (%)",
 				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getBracoEsquerdo().getPercentagem()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_MEASURED
+			),
+			new Dataset(
+				"Braço esquerdo (kg)",
+				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getBracoEsquerdo().getPercentagem() == null ? null : 100F).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
@@ -449,7 +533,14 @@ public class InBodyController {
 			Arrays.asList(new Dataset(
 				"Braço direito (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getBracoDireito().getMassa()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_MEASURED
+			),
+			new Dataset(
+				"Braço direito (kg)",
+				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getBracoDireito().getIdeal()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
@@ -458,7 +549,14 @@ public class InBodyController {
 			Arrays.asList(new Dataset(
 				"Braço direito (%)",
 				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getBracoDireito().getPercentagem()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_MEASURED
+			),
+			new Dataset(
+				"Braço direito (kg)",
+				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getBracoDireito().getPercentagem() == null ? null : 100F).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
@@ -467,7 +565,14 @@ public class InBodyController {
 			Arrays.asList(new Dataset(
 				"Tronco (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getTronco().getMassa()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_MEASURED
+			),
+			new Dataset(
+				"Tronco (kg)",
+				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getTronco().getIdeal()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
@@ -476,7 +581,14 @@ public class InBodyController {
 			Arrays.asList(new Dataset(
 				"Tronco (%)",
 				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getTronco().getPercentagem()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_MEASURED
+			),
+			new Dataset(
+				"Tronco (kg)",
+				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getTronco().getPercentagem() == null ? null : 100F).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
@@ -485,7 +597,14 @@ public class InBodyController {
 			Arrays.asList(new Dataset(
 				"Perna esquerda (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getPernaEsquerda().getMassa()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_MEASURED
+			),
+			new Dataset(
+				"Perna esquerda (kg)",
+				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getPernaEsquerda().getIdeal()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
@@ -494,7 +613,14 @@ public class InBodyController {
 			Arrays.asList(new Dataset(
 				"Perna esquerda (%)",
 				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getPernaEsquerda().getPercentagem()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_MEASURED
+			),
+			new Dataset(
+				"Perna esquerda (kg)",
+				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getPernaEsquerda().getPercentagem() == null ? null : 100F).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
@@ -503,7 +629,14 @@ public class InBodyController {
 			Arrays.asList(new Dataset(
 				"Perna direita (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getPernaDireita().getMassa()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_MEASURED
+			),
+			new Dataset(
+				"Perna direita (kg)",
+				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getPernaDireita().getIdeal()).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
@@ -512,7 +645,14 @@ public class InBodyController {
 			Arrays.asList(new Dataset(
 				"Perna direita (%)",
 				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getPernaDireita().getPercentagem()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_MEASURED
+			),
+			new Dataset(
+				"Perna direita (kg)",
+				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getPernaDireita().getPercentagem() == null ? null : 100F).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_GOOD
 			))
 		)));
 
@@ -524,7 +664,7 @@ public class InBodyController {
 				"Pontuação InBody (pontos)",
 				pessoa.getMedicoes().stream().map(m -> m.getPontuacaoInBodyAsFloat()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_DEFAULT
+				DATASET_COLOR_MEASURED
 			),new Dataset(
 				"Ideal",
 				pessoa.getMedicoes().stream().map(m -> m.getPontuacaoIdealAsFloat()).collect(Collectors.toList()),
@@ -539,7 +679,7 @@ public class InBodyController {
 				"Relação Cintura-Quadril",
 				pessoa.getMedicoes().stream().map(m -> m.getRelacaoCinturaQuadril().getValor()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_DEFAULT
+				DATASET_COLOR_MEASURED
 			), new Dataset(
 				"Mínimo",
 				pessoa.getMedicoes().stream().map(m -> m.getRelacaoCinturaQuadril().getMinimo()).collect(Collectors.toList()),
@@ -559,7 +699,7 @@ public class InBodyController {
 				"Nível de Gordura Visceral",
 				pessoa.getMedicoes().stream().map(m -> m.getNivelDeGorduraVisceralAsFloat()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_DEFAULT
+				DATASET_COLOR_MEASURED
 			),new Dataset(
 				"Ideal",
 				pessoa.getMedicoes().stream().map(m -> m.getNivelDeGorduraVisceralIdealAsFloat()).collect(Collectors.toList()),
@@ -576,7 +716,7 @@ public class InBodyController {
 				"Massa Livre de Gordura (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaLivreDeGordura().getValor()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_DEFAULT
+				DATASET_COLOR_MEASURED
 			), new Dataset(
 				"Mínimo",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaLivreDeGordura().getMinimo()).collect(Collectors.toList()),
@@ -596,7 +736,7 @@ public class InBodyController {
 				"Taxa Metabólica Basal (kcal)",
 				pessoa.getMedicoes().stream().map(m -> m.getTaxaMetabolicaBasal().getValorAsFloat()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_DEFAULT
+				DATASET_COLOR_MEASURED
 			), new Dataset(
 				"Mínimo",
 				pessoa.getMedicoes().stream().map(m -> m.getTaxaMetabolicaBasal().getMinimoAsFloat()).collect(Collectors.toList()),
@@ -616,7 +756,7 @@ public class InBodyController {
 				"Grau de obesidade (%)",
 				pessoa.getMedicoes().stream().map(m -> m.getGrauDeObesidade().getValorAsFloat()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_DEFAULT
+				DATASET_COLOR_MEASURED
 			), new Dataset(
 				"Mínimo",
 				pessoa.getMedicoes().stream().map(m -> m.getGrauDeObesidade().getMinimoAsFloat()).collect(Collectors.toList()),
@@ -636,7 +776,8 @@ public class InBodyController {
 			Arrays.asList(new Dataset(
 				"SMI (kg/m²)",
 				pessoa.getMedicoes().stream().map(m -> m.getSmi()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_MEASURED
 			))
 		)));
 
@@ -645,7 +786,8 @@ public class InBodyController {
 			Arrays.asList(new Dataset(
 				"Ingestão calórica recomendada (kcal)",
 				pessoa.getMedicoes().stream().map(m -> m.getIngestaoCaloricaRecomendadaAsFloat()).collect(Collectors.toList()),
-				tension
+				tension,
+				DATASET_COLOR_MEASURED
 			))
 		)));
 
