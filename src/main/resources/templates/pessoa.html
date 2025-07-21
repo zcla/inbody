@@ -4,56 +4,90 @@
 		<title>InBody : Home</title>
 		<th:block th:insert="~{/_fragments/geral.html :: head}"></th:block>
 		<script th:inline="javascript">
+const skipped = (ctx, value) => ctx.p0.skip || ctx.p1.skip ? value : undefined;
+const down = (ctx, value) => ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined;
+const up = (ctx, value) => ctx.p0.parsed.y < ctx.p1.parsed.y ? value : undefined;
+
+function formatSegment(options, chart) {
+	const MEASURED_COLOR = 'rgb(33, 64, 154)'; // #21409a - igual a InBodyController.DATASET_COLOR_MEASURED
+	const SKIPPED_COLOR = 'rgb(0, 0, 0, 0.2)';
+	const GOOD_COLOR = 'rgb(0, 166, 93)'; // #00a65d
+	const BAD_COLOR = 'rgb(237, 28, 36)'; // #ed1c24
+	for (let dataset of chart.data.datasets) {
+		dataset.segment = {
+			borderColor: ctx => skipped(ctx, SKIPPED_COLOR), // Código repetido; se mudar algo aqui, mudar abaixo também
+			borderDash: ctx => skipped(ctx, [6, 6])
+		};
+		dataset.spanGaps = true;
+
+		if (options.includes('upGood')) {
+			if (dataset.borderColor == MEASURED_COLOR) { // Faixa de dados cadastrados
+				dataset.segment.borderColor = ctx => skipped(ctx, SKIPPED_COLOR) || down(ctx, BAD_COLOR) || up(ctx, GOOD_COLOR);
+			} else { // Outras faixas (mínimo, máximo, ideal, ...)
+				// Não mexe
+			}
+		}
+		if (options.includes('upBad')) {
+			if (dataset.borderColor == MEASURED_COLOR) { // Faixa de dados cadastrados
+				dataset.segment.borderColor = ctx => skipped(ctx, SKIPPED_COLOR) || down(ctx, GOOD_COLOR) || up(ctx, BAD_COLOR);
+			} else { // Outras faixas (mínimo, máximo, ideal, ...)
+				// Não mexe
+			}
+		}
+	}
+	return chart;
+}
+
 /*<![CDATA[*/
 document.addEventListener("DOMContentLoaded", function() {
 	// Análise da Composição Corporal
-	new Chart(document.getElementById('graficoAguaCorporalTotal'), /*[[${data.graficoAguaCorporalTotal}]]*/ '');
-	new Chart(document.getElementById('graficoProteina'), /*[[${data.graficoProteina}]]*/ '');
-	new Chart(document.getElementById('graficoMinerais'), /*[[${data.graficoMinerais}]]*/ '');
+	new Chart(document.getElementById('graficoAguaCorporalTotal'), formatSegment(['upGood'], /*[[${data.graficoAguaCorporalTotal}]]*/ ''));
+	new Chart(document.getElementById('graficoProteina'), formatSegment(['upGood'], /*[[${data.graficoProteina}]]*/ ''));
+	new Chart(document.getElementById('graficoMinerais'), formatSegment(['upGood'], /*[[${data.graficoMinerais}]]*/ ''));
 
 	// Análise Músculo-Gordura
-	new Chart(document.getElementById('graficoPeso'), /*[[${data.graficoPeso}]]*/ '');
-	new Chart(document.getElementById('graficoMassaMuscularEsqueletica'), /*[[${data.graficoMassaMuscularEsqueletica}]]*/ '');
-	new Chart(document.getElementById('graficoMassaDeGordura'), /*[[${data.graficoMassaDeGordura}]]*/ '');
+	new Chart(document.getElementById('graficoPeso'), formatSegment(['upBad'], /*[[${data.graficoPeso}]]*/ ''));
+	new Chart(document.getElementById('graficoMassaMuscularEsqueletica'), formatSegment(['upGood'], /*[[${data.graficoMassaMuscularEsqueletica}]]*/ ''));
+	new Chart(document.getElementById('graficoMassaDeGordura'), formatSegment(['upBad'], /*[[${data.graficoMassaDeGordura}]]*/ ''));
 
 	// Análise de Obesidade
-	new Chart(document.getElementById('graficoImc'), /*[[${data.graficoImc}]]*/ '');
-	new Chart(document.getElementById('graficoPgc'), /*[[${data.graficoPgc}]]*/ '');
+	new Chart(document.getElementById('graficoImc'), formatSegment(['upBad'], /*[[${data.graficoImc}]]*/ ''));
+	new Chart(document.getElementById('graficoPgc'), formatSegment(['upBad'], /*[[${data.graficoPgc}]]*/ ''));
 
 	// Análise da Massa Magra Segmentar
-	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarBracoEsquerdoMassa'), /*[[${data.graficoAnaliseDaMassaMagraSegmentarBracoEsquerdoMassa}]]*/ '');
-	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarBracoEsquerdoPercentagem'), /*[[${data.graficoAnaliseDaMassaMagraSegmentarBracoEsquerdoPercentagem}]]*/ '');
-	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarBracoDireitoMassa'), /*[[${data.graficoAnaliseDaMassaMagraSegmentarBracoDireitoMassa}]]*/ '');
-	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarBracoDireitoPercentagem'), /*[[${data.graficoAnaliseDaMassaMagraSegmentarBracoDireitoPercentagem}]]*/ '');
-	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarTroncoMassa'), /*[[${data.graficoAnaliseDaMassaMagraSegmentarTroncoMassa}]]*/ '');
-	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarTroncoPercentagem'), /*[[${data.graficoAnaliseDaMassaMagraSegmentarTroncoPercentagem}]]*/ '');
-	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarPernaEsquerdaMassa'), /*[[${data.graficoAnaliseDaMassaMagraSegmentarPernaEsquerdaMassa}]]*/ '');
-	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarPernaEsquerdaPercentagem'), /*[[${data.graficoAnaliseDaMassaMagraSegmentarPernaEsquerdaPercentagem}]]*/ '');
-	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarPernaDireitaMassa'), /*[[${data.graficoAnaliseDaMassaMagraSegmentarPernaDireitaMassa}]]*/ '');
-	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarPernaDireitaPercentagem'), /*[[${data.graficoAnaliseDaMassaMagraSegmentarPernaDireitaPercentagem}]]*/ '');
+	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarBracoEsquerdoMassa'), formatSegment(['upGood'], /*[[${data.graficoAnaliseDaMassaMagraSegmentarBracoEsquerdoMassa}]]*/ ''));
+	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarBracoEsquerdoPercentagem'), formatSegment(['upGood'], /*[[${data.graficoAnaliseDaMassaMagraSegmentarBracoEsquerdoPercentagem}]]*/ ''));
+	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarBracoDireitoMassa'), formatSegment(['upGood'], /*[[${data.graficoAnaliseDaMassaMagraSegmentarBracoDireitoMassa}]]*/ ''));
+	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarBracoDireitoPercentagem'), formatSegment(['upGood'], /*[[${data.graficoAnaliseDaMassaMagraSegmentarBracoDireitoPercentagem}]]*/ ''));
+	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarTroncoMassa'), formatSegment(['upGood'], /*[[${data.graficoAnaliseDaMassaMagraSegmentarTroncoMassa}]]*/ ''));
+	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarTroncoPercentagem'), formatSegment(['upGood'], /*[[${data.graficoAnaliseDaMassaMagraSegmentarTroncoPercentagem}]]*/ ''));
+	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarPernaEsquerdaMassa'), formatSegment(['upGood'], /*[[${data.graficoAnaliseDaMassaMagraSegmentarPernaEsquerdaMassa}]]*/ ''));
+	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarPernaEsquerdaPercentagem'), formatSegment(['upGood'], /*[[${data.graficoAnaliseDaMassaMagraSegmentarPernaEsquerdaPercentagem}]]*/ ''));
+	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarPernaDireitaMassa'), formatSegment(['upGood'], /*[[${data.graficoAnaliseDaMassaMagraSegmentarPernaDireitaMassa}]]*/ ''));
+	new Chart(document.getElementById('graficoAnaliseDaMassaMagraSegmentarPernaDireitaPercentagem'), formatSegment(['upGood'], /*[[${data.graficoAnaliseDaMassaMagraSegmentarPernaDireitaPercentagem}]]*/ ''));
 
 	// Análise da Gordura Segmentar
-	new Chart(document.getElementById('graficoAnaliseDaGorduraSegmentarBracoEsquerdoMassa'), /*[[${data.graficoAnaliseDaGorduraSegmentarBracoEsquerdoMassa}]]*/ '');
-	new Chart(document.getElementById('graficoAnaliseDaGorduraSegmentarBracoEsquerdoPercentagem'), /*[[${data.graficoAnaliseDaGorduraSegmentarBracoEsquerdoPercentagem}]]*/ '');
-	new Chart(document.getElementById('graficoAnaliseDaGorduraSegmentarBracoDireitoMassa'), /*[[${data.graficoAnaliseDaGorduraSegmentarBracoDireitoMassa}]]*/ '');
-	new Chart(document.getElementById('graficoAnaliseDaGorduraSegmentarBracoDireitoPercentagem'), /*[[${data.graficoAnaliseDaGorduraSegmentarBracoDireitoPercentagem}]]*/ '');
-	new Chart(document.getElementById('graficoAnaliseDaGorduraSegmentarTroncoMassa'), /*[[${data.graficoAnaliseDaGorduraSegmentarTroncoMassa}]]*/ '');
-	new Chart(document.getElementById('graficoAnaliseDaGorduraSegmentarTroncoPercentagem'), /*[[${data.graficoAnaliseDaGorduraSegmentarTroncoPercentagem}]]*/ '');
-	new Chart(document.getElementById('graficoAnaliseDaGorduraSegmentarPernaEsquerdaMassa'), /*[[${data.graficoAnaliseDaGorduraSegmentarPernaEsquerdaMassa}]]*/ '');
-	new Chart(document.getElementById('graficoAnaliseDaGorduraSegmentarPernaEsquerdaPercentagem'), /*[[${data.graficoAnaliseDaGorduraSegmentarPernaEsquerdaPercentagem}]]*/ '');
-	new Chart(document.getElementById('graficoAnaliseDaGorduraSegmentarPernaDireitaMassa'), /*[[${data.graficoAnaliseDaGorduraSegmentarPernaDireitaMassa}]]*/ '');
-	new Chart(document.getElementById('graficoAnaliseDaGorduraSegmentarPernaDireitaPercentagem'), /*[[${data.graficoAnaliseDaGorduraSegmentarPernaDireitaPercentagem}]]*/ '');
+	new Chart(document.getElementById('graficoAnaliseDaGorduraSegmentarBracoEsquerdoMassa'), formatSegment(['upBad'], /*[[${data.graficoAnaliseDaGorduraSegmentarBracoEsquerdoMassa}]]*/ ''));
+	new Chart(document.getElementById('graficoAnaliseDaGorduraSegmentarBracoEsquerdoPercentagem'), formatSegment(['upBad'], /*[[${data.graficoAnaliseDaGorduraSegmentarBracoEsquerdoPercentagem}]]*/ ''));
+	new Chart(document.getElementById('graficoAnaliseDaGorduraSegmentarBracoDireitoMassa'), formatSegment(['upBad'], /*[[${data.graficoAnaliseDaGorduraSegmentarBracoDireitoMassa}]]*/ ''));
+	new Chart(document.getElementById('graficoAnaliseDaGorduraSegmentarBracoDireitoPercentagem'), formatSegment(['upBad'], /*[[${data.graficoAnaliseDaGorduraSegmentarBracoDireitoPercentagem}]]*/ ''));
+	new Chart(document.getElementById('graficoAnaliseDaGorduraSegmentarTroncoMassa'), formatSegment(['upBad'], /*[[${data.graficoAnaliseDaGorduraSegmentarTroncoMassa}]]*/ ''));
+	new Chart(document.getElementById('graficoAnaliseDaGorduraSegmentarTroncoPercentagem'), formatSegment(['upBad'], /*[[${data.graficoAnaliseDaGorduraSegmentarTroncoPercentagem}]]*/ ''));
+	new Chart(document.getElementById('graficoAnaliseDaGorduraSegmentarPernaEsquerdaMassa'), formatSegment(['upBad'], /*[[${data.graficoAnaliseDaGorduraSegmentarPernaEsquerdaMassa}]]*/ ''));
+	new Chart(document.getElementById('graficoAnaliseDaGorduraSegmentarPernaEsquerdaPercentagem'), formatSegment(['upBad'], /*[[${data.graficoAnaliseDaGorduraSegmentarPernaEsquerdaPercentagem}]]*/ ''));
+	new Chart(document.getElementById('graficoAnaliseDaGorduraSegmentarPernaDireitaMassa'), formatSegment(['upBad'], /*[[${data.graficoAnaliseDaGorduraSegmentarPernaDireitaMassa}]]*/ ''));
+	new Chart(document.getElementById('graficoAnaliseDaGorduraSegmentarPernaDireitaPercentagem'), formatSegment(['upBad'], /*[[${data.graficoAnaliseDaGorduraSegmentarPernaDireitaPercentagem}]]*/ ''));
 
 	// Outras informações
-	new Chart(document.getElementById('graficoPontuacaoInBody'), /*[[${data.graficoPontuacaoInBody}]]*/ '');
-	new Chart(document.getElementById('graficoRelacaoCinturaQuadril'), /*[[${data.graficoRelacaoCinturaQuadril}]]*/ '');
-	new Chart(document.getElementById('graficoNivelGorduraVisceral'), /*[[${data.graficoNivelGorduraVisceral}]]*/ '');
+	new Chart(document.getElementById('graficoPontuacaoInBody'), formatSegment(['upGood'], /*[[${data.graficoPontuacaoInBody}]]*/ ''));
+	new Chart(document.getElementById('graficoRelacaoCinturaQuadril'), formatSegment(['upBad'], /*[[${data.graficoRelacaoCinturaQuadril}]]*/ ''));
+	new Chart(document.getElementById('graficoNivelGorduraVisceral'), formatSegment(['upBad'], /*[[${data.graficoNivelGorduraVisceral}]]*/ ''));
 
 	// Dados adicionais
-	new Chart(document.getElementById('graficoMassaLivreDeGordura'), /*[[${data.graficoMassaLivreDeGordura}]]*/ '');
-	new Chart(document.getElementById('graficoTaxaMetabolicaBasal'), /*[[${data.graficoTaxaMetabolicaBasal}]]*/ '');
-	new Chart(document.getElementById('graficoGrauDeObesidade'), /*[[${data.graficoGrauDeObesidade}]]*/ '');
-	new Chart(document.getElementById('graficoSmi'), /*[[${data.graficoSmi}]]*/ '');
+	new Chart(document.getElementById('graficoMassaLivreDeGordura'), formatSegment(['upGood'], /*[[${data.graficoMassaLivreDeGordura}]]*/ ''));
+	new Chart(document.getElementById('graficoTaxaMetabolicaBasal'), formatSegment(['upGood'], /*[[${data.graficoTaxaMetabolicaBasal}]]*/ ''));
+	new Chart(document.getElementById('graficoGrauDeObesidade'), formatSegment(['upBad'], /*[[${data.graficoGrauDeObesidade}]]*/ ''));
+	new Chart(document.getElementById('graficoSmi'), formatSegment(['upGood'], /*[[${data.graficoSmi}]]*/ ''));
 	new Chart(document.getElementById('graficoIngestaoCaloricaRecomendada'), /*[[${data.graficoIngestaoCaloricaRecomendada}]]*/ '');
 });
 /*]]>*/
