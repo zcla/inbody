@@ -4,9 +4,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,8 @@ import org.springframework.stereotype.Component;
 import zcla71.chartjs.Configuration;
 import zcla71.chartjs.Data;
 import zcla71.chartjs.Dataset;
+import zcla71.chartjs.Options;
+import zcla71.chartjs.Scale;
 import zcla71.inbody.model.entity.Medicao;
 import zcla71.inbody.model.entity.Pessoa;
 import zcla71.inbody.model.service.InBodyService;
@@ -270,33 +275,57 @@ public class InBodyController {
 
 		// (repetido) setGraficoMassaDeGordura();
 
-		// Análise de Obesidade
+		// Análise de Obesidade / Avaliação de Obesidade
 
-		// TODO Adicionar Avaliação de Obesidade
+		Options optAvaliacaoDeObesidade = new Options();
+		Map<String, Scale> scales = new HashMap<>();
+		optAvaliacaoDeObesidade.setScales(scales);
+		scales.put("y", new Scale("linear", null, "stack", 3));
+		scales.put("y2", new Scale("category", new ArrayList<>(), "stack", 2));
+		scales.get("y2").getLabels().add("Acima");
+		scales.get("y2").getLabels().add("Levemente acima");
+		scales.get("y2").getLabels().add("Normal");
+		scales.get("y2").getLabels().add("Abaixo");
+		scales.get("y2").getLabels().add("");
 		result.setGraficoImc(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
 				"IMC (kg/m²)",
 				pessoa.getMedicoes().stream().map(m -> m.getImc()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_MEASURED
+				DATASET_COLOR_MEASURED,
+				false,
+				"y"
 			), new Dataset(
 				"Mínimo",
 				pessoa.getMedicoes().stream().map(m -> m.getImcFaixa().getMinimo()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_BAD
+				DATASET_COLOR_BAD,
+				false,
+				"y"
 			), new Dataset(
 				"Máximo",
 				pessoa.getMedicoes().stream().map(m -> m.getImcFaixa().getMaximo()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_BAD
+				DATASET_COLOR_BAD,
+				false,
+				"y"
 			), new Dataset(
 				"Ideal",
 				pessoa.getMedicoes().stream().map(m -> m.getImcFaixa().getValor()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_GOOD
+				DATASET_COLOR_GOOD,
+				false,
+				"y"
+			), new Dataset(
+				"Avaliação de Obesidade",
+				pessoa.getMedicoes().stream().map(m -> m.getAvaliacaoImc() == null ? null : m.getAvaliacaoImc().nome).collect(Collectors.toList()),
+				tension,
+				DATASET_COLOR_MEASURED,
+				true,
+				"y2"
 			))
-		)));
+		), optAvaliacaoDeObesidade));
 
 		// TODO Adicionar Avaliação de Obesidade
 		result.setGraficoPgc(new Configuration("line", new Data(

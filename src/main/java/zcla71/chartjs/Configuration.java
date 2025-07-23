@@ -8,4 +8,9 @@ import lombok.AllArgsConstructor;
 public class Configuration {
 	private String type;
 	private Data data;
+	private Options options;
+
+	public Configuration(String type, Data data) {
+		this(type, data, null);
+	}
 }
