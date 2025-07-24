@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -277,15 +276,9 @@ public class InBodyController {
 
 		// Análise de Obesidade / Avaliação de Obesidade
 
-		Options optAvaliacaoDeObesidade = new Options(new HashMap<>());
-		optAvaliacaoDeObesidade.getScales().put("yLine", new Scale("linear", "left"));
-		// TODO Fazer um construtor com List<String>
-		optAvaliacaoDeObesidade.getScales().put("yBar", new Scale("category", new ArrayList<>(), "right", true));
-		optAvaliacaoDeObesidade.getScales().get("yBar").getLabels().add("");
-		optAvaliacaoDeObesidade.getScales().get("yBar").getLabels().add("Abaixo");
-		optAvaliacaoDeObesidade.getScales().get("yBar").getLabels().add("Normal");
-		optAvaliacaoDeObesidade.getScales().get("yBar").getLabels().add("Levemente acima");
-		optAvaliacaoDeObesidade.getScales().get("yBar").getLabels().add("Acima");
+		Options imcAvaliacaoDeObesidade = new Options(new HashMap<>());
+		imcAvaliacaoDeObesidade.getScales().put("yLine", new Scale("linear", "left"));
+		imcAvaliacaoDeObesidade.getScales().put("yBar", new Scale("category", Arrays.asList("", "Abaixo", "Normal", "Levemente acima", "Acima"), "right", true));
 		result.setGraficoImc(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
@@ -319,33 +312,45 @@ public class InBodyController {
 				DATASET_COLOR_BAR,
 				"yBar"
 			))
-		), optAvaliacaoDeObesidade));
+		), imcAvaliacaoDeObesidade));
 
-		// TODO Adicionar Avaliação de Obesidade
+		Options pgcAvaliacaoDeObesidade = new Options(new HashMap<>());
+		pgcAvaliacaoDeObesidade.getScales().put("yLine", new Scale("linear", "left"));
+		pgcAvaliacaoDeObesidade.getScales().put("yBar", new Scale("category", Arrays.asList("", "Normal", "Levemente acima", "Acima"), "right", true));
 		result.setGraficoPgc(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
 				"PGC (%)",
 				pessoa.getMedicoes().stream().map(m -> m.getPgc()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_MEASURED
+				DATASET_COLOR_MEASURED,
+				"yLine"
 			), new Dataset(
 				"Mínimo",
 				pessoa.getMedicoes().stream().map(m -> m.getPgcFaixa().getMinimo()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_BAD
+				DATASET_COLOR_BAD,
+				"yLine"
 			), new Dataset(
 				"Máximo",
 				pessoa.getMedicoes().stream().map(m -> m.getPgcFaixa().getMaximo()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_BAD
+				DATASET_COLOR_BAD,
+				"yLine"
 			), new Dataset(
 				"Ideal",
 				pessoa.getMedicoes().stream().map(m -> m.getPgcFaixa().getValor()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_GOOD
+				DATASET_COLOR_GOOD,
+				"yLine"
+			), new Dataset(
+				"bar",
+				"Avaliação de Obesidade",
+				pessoa.getMedicoes().stream().map(m -> m.getAvaliacaoPgc() == null ? null : m.getAvaliacaoPgc().nome).collect(Collectors.toList()),
+				DATASET_COLOR_BAR,
+				"yBar"
 			))
-		)));
+		), pgcAvaliacaoDeObesidade));
 
 		// Análise da Massa Magra Segmentar
 		// TODO Mostrar AvaliacaoSegmentar
