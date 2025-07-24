@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -277,16 +276,15 @@ public class InBodyController {
 
 		// Análise de Obesidade / Avaliação de Obesidade
 
-		Options optAvaliacaoDeObesidade = new Options();
-		Map<String, Scale> scales = new HashMap<>();
-		optAvaliacaoDeObesidade.setScales(scales);
-		scales.put("y", new Scale("linear", null, "stack", 3));
-		scales.put("y2", new Scale("category", new ArrayList<>(), "stack", 2));
-		scales.get("y2").getLabels().add("Acima");
-		scales.get("y2").getLabels().add("Levemente acima");
-		scales.get("y2").getLabels().add("Normal");
-		scales.get("y2").getLabels().add("Abaixo");
-		scales.get("y2").getLabels().add("");
+		Options optAvaliacaoDeObesidade = new Options(new HashMap<>());
+		optAvaliacaoDeObesidade.getScales().put("yLine", new Scale("linear", "left"));
+		// TODO Fazer um construtor com List<String>
+		optAvaliacaoDeObesidade.getScales().put("yBar", new Scale("category", new ArrayList<>(), "right", true));
+		optAvaliacaoDeObesidade.getScales().get("yBar").getLabels().add("");
+		optAvaliacaoDeObesidade.getScales().get("yBar").getLabels().add("Abaixo");
+		optAvaliacaoDeObesidade.getScales().get("yBar").getLabels().add("Normal");
+		optAvaliacaoDeObesidade.getScales().get("yBar").getLabels().add("Levemente acima");
+		optAvaliacaoDeObesidade.getScales().get("yBar").getLabels().add("Acima");
 		result.setGraficoImc(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
@@ -294,36 +292,30 @@ public class InBodyController {
 				pessoa.getMedicoes().stream().map(m -> m.getImc()).collect(Collectors.toList()),
 				tension,
 				DATASET_COLOR_MEASURED,
-				false,
-				"y"
+				"yLine"
 			), new Dataset(
 				"Mínimo",
 				pessoa.getMedicoes().stream().map(m -> m.getImcFaixa().getMinimo()).collect(Collectors.toList()),
 				tension,
 				DATASET_COLOR_BAD,
-				false,
-				"y"
+				"yLine"
 			), new Dataset(
 				"Máximo",
 				pessoa.getMedicoes().stream().map(m -> m.getImcFaixa().getMaximo()).collect(Collectors.toList()),
 				tension,
 				DATASET_COLOR_BAD,
-				false,
-				"y"
+				"yLine"
 			), new Dataset(
 				"Ideal",
 				pessoa.getMedicoes().stream().map(m -> m.getImcFaixa().getValor()).collect(Collectors.toList()),
 				tension,
 				DATASET_COLOR_GOOD,
-				false,
-				"y"
+				"yLine"
 			), new Dataset(
+				"bar",
 				"Avaliação de Obesidade",
 				pessoa.getMedicoes().stream().map(m -> m.getAvaliacaoImc() == null ? null : m.getAvaliacaoImc().nome).collect(Collectors.toList()),
-				tension,
-				DATASET_COLOR_MEASURED,
-				true,
-				"y2"
+				"yBar"
 			))
 		), optAvaliacaoDeObesidade));
 

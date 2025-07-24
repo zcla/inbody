@@ -10,6 +10,10 @@ import lombok.Data;
 public class Scale {
 	private String type;
 	private List<String> labels;
-	private String stack;
-	private Integer stackWeight;
+	private String position;
+	private Boolean reverse;
+
+	public Scale(String type, String position) {
+		this(type, null, position, false);
+	}
 }
