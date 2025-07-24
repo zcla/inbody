@@ -42,6 +42,7 @@ public class InBodyController {
 	private final String DATASET_COLOR_MEASURED = "rgb(33, 64, 154)"; // #21409a
 	private final String DATASET_COLOR_BAD = "rgb(247, 161, 154)"; // #f7a19a
 	private final String DATASET_COLOR_GOOD = "rgb(140, 207, 183)"; // #8ccfb7
+	private final String DATASET_COLOR_BAR = "rgb(221, 221, 255)"; // #ddddff
 	@Autowired
 	private InBodyService inBodyService;
 
@@ -315,6 +316,7 @@ public class InBodyController {
 				"bar",
 				"Avaliação de Obesidade",
 				pessoa.getMedicoes().stream().map(m -> m.getAvaliacaoImc() == null ? null : m.getAvaliacaoImc().nome).collect(Collectors.toList()),
+				DATASET_COLOR_BAR,
 				"yBar"
 			))
 		), optAvaliacaoDeObesidade));
