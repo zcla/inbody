@@ -276,9 +276,9 @@ public class InBodyController {
 
 		// Análise de Obesidade / Avaliação de Obesidade
 
-		Options imcAvaliacaoDeObesidade = new Options(new HashMap<>());
-		imcAvaliacaoDeObesidade.getScales().put("yLine", new Scale("linear", "left"));
-		imcAvaliacaoDeObesidade.getScales().put("yBar", new Scale("category", Arrays.asList("", "Abaixo", "Normal", "Levemente acima", "Acima"), "right", true));
+		Options optionsAvaliacaoImc = new Options(new HashMap<>());
+		optionsAvaliacaoImc.getScales().put("yLine", new Scale("linear", "left"));
+		optionsAvaliacaoImc.getScales().put("yBar", new Scale("category", Arrays.asList("", "Abaixo", "Normal", "Levemente acima", "Acima"), "right", true));
 		result.setGraficoImc(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
@@ -312,11 +312,11 @@ public class InBodyController {
 				DATASET_COLOR_BAR,
 				"yBar"
 			))
-		), imcAvaliacaoDeObesidade));
+		), optionsAvaliacaoImc));
 
-		Options pgcAvaliacaoDeObesidade = new Options(new HashMap<>());
-		pgcAvaliacaoDeObesidade.getScales().put("yLine", new Scale("linear", "left"));
-		pgcAvaliacaoDeObesidade.getScales().put("yBar", new Scale("category", Arrays.asList("", "Normal", "Levemente acima", "Acima"), "right", true));
+		Options optionsAvaliacaoPgc = new Options(new HashMap<>());
+		optionsAvaliacaoPgc.getScales().put("yLine", new Scale("linear", "left"));
+		optionsAvaliacaoPgc.getScales().put("yBar", new Scale("category", Arrays.asList("", "Normal", "Levemente acima", "Acima"), "right", true));
 		result.setGraficoPgc(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
@@ -350,27 +350,36 @@ public class InBodyController {
 				DATASET_COLOR_BAR,
 				"yBar"
 			))
-		), pgcAvaliacaoDeObesidade));
+		), optionsAvaliacaoPgc));
 
 		// Análise da Massa Magra Segmentar
-		// TODO Mostrar AvaliacaoSegmentar
-		// TODO Tentar descobrir as faixas de avaliação segmentar
 
+		Options optionsAvaliacaoSegmentar = new Options(new HashMap<>());
+		optionsAvaliacaoSegmentar.getScales().put("yLine", new Scale("linear", "left"));
+		optionsAvaliacaoSegmentar.getScales().put("yBar", new Scale("category", Arrays.asList("", "Abaixo", "Normal", "Acima"), "right", true));
 		result.setGraficoAnaliseDaMassaMagraSegmentarBracoEsquerdoMassa(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
 				"Braço esquerdo (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getBracoEsquerdo().getMassa()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_MEASURED
+				DATASET_COLOR_MEASURED,
+				"yLine"
 			),
 			new Dataset(
 				"Ideal",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getBracoEsquerdo().getIdeal()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_GOOD
+				DATASET_COLOR_GOOD,
+				"yLine"
+			), new Dataset(
+				"bar",
+				"Avaliação de Obesidade",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getBracoEsquerdo().getAvaliacao() == null ? null : m.getMassaMagraSegmentar().getBracoEsquerdo().getAvaliacao().nome).collect(Collectors.toList()),
+				DATASET_COLOR_BAR,
+				"yBar"
 			))
-		)));
+		), optionsAvaliacaoSegmentar));
 
 		result.setGraficoAnaliseDaMassaMagraSegmentarBracoEsquerdoPercentagem(new Configuration("line", new Data(
 			labels,
@@ -378,15 +387,23 @@ public class InBodyController {
 				"Braço esquerdo (%)",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getBracoEsquerdo().getPercentagem()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_MEASURED
+				DATASET_COLOR_MEASURED,
+				"yLine"
 			),
 			new Dataset(
 				"Ideal",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getBracoEsquerdo().getPercentagem() == null ? null : 100F).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_GOOD
+				DATASET_COLOR_GOOD,
+				"yLine"
+			), new Dataset(
+				"bar",
+				"Avaliação de Obesidade",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getBracoEsquerdo().getAvaliacao() == null ? null : m.getMassaMagraSegmentar().getBracoEsquerdo().getAvaliacao().nome).collect(Collectors.toList()),
+				DATASET_COLOR_BAR,
+				"yBar"
 			))
-		)));
+		), optionsAvaliacaoSegmentar));
 
 		result.setGraficoAnaliseDaMassaMagraSegmentarBracoDireitoMassa(new Configuration("line", new Data(
 			labels,
@@ -394,15 +411,23 @@ public class InBodyController {
 				"Braço direito (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getBracoDireito().getMassa()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_MEASURED
+				DATASET_COLOR_MEASURED,
+				"yLine"
 			),
 			new Dataset(
 				"Ideal",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getBracoDireito().getIdeal()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_GOOD
+				DATASET_COLOR_GOOD,
+				"yLine"
+			), new Dataset(
+				"bar",
+				"Avaliação de Obesidade",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getBracoDireito().getAvaliacao() == null ? null : m.getMassaMagraSegmentar().getBracoDireito().getAvaliacao().nome).collect(Collectors.toList()),
+				DATASET_COLOR_BAR,
+				"yBar"
 			))
-		)));
+		), optionsAvaliacaoSegmentar));
 
 		result.setGraficoAnaliseDaMassaMagraSegmentarBracoDireitoPercentagem(new Configuration("line", new Data(
 			labels,
@@ -410,15 +435,23 @@ public class InBodyController {
 				"Braço direito (%)",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getBracoDireito().getPercentagem()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_MEASURED
+				DATASET_COLOR_MEASURED,
+				"yLine"
 			),
 			new Dataset(
 				"Ideal",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getBracoDireito().getPercentagem() == null ? null : 100F).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_GOOD
+				DATASET_COLOR_GOOD,
+				"yLine"
+			), new Dataset(
+				"bar",
+				"Avaliação de Obesidade",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getBracoDireito().getAvaliacao() == null ? null : m.getMassaMagraSegmentar().getBracoDireito().getAvaliacao().nome).collect(Collectors.toList()),
+				DATASET_COLOR_BAR,
+				"yBar"
 			))
-		)));
+		), optionsAvaliacaoSegmentar));
 
 		result.setGraficoAnaliseDaMassaMagraSegmentarTroncoMassa(new Configuration("line", new Data(
 			labels,
@@ -426,15 +459,23 @@ public class InBodyController {
 				"Tronco (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getTronco().getMassa()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_MEASURED
+				DATASET_COLOR_MEASURED,
+				"yLine"
 			),
 			new Dataset(
 				"Ideal",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getTronco().getIdeal()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_GOOD
+				DATASET_COLOR_GOOD,
+				"yLine"
+			), new Dataset(
+				"bar",
+				"Avaliação de Obesidade",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getTronco().getAvaliacao() == null ? null : m.getMassaMagraSegmentar().getTronco().getAvaliacao().nome).collect(Collectors.toList()),
+				DATASET_COLOR_BAR,
+				"yBar"
 			))
-		)));
+		), optionsAvaliacaoSegmentar));
 
 		result.setGraficoAnaliseDaMassaMagraSegmentarTroncoPercentagem(new Configuration("line", new Data(
 			labels,
@@ -442,15 +483,23 @@ public class InBodyController {
 				"Tronco (%)",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getTronco().getPercentagem()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_MEASURED
+				DATASET_COLOR_MEASURED,
+				"yLine"
 			),
 			new Dataset(
 				"Ideal",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getTronco().getPercentagem() == null ? null : 100F).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_GOOD
+				DATASET_COLOR_GOOD,
+				"yLine"
+			), new Dataset(
+				"bar",
+				"Avaliação de Obesidade",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getTronco().getAvaliacao() == null ? null : m.getMassaMagraSegmentar().getTronco().getAvaliacao().nome).collect(Collectors.toList()),
+				DATASET_COLOR_BAR,
+				"yBar"
 			))
-		)));
+		), optionsAvaliacaoSegmentar));
 
 		result.setGraficoAnaliseDaMassaMagraSegmentarPernaEsquerdaMassa(new Configuration("line", new Data(
 			labels,
@@ -458,15 +507,23 @@ public class InBodyController {
 				"Perna esquerda (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getPernaEsquerda().getMassa()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_MEASURED
+				DATASET_COLOR_MEASURED,
+				"yLine"
 			),
 			new Dataset(
 				"Ideal",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getPernaEsquerda().getIdeal()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_GOOD
+				DATASET_COLOR_GOOD,
+				"yLine"
+			), new Dataset(
+				"bar",
+				"Avaliação de Obesidade",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getPernaEsquerda().getAvaliacao() == null ? null : m.getMassaMagraSegmentar().getPernaEsquerda().getAvaliacao().nome).collect(Collectors.toList()),
+				DATASET_COLOR_BAR,
+				"yBar"
 			))
-		)));
+		), optionsAvaliacaoSegmentar));
 
 		result.setGraficoAnaliseDaMassaMagraSegmentarPernaEsquerdaPercentagem(new Configuration("line", new Data(
 			labels,
@@ -474,15 +531,23 @@ public class InBodyController {
 				"Perna esquerda (%)",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getPernaEsquerda().getPercentagem()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_MEASURED
+				DATASET_COLOR_MEASURED,
+				"yLine"
 			),
 			new Dataset(
 				"Ideal",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getPernaEsquerda().getPercentagem() == null ? null : 100F).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_GOOD
+				DATASET_COLOR_GOOD,
+				"yLine"
+			), new Dataset(
+				"bar",
+				"Avaliação de Obesidade",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getPernaEsquerda().getAvaliacao() == null ? null : m.getMassaMagraSegmentar().getPernaEsquerda().getAvaliacao().nome).collect(Collectors.toList()),
+				DATASET_COLOR_BAR,
+				"yBar"
 			))
-		)));
+		), optionsAvaliacaoSegmentar));
 
 		result.setGraficoAnaliseDaMassaMagraSegmentarPernaDireitaMassa(new Configuration("line", new Data(
 			labels,
@@ -490,15 +555,23 @@ public class InBodyController {
 				"Perna direita (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getPernaDireita().getMassa()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_MEASURED
+				DATASET_COLOR_MEASURED,
+				"yLine"
 			),
 			new Dataset(
 				"Ideal",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getPernaDireita().getIdeal()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_GOOD
+				DATASET_COLOR_GOOD,
+				"yLine"
+			), new Dataset(
+				"bar",
+				"Avaliação de Obesidade",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getPernaDireita().getAvaliacao() == null ? null : m.getMassaMagraSegmentar().getPernaDireita().getAvaliacao().nome).collect(Collectors.toList()),
+				DATASET_COLOR_BAR,
+				"yBar"
 			))
-		)));
+		), optionsAvaliacaoSegmentar));
 
 		result.setGraficoAnaliseDaMassaMagraSegmentarPernaDireitaPercentagem(new Configuration("line", new Data(
 			labels,
@@ -506,15 +579,23 @@ public class InBodyController {
 				"Perna direita (%)",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getPernaDireita().getPercentagem()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_MEASURED
+				DATASET_COLOR_MEASURED,
+				"yLine"
 			),
 			new Dataset(
 				"Ideal",
 				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getPernaDireita().getPercentagem() == null ? null : 100F).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_GOOD
+				DATASET_COLOR_GOOD,
+				"yLine"
+			), new Dataset(
+				"bar",
+				"Avaliação de Obesidade",
+				pessoa.getMedicoes().stream().map(m -> m.getMassaMagraSegmentar().getPernaDireita().getAvaliacao() == null ? null : m.getMassaMagraSegmentar().getPernaDireita().getAvaliacao().nome).collect(Collectors.toList()),
+				DATASET_COLOR_BAR,
+				"yBar"
 			))
-		)));
+		), optionsAvaliacaoSegmentar));
 
 		// Análise da Gordura Segmentar
 		// TODO Mostrar AvaliacaoSegmentar
