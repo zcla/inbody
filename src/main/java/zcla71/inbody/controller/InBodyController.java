@@ -956,7 +956,6 @@ public class InBodyController {
 			))
 		)));
 
-		// TODO Descobrir e adicionar máximo, mínimo e/ou ideal.
 		result.setGraficoSmi(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
