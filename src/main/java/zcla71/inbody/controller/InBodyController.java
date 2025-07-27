@@ -354,9 +354,9 @@ public class InBodyController {
 
 		// Análise da Massa Magra Segmentar
 
-		Options optionsAvaliacaoSegmentar = new Options(new HashMap<>());
-		optionsAvaliacaoSegmentar.getScales().put("yLine", new Scale("linear", "left"));
-		optionsAvaliacaoSegmentar.getScales().put("yBar", new Scale("category", Arrays.asList("", "Abaixo", "Normal", "Acima"), "right", true));
+		Options optionsAvaliacaoMassaMagraSegmentar = new Options(new HashMap<>());
+		optionsAvaliacaoMassaMagraSegmentar.getScales().put("yLine", new Scale("linear", "left"));
+		optionsAvaliacaoMassaMagraSegmentar.getScales().put("yBar", new Scale("category", Arrays.asList("", "Abaixo", "Normal", "Acima"), "right", true));
 		result.setGraficoAnaliseDaMassaMagraSegmentarBracoEsquerdoMassa(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
@@ -379,7 +379,7 @@ public class InBodyController {
 				DATASET_COLOR_BAR,
 				"yBar"
 			))
-		), optionsAvaliacaoSegmentar));
+		), optionsAvaliacaoMassaMagraSegmentar));
 
 		result.setGraficoAnaliseDaMassaMagraSegmentarBracoEsquerdoPercentagem(new Configuration("line", new Data(
 			labels,
@@ -403,7 +403,7 @@ public class InBodyController {
 				DATASET_COLOR_BAR,
 				"yBar"
 			))
-		), optionsAvaliacaoSegmentar));
+		), optionsAvaliacaoMassaMagraSegmentar));
 
 		result.setGraficoAnaliseDaMassaMagraSegmentarBracoDireitoMassa(new Configuration("line", new Data(
 			labels,
@@ -427,7 +427,7 @@ public class InBodyController {
 				DATASET_COLOR_BAR,
 				"yBar"
 			))
-		), optionsAvaliacaoSegmentar));
+		), optionsAvaliacaoMassaMagraSegmentar));
 
 		result.setGraficoAnaliseDaMassaMagraSegmentarBracoDireitoPercentagem(new Configuration("line", new Data(
 			labels,
@@ -451,7 +451,7 @@ public class InBodyController {
 				DATASET_COLOR_BAR,
 				"yBar"
 			))
-		), optionsAvaliacaoSegmentar));
+		), optionsAvaliacaoMassaMagraSegmentar));
 
 		result.setGraficoAnaliseDaMassaMagraSegmentarTroncoMassa(new Configuration("line", new Data(
 			labels,
@@ -475,7 +475,7 @@ public class InBodyController {
 				DATASET_COLOR_BAR,
 				"yBar"
 			))
-		), optionsAvaliacaoSegmentar));
+		), optionsAvaliacaoMassaMagraSegmentar));
 
 		result.setGraficoAnaliseDaMassaMagraSegmentarTroncoPercentagem(new Configuration("line", new Data(
 			labels,
@@ -499,7 +499,7 @@ public class InBodyController {
 				DATASET_COLOR_BAR,
 				"yBar"
 			))
-		), optionsAvaliacaoSegmentar));
+		), optionsAvaliacaoMassaMagraSegmentar));
 
 		result.setGraficoAnaliseDaMassaMagraSegmentarPernaEsquerdaMassa(new Configuration("line", new Data(
 			labels,
@@ -523,7 +523,7 @@ public class InBodyController {
 				DATASET_COLOR_BAR,
 				"yBar"
 			))
-		), optionsAvaliacaoSegmentar));
+		), optionsAvaliacaoMassaMagraSegmentar));
 
 		result.setGraficoAnaliseDaMassaMagraSegmentarPernaEsquerdaPercentagem(new Configuration("line", new Data(
 			labels,
@@ -547,7 +547,7 @@ public class InBodyController {
 				DATASET_COLOR_BAR,
 				"yBar"
 			))
-		), optionsAvaliacaoSegmentar));
+		), optionsAvaliacaoMassaMagraSegmentar));
 
 		result.setGraficoAnaliseDaMassaMagraSegmentarPernaDireitaMassa(new Configuration("line", new Data(
 			labels,
@@ -571,7 +571,7 @@ public class InBodyController {
 				DATASET_COLOR_BAR,
 				"yBar"
 			))
-		), optionsAvaliacaoSegmentar));
+		), optionsAvaliacaoMassaMagraSegmentar));
 
 		result.setGraficoAnaliseDaMassaMagraSegmentarPernaDireitaPercentagem(new Configuration("line", new Data(
 			labels,
@@ -595,27 +595,36 @@ public class InBodyController {
 				DATASET_COLOR_BAR,
 				"yBar"
 			))
-		), optionsAvaliacaoSegmentar));
+		), optionsAvaliacaoMassaMagraSegmentar));
 
 		// Análise da Gordura Segmentar
-		// TODO Mostrar AvaliacaoSegmentar
-		// TODO Tentar descobrir as faixas de avaliação segmentar
 
+		Options optionsAvaliacaoGorduraSegmentar = new Options(new HashMap<>());
+		optionsAvaliacaoGorduraSegmentar.getScales().put("yLine", new Scale("linear", "left"));
+		optionsAvaliacaoGorduraSegmentar.getScales().put("yBar", new Scale("category", Arrays.asList("", "Abaixo", "Normal", "Acima"), "right", true));
 		result.setGraficoAnaliseDaGorduraSegmentarBracoEsquerdoMassa(new Configuration("line", new Data(
 			labels,
 			Arrays.asList(new Dataset(
 				"Braço esquerdo (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getBracoEsquerdo().getMassa()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_MEASURED
+				DATASET_COLOR_MEASURED,
+				"yLine"
 			),
 			new Dataset(
 				"Ideal",
 				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getBracoEsquerdo().getIdeal()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_GOOD
+				DATASET_COLOR_GOOD,
+				"yLine"
+			), new Dataset(
+				"bar",
+				"Avaliação de Obesidade",
+				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getBracoEsquerdo().getAvaliacao() == null ? null : m.getGorduraSegmentar().getBracoEsquerdo().getAvaliacao().nome).collect(Collectors.toList()),
+				DATASET_COLOR_BAR,
+				"yBar"
 			))
-		)));
+		), optionsAvaliacaoGorduraSegmentar));
 
 		result.setGraficoAnaliseDaGorduraSegmentarBracoEsquerdoPercentagem(new Configuration("line", new Data(
 			labels,
@@ -623,15 +632,23 @@ public class InBodyController {
 				"Braço esquerdo (%)",
 				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getBracoEsquerdo().getPercentagem()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_MEASURED
+				DATASET_COLOR_MEASURED,
+				"yLine"
 			),
 			new Dataset(
 				"Ideal",
 				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getBracoEsquerdo().getPercentagem() == null ? null : 100F).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_GOOD
+				DATASET_COLOR_GOOD,
+				"yLine"
+			), new Dataset(
+				"bar",
+				"Avaliação de Obesidade",
+				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getBracoEsquerdo().getAvaliacao() == null ? null : m.getGorduraSegmentar().getBracoEsquerdo().getAvaliacao().nome).collect(Collectors.toList()),
+				DATASET_COLOR_BAR,
+				"yBar"
 			))
-		)));
+		), optionsAvaliacaoGorduraSegmentar));
 
 		result.setGraficoAnaliseDaGorduraSegmentarBracoDireitoMassa(new Configuration("line", new Data(
 			labels,
@@ -639,15 +656,23 @@ public class InBodyController {
 				"Braço direito (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getBracoDireito().getMassa()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_MEASURED
+				DATASET_COLOR_MEASURED,
+				"yLine"
 			),
 			new Dataset(
 				"Ideal",
 				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getBracoDireito().getIdeal()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_GOOD
+				DATASET_COLOR_GOOD,
+				"yLine"
+			), new Dataset(
+				"bar",
+				"Avaliação de Obesidade",
+				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getBracoDireito().getAvaliacao() == null ? null : m.getGorduraSegmentar().getBracoDireito().getAvaliacao().nome).collect(Collectors.toList()),
+				DATASET_COLOR_BAR,
+				"yBar"
 			))
-		)));
+		), optionsAvaliacaoGorduraSegmentar));
 
 		result.setGraficoAnaliseDaGorduraSegmentarBracoDireitoPercentagem(new Configuration("line", new Data(
 			labels,
@@ -655,15 +680,23 @@ public class InBodyController {
 				"Braço direito (%)",
 				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getBracoDireito().getPercentagem()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_MEASURED
+				DATASET_COLOR_MEASURED,
+				"yLine"
 			),
 			new Dataset(
 				"Ideal",
 				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getBracoDireito().getPercentagem() == null ? null : 100F).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_GOOD
+				DATASET_COLOR_GOOD,
+				"yLine"
+			), new Dataset(
+				"bar",
+				"Avaliação de Obesidade",
+				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getBracoDireito().getAvaliacao() == null ? null : m.getGorduraSegmentar().getBracoDireito().getAvaliacao().nome).collect(Collectors.toList()),
+				DATASET_COLOR_BAR,
+				"yBar"
 			))
-		)));
+		), optionsAvaliacaoGorduraSegmentar));
 
 		result.setGraficoAnaliseDaGorduraSegmentarTroncoMassa(new Configuration("line", new Data(
 			labels,
@@ -671,15 +704,23 @@ public class InBodyController {
 				"Tronco (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getTronco().getMassa()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_MEASURED
+				DATASET_COLOR_MEASURED,
+				"yLine"
 			),
 			new Dataset(
 				"Ideal",
 				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getTronco().getIdeal()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_GOOD
+				DATASET_COLOR_GOOD,
+				"yLine"
+			), new Dataset(
+				"bar",
+				"Avaliação de Obesidade",
+				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getTronco().getAvaliacao() == null ? null : m.getGorduraSegmentar().getTronco().getAvaliacao().nome).collect(Collectors.toList()),
+				DATASET_COLOR_BAR,
+				"yBar"
 			))
-		)));
+		), optionsAvaliacaoGorduraSegmentar));
 
 		result.setGraficoAnaliseDaGorduraSegmentarTroncoPercentagem(new Configuration("line", new Data(
 			labels,
@@ -687,15 +728,23 @@ public class InBodyController {
 				"Tronco (%)",
 				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getTronco().getPercentagem()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_MEASURED
+				DATASET_COLOR_MEASURED,
+				"yLine"
 			),
 			new Dataset(
 				"Ideal",
 				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getTronco().getPercentagem() == null ? null : 100F).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_GOOD
+				DATASET_COLOR_GOOD,
+				"yLine"
+			), new Dataset(
+				"bar",
+				"Avaliação de Obesidade",
+				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getTronco().getAvaliacao() == null ? null : m.getGorduraSegmentar().getTronco().getAvaliacao().nome).collect(Collectors.toList()),
+				DATASET_COLOR_BAR,
+				"yBar"
 			))
-		)));
+		), optionsAvaliacaoGorduraSegmentar));
 
 		result.setGraficoAnaliseDaGorduraSegmentarPernaEsquerdaMassa(new Configuration("line", new Data(
 			labels,
@@ -703,15 +752,23 @@ public class InBodyController {
 				"Perna esquerda (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getPernaEsquerda().getMassa()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_MEASURED
+				DATASET_COLOR_MEASURED,
+				"yLine"
 			),
 			new Dataset(
 				"Ideal",
 				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getPernaEsquerda().getIdeal()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_GOOD
+				DATASET_COLOR_GOOD,
+				"yLine"
+			), new Dataset(
+				"bar",
+				"Avaliação de Obesidade",
+				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getPernaEsquerda().getAvaliacao() == null ? null : m.getGorduraSegmentar().getPernaEsquerda().getAvaliacao().nome).collect(Collectors.toList()),
+				DATASET_COLOR_BAR,
+				"yBar"
 			))
-		)));
+		), optionsAvaliacaoGorduraSegmentar));
 
 		result.setGraficoAnaliseDaGorduraSegmentarPernaEsquerdaPercentagem(new Configuration("line", new Data(
 			labels,
@@ -719,15 +776,23 @@ public class InBodyController {
 				"Perna esquerda (%)",
 				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getPernaEsquerda().getPercentagem()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_MEASURED
+				DATASET_COLOR_MEASURED,
+				"yLine"
 			),
 			new Dataset(
 				"Ideal",
 				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getPernaEsquerda().getPercentagem() == null ? null : 100F).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_GOOD
+				DATASET_COLOR_GOOD,
+				"yLine"
+			), new Dataset(
+				"bar",
+				"Avaliação de Obesidade",
+				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getPernaEsquerda().getAvaliacao() == null ? null : m.getGorduraSegmentar().getPernaEsquerda().getAvaliacao().nome).collect(Collectors.toList()),
+				DATASET_COLOR_BAR,
+				"yBar"
 			))
-		)));
+		), optionsAvaliacaoGorduraSegmentar));
 
 		result.setGraficoAnaliseDaGorduraSegmentarPernaDireitaMassa(new Configuration("line", new Data(
 			labels,
@@ -735,15 +800,23 @@ public class InBodyController {
 				"Perna direita (kg)",
 				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getPernaDireita().getMassa()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_MEASURED
+				DATASET_COLOR_MEASURED,
+				"yLine"
 			),
 			new Dataset(
 				"Ideal",
 				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getPernaDireita().getIdeal()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_GOOD
+				DATASET_COLOR_GOOD,
+				"yLine"
+			), new Dataset(
+				"bar",
+				"Avaliação de Obesidade",
+				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getPernaDireita().getAvaliacao() == null ? null : m.getGorduraSegmentar().getPernaDireita().getAvaliacao().nome).collect(Collectors.toList()),
+				DATASET_COLOR_BAR,
+				"yBar"
 			))
-		)));
+		), optionsAvaliacaoGorduraSegmentar));
 
 		result.setGraficoAnaliseDaGorduraSegmentarPernaDireitaPercentagem(new Configuration("line", new Data(
 			labels,
@@ -751,15 +824,23 @@ public class InBodyController {
 				"Perna direita (%)",
 				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getPernaDireita().getPercentagem()).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_MEASURED
+				DATASET_COLOR_MEASURED,
+				"yLine"
 			),
 			new Dataset(
 				"Ideal",
 				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getPernaDireita().getPercentagem() == null ? null : 100F).collect(Collectors.toList()),
 				tension,
-				DATASET_COLOR_GOOD
+				DATASET_COLOR_GOOD,
+				"yLine"
+			), new Dataset(
+				"bar",
+				"Avaliação de Obesidade",
+				pessoa.getMedicoes().stream().map(m -> m.getGorduraSegmentar().getPernaDireita().getAvaliacao() == null ? null : m.getGorduraSegmentar().getPernaDireita().getAvaliacao().nome).collect(Collectors.toList()),
+				DATASET_COLOR_BAR,
+				"yBar"
 			))
-		)));
+		), optionsAvaliacaoGorduraSegmentar));
 
 		// Outras informações
 
