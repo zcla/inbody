@@ -2,7 +2,7 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<title>InBody : Home</title>
-		<th:block th:insert="~{/_fragments/geral.html :: head}"></th:block>
+		<th:block th:insert="~{_fragments/geral.html :: head}"></th:block>
 		<script th:inline="javascript">
 /*<![CDATA[*/
 function calculaIdade(nascimento, dataIdade) {
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		</script>
 	</head>
 	<body th:with="verbo=${#strings.capitalize(contexto)}">
-		<nav th:replace="~{/_fragments/geral.html :: nav}"></nav>
+		<nav th:replace="~{_fragments/geral.html :: nav}"></nav>
 		<div class="container-fluid">
 			<div id="mensagens" class="mt-3"></div>
 			<div id="conteudo">
@@ -61,15 +61,15 @@ document.addEventListener("DOMContentLoaded", function() {
 						<div class="col col-8">
 							<div class="row mb-3">
 								<div class="col">
-									<div th:replace="~{/_fragments/form.html :: inputText (field='medicao.local', label='Local')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputText (field='medicao.local', label='Local')}"></div>
 								</div>
 							</div>
 							<div class="row mb-3">
 								<div class="col">
-									<div th:replace="~{/_fragments/form.html :: inputText (field='pessoa.id', label='ID', contexto='mostrar')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputText (field='pessoa.id', label='ID', contexto='mostrar')}"></div>
 								</div>
 								<div class="col">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='pessoa.altura', label='Altura', contexto='mostrar')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='pessoa.altura', label='Altura', contexto='mostrar')}"></div>
 								</div>
 								<div class="col">
 									<div>
@@ -78,10 +78,10 @@ document.addEventListener("DOMContentLoaded", function() {
 									</div>
 								</div>
 								<div class="col">
-									<div th:replace="~{/_fragments/form.html :: select (field='pessoa.sexo', label='Sexo', options= ${data.sexos}, contexto='mostrar')}"></div>
+									<div th:replace="~{_fragments/form.html :: select (field='pessoa.sexo', label='Sexo', options= ${data.sexos}, contexto='mostrar')}"></div>
 								</div>
 								<div class="col">
-									<div th:replace="~{/_fragments/form.html :: inputDateTime (field='medicao.dataHora', label='Data/Hora')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputDateTime (field='medicao.dataHora', label='Data/Hora')}"></div>
 								</div>
 							</div>
 						</div>
@@ -92,65 +92,65 @@ document.addEventListener("DOMContentLoaded", function() {
 								<div class="col-3">Quantidade total de água no corpo</div>
 								<div class="col-3"><b>Água Corporal Total</b> <sub class="float-end">(L)</sub></div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.aguaCorporalTotal.valor', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.aguaCorporalTotal.valor', step='0.1')}"></div>
 								</div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.aguaCorporalTotal.minimo', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.aguaCorporalTotal.minimo', step='0.1')}"></div>
 								</div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.aguaCorporalTotal.maximo', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.aguaCorporalTotal.maximo', step='0.1')}"></div>
 								</div>
 							</div>
 							<div class="row mb-3">
 								<div class="col-3">Para a construção de músculos</div>
 								<div class="col-3"><b>Proteína</b> <sub class="float-end">(kg)</sub></div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.proteina.valor', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.proteina.valor', step='0.1')}"></div>
 								</div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.proteina.minimo', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.proteina.minimo', step='0.1')}"></div>
 								</div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.proteina.maximo', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.proteina.maximo', step='0.1')}"></div>
 								</div>
 							</div>
 							<div class="row mb-3">
 								<div class="col-3">Para fortalecer os ossos</div>
 								<div class="col-3"><b>Minerais</b> <sub class="float-end">(kg)</sub></div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.minerais.valor', step='0.01')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.minerais.valor', step='0.01')}"></div>
 								</div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.minerais.minimo', step='0.01')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.minerais.minimo', step='0.01')}"></div>
 								</div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.minerais.maximo', step='0.01')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.minerais.maximo', step='0.01')}"></div>
 								</div>
 							</div>
 							<div class="row mb-3">
 								<div class="col-3">Para armazenar energia extra</div>
 								<div class="col-3"><b>Massa de Gordura</b> <sub class="float-end">(kg)</sub></div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.massaDeGordura.valor', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.massaDeGordura.valor', step='0.1')}"></div>
 								</div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.massaDeGordura.minimo', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.massaDeGordura.minimo', step='0.1')}"></div>
 								</div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.massaDeGordura.maximo', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.massaDeGordura.maximo', step='0.1')}"></div>
 								</div>
 							</div>
 							<div class="row mb-3">
 								<div class="col-3">A soma acima</div>
 								<div class="col-3"><b>Peso</b> <sub class="float-end">(kg)</sub></div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.peso.valor', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.peso.valor', step='0.1')}"></div>
 								</div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.peso.minimo', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.peso.minimo', step='0.1')}"></div>
 								</div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.peso.maximo', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.peso.maximo', step='0.1')}"></div>
 								</div>
 							</div>
 
@@ -161,28 +161,28 @@ document.addEventListener("DOMContentLoaded", function() {
 									<input id="amgPeso" type="number" class="form-control" disabled>
 								</div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.percentualPeso.minimo', step='1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.percentualPeso.minimo', step='1')}"></div>
 								</div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.percentualPeso.valor', step='1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.percentualPeso.valor', step='1')}"></div>
 								</div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.percentualPeso.maximo', step='1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.percentualPeso.maximo', step='1')}"></div>
 								</div>
 							</div>
 							<div class="row mb-3">
 								<div class="col-2"><b>Massa Muscular Esquelética</b> <sub class="float-end">(kg)</sub></div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.massaMuscularEsqueletica.valor', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.massaMuscularEsqueletica.valor', step='0.1')}"></div>
 								</div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.percentualMassaMuscularEsqueletica.minimo', step='1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.percentualMassaMuscularEsqueletica.minimo', step='1')}"></div>
 								</div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.percentualMassaMuscularEsqueletica.valor', step='1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.percentualMassaMuscularEsqueletica.valor', step='1')}"></div>
 								</div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.percentualMassaMuscularEsqueletica.maximo', step='1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.percentualMassaMuscularEsqueletica.maximo', step='1')}"></div>
 								</div>
 							</div>
 							<div class="row mb-3">
@@ -191,13 +191,13 @@ document.addEventListener("DOMContentLoaded", function() {
 									<input id="amgMassaDeGordura" type="number" class="form-control" disabled>
 								</div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.percentualMassaDeGordura.minimo', step='1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.percentualMassaDeGordura.minimo', step='1')}"></div>
 								</div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.percentualMassaDeGordura.valor', step='1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.percentualMassaDeGordura.valor', step='1')}"></div>
 								</div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.percentualMassaDeGordura.maximo', step='1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.percentualMassaDeGordura.maximo', step='1')}"></div>
 								</div>
 							</div>
 
@@ -205,31 +205,31 @@ document.addEventListener("DOMContentLoaded", function() {
 							<div class="row mb-3">
 								<div class="col-2"><b>IMC</b> <sub class="float-end">(kg/m²)</sub></div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.imc', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.imc', step='0.1')}"></div>
 								</div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.imcFaixa.minimo', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.imcFaixa.minimo', step='0.1')}"></div>
 								</div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.imcFaixa.valor', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.imcFaixa.valor', step='0.1')}"></div>
 								</div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.imcFaixa.maximo', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.imcFaixa.maximo', step='0.1')}"></div>
 								</div>
 							</div>
 							<div class="row mb-3">
 								<div class="col-2"><b>PGC</b> <sub class="float-end">(%)</sub></div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.pgc', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.pgc', step='0.1')}"></div>
 								</div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.pgcFaixa.minimo', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.pgcFaixa.minimo', step='0.1')}"></div>
 								</div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.pgcFaixa.valor', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.pgcFaixa.valor', step='0.1')}"></div>
 								</div>
 								<div class="col-2">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.pgcFaixa.maximo', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.pgcFaixa.maximo', step='0.1')}"></div>
 								</div>
 							</div>
 
@@ -239,39 +239,39 @@ document.addEventListener("DOMContentLoaded", function() {
 									<div class="row mb-3">
 										<div class="col-1"></div>
 										<div class="col-4">
-											<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.massaMagraSegmentar.bracoEsquerdo.massa', step='0.01')}"></div>
-											<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.massaMagraSegmentar.bracoEsquerdo.percentagem', step='0.1')}"></div>
-											<div th:replace="~{/_fragments/form.html :: select (field='medicao.massaMagraSegmentar.bracoEsquerdo.avaliacao', options= ${data.avaliacaoSegmentar})}"></div>
+											<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.massaMagraSegmentar.bracoEsquerdo.massa', step='0.01')}"></div>
+											<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.massaMagraSegmentar.bracoEsquerdo.percentagem', step='0.1')}"></div>
+											<div th:replace="~{_fragments/form.html :: select (field='medicao.massaMagraSegmentar.bracoEsquerdo.avaliacao', options= ${data.avaliacaoSegmentar})}"></div>
 										</div>
 										<div class="col-2"></div>
 										<div class="col-4">
-											<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.massaMagraSegmentar.bracoDireito.massa', step='0.01')}"></div>
-											<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.massaMagraSegmentar.bracoDireito.percentagem', step='0.1')}"></div>
-											<div th:replace="~{/_fragments/form.html :: select (field='medicao.massaMagraSegmentar.bracoDireito.avaliacao', options= ${data.avaliacaoSegmentar})}"></div>
+											<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.massaMagraSegmentar.bracoDireito.massa', step='0.01')}"></div>
+											<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.massaMagraSegmentar.bracoDireito.percentagem', step='0.1')}"></div>
+											<div th:replace="~{_fragments/form.html :: select (field='medicao.massaMagraSegmentar.bracoDireito.avaliacao', options= ${data.avaliacaoSegmentar})}"></div>
 										</div>
 										<div class="col-1"></div>
 									</div>
 									<div class="row mb-3">
 										<div class="col-4"></div>
 										<div class="col-4">
-											<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.massaMagraSegmentar.tronco.massa', step='0.01')}"></div>
-											<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.massaMagraSegmentar.tronco.percentagem', step='0.1')}"></div>
-											<div th:replace="~{/_fragments/form.html :: select (field='medicao.massaMagraSegmentar.tronco.avaliacao', options= ${data.avaliacaoSegmentar})}"></div>
+											<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.massaMagraSegmentar.tronco.massa', step='0.01')}"></div>
+											<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.massaMagraSegmentar.tronco.percentagem', step='0.1')}"></div>
+											<div th:replace="~{_fragments/form.html :: select (field='medicao.massaMagraSegmentar.tronco.avaliacao', options= ${data.avaliacaoSegmentar})}"></div>
 										</div>
 										<div class="col-4"></div>
 									</div>
 									<div class="row mb-3">
 										<div class="col-1"></div>
 										<div class="col-4">
-											<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.massaMagraSegmentar.pernaEsquerda.massa', step='0.01')}"></div>
-											<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.massaMagraSegmentar.pernaEsquerda.percentagem', step='0.1')}"></div>
-											<div th:replace="~{/_fragments/form.html :: select (field='medicao.massaMagraSegmentar.pernaEsquerda.avaliacao', options= ${data.avaliacaoSegmentar})}"></div>
+											<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.massaMagraSegmentar.pernaEsquerda.massa', step='0.01')}"></div>
+											<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.massaMagraSegmentar.pernaEsquerda.percentagem', step='0.1')}"></div>
+											<div th:replace="~{_fragments/form.html :: select (field='medicao.massaMagraSegmentar.pernaEsquerda.avaliacao', options= ${data.avaliacaoSegmentar})}"></div>
 										</div>
 										<div class="col-2"></div>
 										<div class="col-4">
-											<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.massaMagraSegmentar.pernaDireita.massa', step='0.01')}"></div>
-											<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.massaMagraSegmentar.pernaDireita.percentagem', step='0.1')}"></div>
-											<div th:replace="~{/_fragments/form.html :: select (field='medicao.massaMagraSegmentar.pernaDireita.avaliacao', options= ${data.avaliacaoSegmentar})}"></div>
+											<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.massaMagraSegmentar.pernaDireita.massa', step='0.01')}"></div>
+											<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.massaMagraSegmentar.pernaDireita.percentagem', step='0.1')}"></div>
+											<div th:replace="~{_fragments/form.html :: select (field='medicao.massaMagraSegmentar.pernaDireita.avaliacao', options= ${data.avaliacaoSegmentar})}"></div>
 										</div>
 										<div class="col-1"></div>
 									</div>
@@ -282,39 +282,39 @@ document.addEventListener("DOMContentLoaded", function() {
 									<div class="row mb-3">
 										<div class="col-1"></div>
 										<div class="col-4">
-											<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.gorduraSegmentar.bracoEsquerdo.massa', step='0.01')}"></div>
-											<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.gorduraSegmentar.bracoEsquerdo.percentagem', step='0.1')}"></div>
-											<div th:replace="~{/_fragments/form.html :: select (field='medicao.gorduraSegmentar.bracoEsquerdo.avaliacao', options= ${data.avaliacaoSegmentar})}"></div>
+											<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.gorduraSegmentar.bracoEsquerdo.massa', step='0.01')}"></div>
+											<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.gorduraSegmentar.bracoEsquerdo.percentagem', step='0.1')}"></div>
+											<div th:replace="~{_fragments/form.html :: select (field='medicao.gorduraSegmentar.bracoEsquerdo.avaliacao', options= ${data.avaliacaoSegmentar})}"></div>
 										</div>
 										<div class="col-2"></div>
 										<div class="col-4">
-											<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.gorduraSegmentar.bracoDireito.massa', step='0.01')}"></div>
-											<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.gorduraSegmentar.bracoDireito.percentagem', step='0.1')}"></div>
-											<div th:replace="~{/_fragments/form.html :: select (field='medicao.gorduraSegmentar.bracoDireito.avaliacao', options= ${data.avaliacaoSegmentar})}"></div>
+											<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.gorduraSegmentar.bracoDireito.massa', step='0.01')}"></div>
+											<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.gorduraSegmentar.bracoDireito.percentagem', step='0.1')}"></div>
+											<div th:replace="~{_fragments/form.html :: select (field='medicao.gorduraSegmentar.bracoDireito.avaliacao', options= ${data.avaliacaoSegmentar})}"></div>
 										</div>
 										<div class="col-1"></div>
 									</div>
 									<div class="row mb-3">
 										<div class="col-4"></div>
 										<div class="col-4">
-											<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.gorduraSegmentar.tronco.massa', step='0.01')}"></div>
-											<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.gorduraSegmentar.tronco.percentagem', step='0.1')}"></div>
-											<div th:replace="~{/_fragments/form.html :: select (field='medicao.gorduraSegmentar.tronco.avaliacao', options= ${data.avaliacaoSegmentar})}"></div>
+											<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.gorduraSegmentar.tronco.massa', step='0.01')}"></div>
+											<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.gorduraSegmentar.tronco.percentagem', step='0.1')}"></div>
+											<div th:replace="~{_fragments/form.html :: select (field='medicao.gorduraSegmentar.tronco.avaliacao', options= ${data.avaliacaoSegmentar})}"></div>
 										</div>
 										<div class="col-4"></div>
 									</div>
 									<div class="row mb-3">
 										<div class="col-1"></div>
 										<div class="col-4">
-											<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.gorduraSegmentar.pernaEsquerda.massa', step='0.01')}"></div>
-											<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.gorduraSegmentar.pernaEsquerda.percentagem', step='0.1')}"></div>
-											<div th:replace="~{/_fragments/form.html :: select (field='medicao.gorduraSegmentar.pernaEsquerda.avaliacao', options= ${data.avaliacaoSegmentar})}"></div>
+											<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.gorduraSegmentar.pernaEsquerda.massa', step='0.01')}"></div>
+											<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.gorduraSegmentar.pernaEsquerda.percentagem', step='0.1')}"></div>
+											<div th:replace="~{_fragments/form.html :: select (field='medicao.gorduraSegmentar.pernaEsquerda.avaliacao', options= ${data.avaliacaoSegmentar})}"></div>
 										</div>
 										<div class="col-2"></div>
 										<div class="col-4">
-											<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.gorduraSegmentar.pernaDireita.massa', step='0.01')}"></div>
-											<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.gorduraSegmentar.pernaDireita.percentagem', step='0.1')}"></div>
-											<div th:replace="~{/_fragments/form.html :: select (field='medicao.gorduraSegmentar.pernaDireita.avaliacao', options= ${data.avaliacaoSegmentar})}"></div>
+											<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.gorduraSegmentar.pernaDireita.massa', step='0.01')}"></div>
+											<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.gorduraSegmentar.pernaDireita.percentagem', step='0.1')}"></div>
+											<div th:replace="~{_fragments/form.html :: select (field='medicao.gorduraSegmentar.pernaDireita.avaliacao', options= ${data.avaliacaoSegmentar})}"></div>
 										</div>
 										<div class="col-1"></div>
 									</div>
@@ -327,10 +327,10 @@ document.addEventListener("DOMContentLoaded", function() {
 							<div class="row mb-3">
 								<div class="col-2"></div>
 								<div class="col-4">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.pontuacaoInBody', step='1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.pontuacaoInBody', step='1')}"></div>
 								</div>
 								<div class="col-4">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.pontuacaoIdeal', step='1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.pontuacaoIdeal', step='1')}"></div>
 								</div>
 								<div class="col-2"></div>
 							</div>
@@ -339,25 +339,25 @@ document.addEventListener("DOMContentLoaded", function() {
 							<div class="row mb-3">
 								<div class="col-6">Peso ideal</div>
 								<div class="col-6">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.pesoIdeal', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.pesoIdeal', step='0.1')}"></div>
 								</div>
 							</div>
 							<div class="row mb-3">
 								<div class="col-6">Controle de Peso</div>
 								<div class="col-6">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.controleDePeso', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.controleDePeso', step='0.1')}"></div>
 								</div>
 							</div>
 							<div class="row mb-3">
 								<div class="col-6">Controle de Gordura</div>
 								<div class="col-6">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.controleDeGordura', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.controleDeGordura', step='0.1')}"></div>
 								</div>
 							</div>
 							<div class="row mb-3">
 								<div class="col-6">Controle Muscular</div>
 								<div class="col-6">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.controleMuscular', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.controleMuscular', step='0.1')}"></div>
 								</div>
 							</div>
 
@@ -365,36 +365,36 @@ document.addEventListener("DOMContentLoaded", function() {
 							<div class="row mb-3">
 								<div class="col-6">IMC</div>
 								<div class="col-6">
-									<div th:replace="~{/_fragments/form.html :: select (field='medicao.avaliacaoImc', options= ${data.avaliacaoImc})}"></div>
+									<div th:replace="~{_fragments/form.html :: select (field='medicao.avaliacaoImc', options= ${data.avaliacaoImc})}"></div>
 								</div>
 							</div>
 							<div class="row mb-3">
 								<div class="col-6">PGC</div>
 								<div class="col-6">
-									<div th:replace="~{/_fragments/form.html :: select (field='medicao.avaliacaoPgc', options= ${data.avaliacaoPgc})}"></div>
+									<div th:replace="~{_fragments/form.html :: select (field='medicao.avaliacaoPgc', options= ${data.avaliacaoPgc})}"></div>
 								</div>
 							</div>
 
 							<h2>Relação Cintura-Quadril</h2>
 							<div class="row mb-3">
 								<div class="col-6">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.relacaoCinturaQuadril.valor', step='0.01')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.relacaoCinturaQuadril.valor', step='0.01')}"></div>
 								</div>
 								<div class="col-3">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.relacaoCinturaQuadril.minimo', step='0.01')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.relacaoCinturaQuadril.minimo', step='0.01')}"></div>
 								</div>
 								<div class="col-3">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.relacaoCinturaQuadril.maximo', step='0.01')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.relacaoCinturaQuadril.maximo', step='0.01')}"></div>
 								</div>
 							</div>
 
 							<h2>Nível de Gordura Visceral</h2>
 							<div class="row mb-3">
 								<div class="col-6">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.nivelDeGorduraVisceral', step='1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.nivelDeGorduraVisceral', step='1')}"></div>
 								</div>
 								<div class="col-3">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.nivelDeGorduraVisceralIdeal', step='1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.nivelDeGorduraVisceralIdeal', step='1')}"></div>
 								</div>
 							</div>
 
@@ -405,64 +405,64 @@ document.addEventListener("DOMContentLoaded", function() {
 									<input id="daMassaMuscularEsqueleticaValor" type="number" class="form-control" disabled>
 								</div>
 								<div class="col-3">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.massaMuscularEsqueletica.minimo', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.massaMuscularEsqueletica.minimo', step='0.1')}"></div>
 								</div>
 								<div class="col-3">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.massaMuscularEsqueletica.maximo', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.massaMuscularEsqueletica.maximo', step='0.1')}"></div>
 								</div>
 							</div>
 							<div class="row mb-3">
 								<div class="col-3">Massa Livre de Gordura</div>
 								<div class="col-3">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.massaLivreDeGordura.valor', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.massaLivreDeGordura.valor', step='0.1')}"></div>
 								</div>
 								<div class="col-3">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.massaLivreDeGordura.minimo', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.massaLivreDeGordura.minimo', step='0.1')}"></div>
 								</div>
 								<div class="col-3">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.massaLivreDeGordura.maximo', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.massaLivreDeGordura.maximo', step='0.1')}"></div>
 								</div>
 							</div>
 							<div class="row mb-3">
 								<div class="col-3">Taxa Metabólica Basal</div>
 								<div class="col-3">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.taxaMetabolicaBasal.valor', step='1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.taxaMetabolicaBasal.valor', step='1')}"></div>
 								</div>
 								<div class="col-3">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.taxaMetabolicaBasal.minimo', step='1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.taxaMetabolicaBasal.minimo', step='1')}"></div>
 								</div>
 								<div class="col-3">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.taxaMetabolicaBasal.maximo', step='1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.taxaMetabolicaBasal.maximo', step='1')}"></div>
 								</div>
 							</div>
 							<div class="row mb-3">
 								<div class="col-3">Circunferência da cintura</div>
 								<div class="col-3">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.circunferenciaDeCintura', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.circunferenciaDeCintura', step='0.1')}"></div>
 								</div>
 							</div>
 							<div class="row mb-3">
 								<div class="col-3">Grau de obesidade</div>
 								<div class="col-3">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.grauDeObesidade.valor', step='1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.grauDeObesidade.valor', step='1')}"></div>
 								</div>
 								<div class="col-3">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.grauDeObesidade.minimo', step='1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.grauDeObesidade.minimo', step='1')}"></div>
 								</div>
 								<div class="col-3">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.grauDeObesidade.maximo', step='1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.grauDeObesidade.maximo', step='1')}"></div>
 								</div>
 							</div>
 							<div class="row mb-3">
 								<div class="col-3">SMI</div>
 								<div class="col-3">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.smi', step='0.1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.smi', step='0.1')}"></div>
 								</div>
 							</div>
 							<div class="row mb-3">
 								<div class="col-3">Ingestão calórica recomendada</div>
 								<div class="col-3">
-									<div th:replace="~{/_fragments/form.html :: inputNumber (field='medicao.ingestaoCaloricaRecomendada', step='1')}"></div>
+									<div th:replace="~{_fragments/form.html :: inputNumber (field='medicao.ingestaoCaloricaRecomendada', step='1')}"></div>
 								</div>
 							</div>
 						</div>
@@ -477,6 +477,6 @@ document.addEventListener("DOMContentLoaded", function() {
 				</form>
 			</div>
 		</div>
-		<footer th:replace="~{/_fragments/geral.html :: footer}"></footer>
+		<footer th:replace="~{_fragments/geral.html :: footer}"></footer>
 	</body>
 </html>

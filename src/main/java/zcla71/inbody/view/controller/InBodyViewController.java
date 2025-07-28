@@ -24,7 +24,7 @@ public class InBodyViewController {
 	@GetMapping(value = {"/", "/pessoa"})
 	public String index(Model model) {
 		model.addAttribute("data", inBodyController.pessoaListar());
-		return "/index";
+		return "index";
 	}
 
 	// Pessoa
@@ -33,7 +33,7 @@ public class InBodyViewController {
 	public String pessoaAlterar(@RequestParam(name="id", required = true) String id, Model model) {
 		model.addAttribute("contexto", "alterar");
 		model.addAttribute("data", inBodyController.pessoaAlterar(id));
-		return "/pessoa";
+		return "pessoa";
 	}
 
 	@PostMapping("/pessoa/alterar_ok")
@@ -47,20 +47,20 @@ public class InBodyViewController {
 			mav.addObject("validation", e.getValidations());
 			return mav;
 		}
-		return new ModelAndView("redirect:/pessoa");
+		return new ModelAndView("redirect:pessoa");
 	}
 
 	@GetMapping("/pessoa/excluir")
 	public String pessoaExcluir(@RequestParam(name="id", required = true) String id, Model model) {
 		model.addAttribute("contexto", "excluir");
 		model.addAttribute("data", inBodyController.pessoaExcluir(id));
-		return "/pessoa";
+		return "pessoa";
 	}
 
 	@PostMapping("/pessoa/excluir_ok")
 	public ModelAndView pessoaExcluirOk(Model model, @ModelAttribute PessoaEditar pessoaExcluir) {
 		inBodyController.pessoaExcluirOk(pessoaExcluir);
-		return new ModelAndView("redirect:/pessoa");
+		return new ModelAndView("redirect:pessoa");
 	}
 
 	@GetMapping("/pessoa/incluir")
@@ -69,7 +69,7 @@ public class InBodyViewController {
 		if (model.getAttribute("data") == null) { // Vem preenchido quando dá erro de validação
 			model.addAttribute("data", inBodyController.pessoaIncluir());
 		}
-		return "/pessoa";
+		return "pessoa";
 	}
 
 	@PostMapping("/pessoa/incluir_ok")
@@ -83,14 +83,14 @@ public class InBodyViewController {
 			mav.addObject("validation", e.getValidations());
 			return mav;
 		}
-		return new ModelAndView("redirect:/pessoa");
+		return new ModelAndView("redirect:pessoa");
 	}
 
 	@GetMapping("/pessoa/mostrar")
 	public String pessoaMostrar(@RequestParam(name="id", required = true) String id, Model model) {
 		model.addAttribute("contexto", "mostrar");
 		model.addAttribute("data", inBodyController.pessoaMostrar(id));
-		return "/pessoa";
+		return "pessoa";
 	}
 
 	// Medição
@@ -99,7 +99,7 @@ public class InBodyViewController {
 	public String medicaoAlterar(@RequestParam(name="idPessoa", required = true) String idPessoa, @RequestParam(name="idMedicao", required = true) String idMedicao, Model model) {
 		model.addAttribute("contexto", "alterar");
 		model.addAttribute("data", inBodyController.medicaoAlterar(idPessoa, idMedicao));
-		return "/medicao";
+		return "medicao";
 	}
 
 	@PostMapping("/medicao/alterar_ok")
@@ -114,20 +114,20 @@ public class InBodyViewController {
 			mav.addObject("validation", e.getValidations());
 			return mav;
 		}
-		return new ModelAndView("redirect:/pessoa/mostrar?id=" + medicaoAlterar.getPessoa().getId());
+		return new ModelAndView("redirect:pessoa/mostrar?id=" + medicaoAlterar.getPessoa().getId());
 	}
 
 	@GetMapping("/medicao/excluir")
 	public String medicaoExcluir(@RequestParam(name="idPessoa", required = true) String idPessoa, @RequestParam(name="idMedicao", required = true) String idMedicao, Model model) {
 		model.addAttribute("contexto", "excluir");
 		model.addAttribute("data", inBodyController.medicaoExcluir(idPessoa, idMedicao));
-		return "/medicao";
+		return "medicao";
 	}
 
 	@PostMapping("/medicao/excluir_ok")
 	public ModelAndView medicaoExcluirOk(Model model, @ModelAttribute MedicaoEditar medicaoExcluir) {
 		inBodyController.medicaoExcluirOk(medicaoExcluir);
-		return new ModelAndView("redirect:/pessoa/mostrar?id=" + medicaoExcluir.getPessoa().getId());
+		return new ModelAndView("redirect:pessoa/mostrar?id=" + medicaoExcluir.getPessoa().getId());
 	}
 
 	@GetMapping("/medicao/incluir")
@@ -136,7 +136,7 @@ public class InBodyViewController {
 		if (model.getAttribute("data") == null) { // Vem preenchido quando dá erro de validação
 			model.addAttribute("data", inBodyController.medicaoIncluir(idPessoa));
 		}
-		return "/medicao";
+		return "medicao";
 	}
 
 	@PostMapping("/medicao/incluir_ok")
@@ -151,7 +151,7 @@ public class InBodyViewController {
 			mav.addObject("validation", e.getValidations());
 			return mav;
 		}
-		return new ModelAndView("redirect:/pessoa/mostrar?id=" + medicaoIncluir.getPessoa().getId());
+		return new ModelAndView("redirect:pessoa/mostrar?id=" + medicaoIncluir.getPessoa().getId());
 	}
 
 	// TODO @GetMapping("/medicao/mostrar") => incluindo os gráficos que estão no papel (Análise Músculo-Gordura, Análise de Obesidade, Análise da Massa Magra Segmentar, Análise da Gordura Segmentar)

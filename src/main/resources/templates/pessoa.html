@@ -2,7 +2,7 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<title>InBody : Home</title>
-		<th:block th:insert="~{/_fragments/geral.html :: head}"></th:block>
+		<th:block th:insert="~{_fragments/geral.html :: head}"></th:block>
 		<script th:inline="javascript">
 const skipped = (ctx, value) => ctx.p0.skip || ctx.p1.skip ? value : undefined;
 const down = (ctx, value) => ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined;
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		</script>
 	</head>
 	<body th:with="verbo=${#strings.capitalize(contexto)}">
-		<nav th:replace="~{/_fragments/geral.html :: nav}"></nav>
+		<nav th:replace="~{_fragments/geral.html :: nav}"></nav>
 		<div class="container-fluid">
 			<div id="mensagens" class="mt-3"></div>
 			<div id="conteudo">
@@ -103,17 +103,17 @@ document.addEventListener("DOMContentLoaded", function() {
 					<form th:object="${data.pessoa}" th:action="${'/pessoa/' + contexto + '_ok'}" method="POST">
 						<input th:if="${!('incluir'.equals(contexto))}" th:field="*{id}" id="id" name="id" type="hidden">
 						<div class="row mb-3">
-							<div th:replace="~{/_fragments/form.html :: inputText (field='nome', label='Nome')}"></div>
+							<div th:replace="~{_fragments/form.html :: inputText (field='nome', label='Nome')}"></div>
 						</div>
 						<div class="row mb-3">
 							<div class="col">
-								<div th:replace="~{/_fragments/form.html :: inputDate (field='nascimento', label='Nascimento')}"></div>
+								<div th:replace="~{_fragments/form.html :: inputDate (field='nascimento', label='Nascimento')}"></div>
 							</div>
 							<div class="col">
-								<div th:replace="~{/_fragments/form.html :: inputNumber (field='altura', label='Altura (cm)')}"></div>
+								<div th:replace="~{_fragments/form.html :: inputNumber (field='altura', label='Altura (cm)')}"></div>
 							</div>
 							<div class="col">
-								<div th:replace="~{/_fragments/form.html :: select (field='sexo', label='Sexo', options= ${data.sexos})}"></div>
+								<div th:replace="~{_fragments/form.html :: select (field='sexo', label='Sexo', options= ${data.sexos})}"></div>
 							</div>
 						</div>
 						<div th:if="${'excluir'.equals(contexto)}" class="alert alert-warning">
@@ -307,6 +307,6 @@ document.addEventListener("DOMContentLoaded", function() {
 				</div>
 			</div>
 		</div>
-		<footer th:replace="~{/_fragments/geral.html :: footer}"></footer>
+		<footer th:replace="~{_fragments/geral.html :: footer}"></footer>
 	</body>
 </html>

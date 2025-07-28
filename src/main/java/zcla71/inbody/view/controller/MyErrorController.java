@@ -40,6 +40,6 @@ public class MyErrorController implements ErrorController {
                 model.addAttribute(error.getKey(), error.getValue());
             }
         }
-        return "/_erro/erro";
+        return "_erro/erro";
     }
 }
