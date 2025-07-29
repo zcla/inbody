@@ -41,7 +41,7 @@ public class InBodyViewController {
 		try {
 			inBodyController.pessoaAlterarOk(pessoaAlterar);
 		} catch (ValidationException e) {
-			ModelAndView mav = new ModelAndView("/pessoa");
+			ModelAndView mav = new ModelAndView("pessoa");
 			model.addAttribute("contexto", "alterar");
 			mav.addObject("data", inBodyController.pessoaAlterar(pessoaAlterar.getPessoa()));
 			mav.addObject("validation", e.getValidations());
@@ -77,7 +77,7 @@ public class InBodyViewController {
 		try {
 			inBodyController.pessoaIncluirOk(pessoaIncluir);
 		} catch (ValidationException e) {
-			ModelAndView mav = new ModelAndView("/pessoa");
+			ModelAndView mav = new ModelAndView("pessoa");
 			model.addAttribute("contexto", "incluir");
 			mav.addObject("data", inBodyController.pessoaIncluir(pessoaIncluir.getPessoa()));
 			mav.addObject("validation", e.getValidations());
@@ -107,7 +107,7 @@ public class InBodyViewController {
 		try {
 			inBodyController.medicaoAlterarOk(medicaoAlterar);
 		} catch (ValidationException e) {
-			ModelAndView mav = new ModelAndView("/medicao");
+			ModelAndView mav = new ModelAndView("medicao");
 			mav.addObject("contexto", "alterar");
 			mav.addObject("idPessoa", medicaoAlterar.getPessoa().getId());
 			mav.addObject("data", inBodyController.medicaoAlterar(medicaoAlterar.getPessoa(), medicaoAlterar.getMedicao()));
@@ -144,7 +144,7 @@ public class InBodyViewController {
 		try {
 			inBodyController.medicaoIncluirOk(medicaoIncluir);
 		} catch (ValidationException e) {
-			ModelAndView mav = new ModelAndView("/medicao");
+			ModelAndView mav = new ModelAndView("medicao");
 			mav.addObject("contexto", "incluir");
 			mav.addObject("idPessoa", medicaoIncluir.getPessoa().getId());
 			mav.addObject("data", inBodyController.medicaoIncluir(medicaoIncluir.getPessoa().getId(), medicaoIncluir.getMedicao()));
