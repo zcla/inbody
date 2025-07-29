@@ -8,6 +8,17 @@ InBody: Lugar para guardar os resultados de bioimpedância.
 
 # Exportando par ao DockerHub
 
-* Reopen folder locally
+* Num terminal fora do devcontainer
 * `docker build -t zeclaudio/inbody .`
 * `docker push zeclaudio/inbody`
+
+# Rodando no Docker Desktop
+
+* Achar a imagem `zeclaudio/inbody` em `Images`
+* Apertar o "play"
+* Abrir `Optional settings` e preencher:
+  * Container name: `inbody`
+  * Ports: `6001`
+  * Volumes:
+    * Host path: `D:\dados\ze\docker\inbody`
+    * Container path: `/app/data`
