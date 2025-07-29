@@ -47,7 +47,7 @@ public class InBodyViewController {
 			mav.addObject("validation", e.getValidations());
 			return mav;
 		}
-		return new ModelAndView("redirect:pessoa");
+		return new ModelAndView("redirect:/pessoa");
 	}
 
 	@GetMapping("/pessoa/excluir")
@@ -60,7 +60,7 @@ public class InBodyViewController {
 	@PostMapping("/pessoa/excluir_ok")
 	public ModelAndView pessoaExcluirOk(Model model, @ModelAttribute PessoaEditar pessoaExcluir) {
 		inBodyController.pessoaExcluirOk(pessoaExcluir);
-		return new ModelAndView("redirect:pessoa");
+		return new ModelAndView("redirect:/pessoa");
 	}
 
 	@GetMapping("/pessoa/incluir")
@@ -83,7 +83,7 @@ public class InBodyViewController {
 			mav.addObject("validation", e.getValidations());
 			return mav;
 		}
-		return new ModelAndView("redirect:pessoa");
+		return new ModelAndView("redirect:/pessoa");
 	}
 
 	@GetMapping("/pessoa/mostrar")
@@ -114,7 +114,7 @@ public class InBodyViewController {
 			mav.addObject("validation", e.getValidations());
 			return mav;
 		}
-		return new ModelAndView("redirect:pessoa/mostrar?id=" + medicaoAlterar.getPessoa().getId());
+		return new ModelAndView("redirect:/pessoa/mostrar?id=" + medicaoAlterar.getPessoa().getId());
 	}
 
 	@GetMapping("/medicao/excluir")
@@ -127,7 +127,7 @@ public class InBodyViewController {
 	@PostMapping("/medicao/excluir_ok")
 	public ModelAndView medicaoExcluirOk(Model model, @ModelAttribute MedicaoEditar medicaoExcluir) {
 		inBodyController.medicaoExcluirOk(medicaoExcluir);
-		return new ModelAndView("redirect:pessoa/mostrar?id=" + medicaoExcluir.getPessoa().getId());
+		return new ModelAndView("redirect:/pessoa/mostrar?id=" + medicaoExcluir.getPessoa().getId());
 	}
 
 	@GetMapping("/medicao/incluir")
@@ -151,7 +151,7 @@ public class InBodyViewController {
 			mav.addObject("validation", e.getValidations());
 			return mav;
 		}
-		return new ModelAndView("redirect:pessoa/mostrar?id=" + medicaoIncluir.getPessoa().getId());
+		return new ModelAndView("redirect:/pessoa/mostrar?id=" + medicaoIncluir.getPessoa().getId());
 	}
 
 	// TODO @GetMapping("/medicao/mostrar") => incluindo os gráficos que estão no papel (Análise Músculo-Gordura, Análise de Obesidade, Análise da Massa Magra Segmentar, Análise da Gordura Segmentar)
